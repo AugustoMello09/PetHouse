@@ -68,6 +68,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>pethouse-backend</finalName>
 	</build>
 
 </project>
