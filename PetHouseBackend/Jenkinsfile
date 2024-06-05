@@ -1,0 +1,10 @@
+pipeline {
+    agent any
+    stages {
+        stage('Teste Conexão ao pipeline') {
+            steps {
+                bat 'echo Hello pipeline'
+            }
+        }
+    }
+}
