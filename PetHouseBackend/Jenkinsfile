@@ -15,5 +15,26 @@ pipeline {
                 }
             }
         }
+        stage('Sonar Analysis') {
+            environment {
+               scannerHome = tool 'SONAR_SCANNER'
+               SONAR_SCANNER_OPTS = '--add-opens java.base/java.lang=ALL-UNNAMED'
+            }
+            steps {
+               withSonarQubeEnv('SONAR_LOCAL') {
+                  dir('PetHouseBackend') {
+                     bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=PetHouse -Dsonar.host.url=http://localhost:9000 -Dsonar.login=66ec3a763f00520de6a65291c9059f2b4e978198 -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/model/**,**/Application.java"
+                  }
+               }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                sleep(10)
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }                
+            }
+        }
     }
 }
