@@ -36,5 +36,24 @@ pipeline {
                 }                
             }
         }
+        stage('Build Img Docker') {
+            steps {
+                script {
+                    dir('PetHouseBackend') {
+                        bat 'docker build -t augustomello09/pethouse-backend .'
+                    }
+                }        
+            }
+        }
+        stage('Docker Push To DockerHub') {
+            steps {
+                script {
+                    dir('PetHouseBackend') {
+                        bat 'docker login'
+                        bat 'docker push augustomello09/pethouse-backend:latest'
+                    }
+                }        
+            }
+        }
     }
 }
