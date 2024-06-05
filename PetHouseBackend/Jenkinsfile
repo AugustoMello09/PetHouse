@@ -1,9 +1,18 @@
 pipeline {
     agent any
     stages {
-        stage('Teste Conexão ao pipeline') {
+        stage('Build Backend') {
             steps {
-                bat 'echo Hello pipeline'
+                dir ('PetHouseBackend') {
+                   bat 'mvn clean package -DskipTests=true'
+                }
+            }
+        }
+        stage('JUnit Test') {
+            steps {
+                dir ('PetHouseBackend') {
+                   bat 'mvn test'
+                }
             }
         }
     }
