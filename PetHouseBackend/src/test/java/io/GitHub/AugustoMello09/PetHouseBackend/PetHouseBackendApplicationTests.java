@@ -8,6 +8,7 @@ class PetHouseBackendApplicationTests {
 
 	@Test
 	void contextLoads() {
+		PetHouseBackendApplication.main(new String[] {});
 	}
 
 }
