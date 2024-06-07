@@ -44,7 +44,7 @@ public class Usuario implements Serializable {
 	@Column(nullable = false)
 	private String senha;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "tb_usuario_cargo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "cargo_id"))
 	private Set<Cargo> cargos = new HashSet<>();
 	

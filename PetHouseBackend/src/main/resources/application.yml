@@ -5,11 +5,7 @@ spring:
     open-in-view: true
   application:
     name: PetHouse
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  profiles:
+    active:
+    - test  
+
