@@ -52,12 +52,13 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "plano_id", referencedColumnName = "id")
 	private PlanoVeterinario plano;
 
-	public Usuario(String nome, String email, String senha, PlanoVeterinario plano) {
+	public Usuario(String nome, String email, String senha, PlanoVeterinario plano, UUID id) {
 		super();
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.plano = plano;
+		this.id = id;
 	}
 	
 }
