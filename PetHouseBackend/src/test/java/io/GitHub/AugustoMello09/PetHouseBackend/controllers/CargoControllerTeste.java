@@ -44,7 +44,7 @@ public class CargoControllerTeste {
 		controller = new CargoController(service);
 	}
 	
-	@DisplayName("Deve retornar um usuário. ")
+	@DisplayName("Deve retornar um Cargo. ")
 	@Test
 	public void shouldControllerReturnFindById() {
 		CargoDTO cargoDTO = cargoDTOProvider.criar();
@@ -57,9 +57,9 @@ public class CargoControllerTeste {
 		assertEquals(CargoDTO.class, response.getBody().getClass());
 	}
 
-	@DisplayName("Deve criar um usuário. ")
+	@DisplayName("Deve criar um Cargo. ")
 	@Test
-	public void shouldReturnCreatedClienteDTOOnController() {
+	public void shouldReturnCreatedCargoDTOOnController() {
 		CargoDTO cargoDTO = cargoDTOProvider.criar();
 		when(service.create(cargoDTO)).thenReturn(cargoDTO);
 		var response = controller.create(cargoDTO);
@@ -82,7 +82,7 @@ public class CargoControllerTeste {
 	}
 	
 	
-	@DisplayName("Deve retornar uma paginação de cargos. ")
+	@DisplayName("Deve retornar uma Lista de cargos. ")
 	@Test
 	public void shouldReturnPagedCargoDTO() {
 		List<CargoDTO> cargos = new ArrayList<>();
