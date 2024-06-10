@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,6 +36,8 @@ public class PlanoControllerTeste {
 
 	private static final long ID = 1L;
 
+	private static final UUID IDUSUARIO = UUID.fromString("148cf4fc-b379-4e25-8bf4-f73feb06befa");
+	
 	private PlanoDTOProvider planoDTOProvider;
 	
 	@BeforeEach
@@ -102,6 +105,28 @@ public class PlanoControllerTeste {
 		assertEquals(ResponseEntity.class, response.getClass());
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 		verify(service, times(1)).deletePlano(ID);;
+	}
+	
+	@DisplayName("Deve contratar um plano. ")
+	@Test
+	public void shouldGetPlanoWithSuccess() {
+		doNothing().when(service).getPlan(IDUSUARIO, ID);
+		ResponseEntity<Void> response = controller.getPlan(ID, IDUSUARIO);
+		assertNotNull(response);
+		assertEquals(ResponseEntity.class, response.getClass());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		verify(service, times(1)).getPlan(IDUSUARIO, ID);
+	}
+	
+	@DisplayName("Deve remover um plano. ")
+	@Test
+	public void shouldRemovePlanoWithSuccess() {
+		doNothing().when(service).removePlan(IDUSUARIO, ID);
+		ResponseEntity<Void> response = controller.removePlan(ID, IDUSUARIO);
+		assertNotNull(response);
+		assertEquals(ResponseEntity.class, response.getClass());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		verify(service, times(1)).removePlan(IDUSUARIO, ID);
 	}
 	
 }
