@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -61,6 +62,12 @@ public class UsuarioController {
 	public ResponseEntity<Void> delete(@PathVariable UUID id){
 		service.deleteUser(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PatchMapping(value = "atribuirCargo/{id}")
+	public ResponseEntity<Void> atribuir(@RequestBody UsuarioDTO usuarioDTO,@PathVariable UUID id) {
+		service.atribuirCargo(usuarioDTO, id);
+		return ResponseEntity.ok().build();
 	}
 
 }

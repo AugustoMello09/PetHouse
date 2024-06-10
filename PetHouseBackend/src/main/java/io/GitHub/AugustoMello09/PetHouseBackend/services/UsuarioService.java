@@ -19,5 +19,7 @@ public interface UsuarioService {
 	void updateUser(UsuarioDTO usuarioDTO, UUID id);
 
 	void deleteUser(UUID id);
+	
+	void atribuirCargo(UsuarioDTO usuarioDTO, UUID id);
 
 }

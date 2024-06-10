@@ -29,10 +29,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.UsuarioDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.UsuarioDTOInsert;
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Cargo;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Usuario;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.UsuarioDTOInsertProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.UsuarioDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.UsuarioProvider;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CargoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.DataIntegratyViolationException;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
@@ -51,12 +53,16 @@ public class UsuarioServiceTeste {
 
 	@Mock
 	private ModelMapper modelMapper;
+	
+	@Mock
+	private CargoRepository cargoRepository;
 
 	private UsuarioProvider usuarioProvider;
 	private UsuarioDTOProvider usuarioDTOProvider;
 	private UsuarioDTOInsertProvider usuarioDTOInsertProvider;
 
 	private static final UUID ID = UUID.fromString("148cf4fc-b379-4e25-8bf4-f73feb06befa");
+	private static final long IDCARGO = 1L;
 
 	@BeforeEach
 	public void setUp() {	
@@ -64,7 +70,7 @@ public class UsuarioServiceTeste {
 		usuarioProvider = new UsuarioProvider(passwordEncoder);
 		usuarioDTOProvider = new UsuarioDTOProvider();
 		usuarioDTOInsertProvider = new UsuarioDTOInsertProvider();
-		service = new UsuarioServiceImpl(repository, passwordEncoder, modelMapper);
+		service = new UsuarioServiceImpl(repository, passwordEncoder, modelMapper, cargoRepository);
 	}
 
 	@DisplayName("Deve retornar um Usuario com sucesso.")
@@ -177,5 +183,49 @@ public class UsuarioServiceTeste {
 		when(repository.findById(ID)).thenReturn(Optional.empty());
 		assertThrows(ObjectNotFoundException.class, () -> service.deleteUser(ID));
 	}
+	
+	@DisplayName("Deve não encontrar um usuário ao associar Cargo.")
+	@Test
+	public void shouldReturnUserNotFoundWhenRole() {
+		UsuarioDTO userDto = new UsuarioDTO();
+		userDto.setId(ID);
+		userDto.setNome("John Doe");
+		userDto.setEmail("john.doe@example.com");
 
+		Cargo roleDto = new Cargo();
+		roleDto.setId(IDCARGO);
+		userDto.getCargos().add(roleDto);
+		
+		Usuario usuario = usuarioProvider.criar();
+		
+		when(cargoRepository.findById(roleDto.getId())).thenReturn(Optional.empty());
+		ObjectNotFoundException exception = assertThrows(ObjectNotFoundException.class, () -> {
+			service.atribuirCargo(usuario, userDto);
+		});
+		assertEquals("Cargo não encontrado", exception.getMessage());
+	}
+	
+	@DisplayName("Deve associar cargos.")
+	@Test
+	public void shoulAssignPositionWithSuccess() {
+		
+		UsuarioDTO userDto = new UsuarioDTO();
+		userDto.setId(ID);
+		userDto.setNome("John Doe");
+		userDto.setEmail("john.doe@example.com");
+
+		Cargo roleDto = new Cargo();
+		roleDto.setId(IDCARGO);
+		userDto.getCargos().add(roleDto);
+
+		Usuario usuario = usuarioProvider.criar();
+
+		when(cargoRepository.findById(roleDto.getId())).thenReturn(Optional.of(new Cargo()));
+
+		service.atribuirCargo(usuario, userDto);
+
+		verify(cargoRepository, times(1)).findById(roleDto.getId());
+
+		assertEquals(1, usuario.getCargos().size());
+	}
 }

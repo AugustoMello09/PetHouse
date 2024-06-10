@@ -238,20 +238,20 @@ public class PlanoServiceTeste {
 		usuario.setPlano(plano);
 		plano.setUsuario(usuario);
 
-		// Mock de findById
+
 		when(usuarioRepository.findById(IDUSUARIO)).thenReturn(Optional.of(usuario));
 		when(repository.findById(ID)).thenReturn(Optional.of(plano));
 
-		// Executa o método de serviço
+
 		service.removePlan(IDUSUARIO, ID);
 
-		// Verificações
+
 		verify(usuarioRepository, times(1)).findById(IDUSUARIO);
 		verify(repository, times(1)).findById(ID);
 		verify(usuarioRepository, times(1)).save(usuario);
 		verify(repository, times(1)).save(plano);
 
-		// Assegure-se de que a desassociação ocorreu
+
 		assertNull(usuario.getPlano());
 		assertNull(plano.getUsuario());
 
