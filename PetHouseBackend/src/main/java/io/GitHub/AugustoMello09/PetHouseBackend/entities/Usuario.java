@@ -48,7 +48,7 @@ public class Usuario implements Serializable {
 	@JoinTable(name = "tb_usuario_cargo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "cargo_id"))
 	private Set<Cargo> cargos = new HashSet<>();
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plano_id", referencedColumnName = "id")
 	private PlanoVeterinario plano;
 

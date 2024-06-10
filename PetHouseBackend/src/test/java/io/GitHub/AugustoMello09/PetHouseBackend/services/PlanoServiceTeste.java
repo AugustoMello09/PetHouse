@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,6 +22,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.PlanoDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.PlanoVeterinario;
@@ -28,6 +30,8 @@ import io.GitHub.AugustoMello09.PetHouseBackend.entities.enums.Plano;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.PlanoDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.PlanoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.PlanoVeterinarioRepository;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.DataIntegratyViolationException;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
 
 @SpringBootTest
@@ -42,6 +46,9 @@ public class PlanoServiceTeste {
 	private PlanoVeterinarioRepository repository;
 	
 	@Mock
+	private UsuarioRepository usuarioRepository;
+	
+	@Mock
 	private ModelMapper modelMapper;
 
 	private PlanoProvider planoProvider;
@@ -50,7 +57,7 @@ public class PlanoServiceTeste {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		service = new PlanoVeterinarioServiceImpl(repository, modelMapper);
+		service = new PlanoVeterinarioServiceImpl(repository, modelMapper, usuarioRepository);
 		planoProvider = new PlanoProvider();
 		planoDTOProvider = new PlanoDTOProvider();
 	}
@@ -134,6 +141,14 @@ public class PlanoServiceTeste {
 	public void shouldReturnPlanoNotFoundWhenDelete() {
 		when(repository.findById(ID)).thenReturn(Optional.empty());
 		assertThrows(ObjectNotFoundException.class, () -> service.deletePlano(ID));
+	}
+	
+	@Test
+	void whenDeletePlanoWithAssociatedDataThenThrowDataIntegrityViolationException() {
+		PlanoVeterinario plano = planoProvider.criar();
+	    when(repository.findById(ID)).thenReturn(Optional.of(plano));
+	    doThrow(DataIntegrityViolationException.class).when(repository).deleteById(ID);
+	    assertThrows(DataIntegratyViolationException.class, () -> service.deletePlano(ID));
 	}
 
 }
