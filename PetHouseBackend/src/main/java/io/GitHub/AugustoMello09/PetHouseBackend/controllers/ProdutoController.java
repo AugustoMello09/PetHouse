@@ -60,5 +60,11 @@ public class ProdutoController {
 		service.deleteProduto(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@PostMapping(value = "/atribuirCategoria/idCategoria/{idCategoria}/idProduto/{idProduto}")
+	public ResponseEntity<Void> atribuirCategoria(@PathVariable Long idProduto, @PathVariable Long idCategoria) {
+		service.atribuirCategoria(idProduto, idCategoria);
+		return ResponseEntity.ok().build();
+	}
 
 }

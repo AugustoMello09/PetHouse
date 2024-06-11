@@ -16,4 +16,6 @@ public interface ProdutoService {
 	void updateProduto(ProdutoDTO produtoDTO, Long id);
 	
 	void deleteProduto(Long id);
+	
+	void atribuirCategoria(Long idProduto, Long idCategoria);
 }

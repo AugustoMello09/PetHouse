@@ -25,4 +25,5 @@ public class ProdutoDTO implements Serializable {
 	private String descricao;
 	
 	private Tipo tipo;
+	
 }

@@ -31,6 +31,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.entities.Produto;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.enums.Tipo;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.ProdutoDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.ProdutoProvider;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CategoriaRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.ProdutoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
 
@@ -52,13 +53,16 @@ public class ProdutoServiceTeste {
 	@Mock
 	private ModelMapper modelMapper;
 	
+	@Mock
+	private CategoriaRepository categoriaRepository;
+	
 	private ProdutoProvider produtoProvider;
 	private ProdutoDTOProvider produtoDTOProvider;
 	
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		service = new ProdutoServiceImpl(repository, modelMapper);
+		service = new ProdutoServiceImpl(repository, modelMapper, categoriaRepository);
 		produtoProvider = new ProdutoProvider();
 		produtoDTOProvider = new ProdutoDTOProvider();
 	}

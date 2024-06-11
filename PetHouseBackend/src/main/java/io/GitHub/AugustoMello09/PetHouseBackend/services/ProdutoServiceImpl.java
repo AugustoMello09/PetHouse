@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.ProdutoDTO;
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Categoria;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Produto;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CategoriaRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.ProdutoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
 
@@ -18,11 +20,13 @@ public class ProdutoServiceImpl implements ProdutoService{
 	
 	private final ProdutoRepository repository;
 	private final ModelMapper mapper;
+	private final CategoriaRepository categoriaRepository;
 	
-	public ProdutoServiceImpl(ProdutoRepository repository, ModelMapper mapper) {
+	public ProdutoServiceImpl(ProdutoRepository repository, ModelMapper mapper, CategoriaRepository categoriaRepository) {
 		super();
 		this.repository = repository;
 		this.mapper = mapper;
+		this.categoriaRepository = categoriaRepository;
 	}
 
 	@Override
@@ -69,6 +73,16 @@ public class ProdutoServiceImpl implements ProdutoService{
 	public void deleteProduto(Long id) {
 		findById(id);
 		repository.deleteById(id);
+	}
+
+	@Override
+	public void atribuirCategoria(Long idProduto, Long idCategoria) {
+		Produto produto = repository.findById(idProduto)
+				.orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado"));
+		Categoria categoria = categoriaRepository.findById(idCategoria)
+				.orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrado"));
+		produto.setCategoria(categoria);
+		repository.save(produto);
 	}
 
 }
