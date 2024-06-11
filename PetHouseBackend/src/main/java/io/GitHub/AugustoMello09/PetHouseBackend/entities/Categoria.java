@@ -1,14 +1,16 @@
 package io.GitHub.AugustoMello09.PetHouseBackend.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +19,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(name = "tb_cargo")
-public class Cargo implements Serializable{
+@Table(name = "tb_categoria")
+public class Categoria implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -29,6 +30,17 @@ public class Cargo implements Serializable{
 	private Long id;
 	
 	@Column(nullable = false)
-	private String authority;
+	private String nomeCategoria;
+	
+	@OneToMany(mappedBy = "categoria")
+	private List<Produto> produtos = new ArrayList<>();
+
+	public Categoria(Long id, String nomeCategoria) {
+		super();
+		this.id = id;
+		this.nomeCategoria = nomeCategoria;
+	}
+	
+	
 
 }
