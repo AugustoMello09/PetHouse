@@ -108,5 +108,16 @@ public class ProdutoControllerTeste {
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 		verify(service, times(1)).deleteProduto(ID);;
 	}
+	
+	@DisplayName("Deve associar um produto a categoria. ")
+	@Test
+	public void shouldAssociProdutoWithSuccess() {
+		doNothing().when(service).atribuirCategoria(ID, ID);
+		ResponseEntity<Void> response = controller.atribuirCategoria(ID, ID);
+		assertNotNull(response);
+		assertEquals(ResponseEntity.class, response.getClass());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		verify(service, times(1)).atribuirCategoria(ID, ID);
+	}
 
 }

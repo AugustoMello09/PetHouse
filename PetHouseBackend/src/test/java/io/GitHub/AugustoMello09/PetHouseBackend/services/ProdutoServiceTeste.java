@@ -27,8 +27,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.ProdutoDTO;
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Categoria;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Produto;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.enums.Tipo;
+import io.GitHub.AugustoMello09.PetHouseBackend.provider.CategoriaProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.ProdutoDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.ProdutoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CategoriaRepository;
@@ -58,6 +60,7 @@ public class ProdutoServiceTeste {
 	
 	private ProdutoProvider produtoProvider;
 	private ProdutoDTOProvider produtoDTOProvider;
+	private CategoriaProvider categoriaProvider;
 	
 	@BeforeEach
 	public void setUp() {
@@ -65,6 +68,7 @@ public class ProdutoServiceTeste {
 		service = new ProdutoServiceImpl(repository, modelMapper, categoriaRepository);
 		produtoProvider = new ProdutoProvider();
 		produtoDTOProvider = new ProdutoDTOProvider();
+		categoriaProvider = new  CategoriaProvider();
 	}
 	
 	@DisplayName("Deve retornar um Usuario com sucesso.")
@@ -140,6 +144,48 @@ public class ProdutoServiceTeste {
 	public void shouldReturnProdutoNotFoundWhenDelete() {
 		when(repository.findById(ID)).thenReturn(Optional.empty());
 		assertThrows(ObjectNotFoundException.class, () -> service.deleteProduto(ID));
+	}
+	
+	@DisplayName("Deve não encontrar um produto ao associar a categoria.")
+	@Test
+	public void shouldReturnProdutoNotFoundWhenAsso() {
+	
+		Categoria categoria = categoriaProvider.criar();
+		when(categoriaRepository.findById(ID)).thenReturn(Optional.of(categoria));
+		when(repository.findById(ID)).thenReturn(Optional.empty());
+		ObjectNotFoundException exception = assertThrows(ObjectNotFoundException.class, () -> {
+			service.atribuirCategoria(ID, ID);
+		});
+		assertEquals("Produto não encontrado", exception.getMessage());
+	}
+	
+	@DisplayName("Deve não encontrar uma categoria.")
+	@Test
+	public void shouldReturnCategoriaNotFoundWhenAssoProduto() {
+	
+		Produto produto = produtoProvider.criar();
+		when(repository.findById(ID)).thenReturn(Optional.of(produto));
+		when(categoriaRepository.findById(ID)).thenReturn(Optional.empty());
+		ObjectNotFoundException exception = assertThrows(ObjectNotFoundException.class, () -> {
+			service.atribuirCategoria(ID, ID);
+		});
+		assertEquals("Categoria não encontrado", exception.getMessage());
+	}
+	
+	@DisplayName("Deve associar a categoria.")
+	@Test
+	public void shoulAssignCategoryWithSuccess() {
+		Produto produto = produtoProvider.criar();
+		Categoria categoria = categoriaProvider.criar();
+		
+		when(repository.findById(ID)).thenReturn(Optional.of(produto));
+		when(categoriaRepository.findById(ID)).thenReturn(Optional.of(categoria));
+		
+		service.atribuirCategoria(ID, ID);
+		
+		verify(categoriaRepository, times(1)).findById(ID);
+		verify(repository, times(1)).findById(ID);
+		
 	}
 	
 }
