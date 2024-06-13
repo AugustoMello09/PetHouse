@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -212,6 +213,17 @@ public class ProdutoServiceTeste {
 		List<ProdutoDTO> response = service.findByCategoriaIdOrderByNome(ID);
 		assertNotNull(response);
 		verify(categoriaRepository, times(1)).findById(ID);		
+	}
+	
+	@DisplayName("Deve retornar uma lista de produtos pelo nome")
+	@Test
+	public void shoulReturnListOfProdutoByNome() {
+		List<Produto> produto = new ArrayList<>();
+		ProdutoDTO produtoDTO = produtoDTOProvider.criar();
+		when(repository.findByNomeContainingIgnoreCase(NOME)).thenReturn(produto);
+		when(modelMapper.map(produto, ProdutoDTO.class)).thenReturn(produtoDTO);
+		List<ProdutoDTO> response = service.findByNomeContaining(NOME);
+		assertNotNull(response);
 	}
 	
 }

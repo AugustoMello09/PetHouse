@@ -33,7 +33,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.services.ProdutoService;
 public class ProdutoControllerTeste {
 	
 	private static final long ID = 1L;
-	
+	private static final String NOME = "Antipulgas Simparic 5 a 10kg Cães 20mg 1 comprimido";
 	@InjectMocks
 	private ProdutoController controller;
 	
@@ -133,5 +133,15 @@ public class ProdutoControllerTeste {
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		verify(service, times(1)).findByCategoriaIdOrderByNome(ID);
 	}
-
+	
+	@DisplayName("Deve buscar uma lista de produtos por nome. ")
+	@Test
+	public void shouldFindByNomeProdutoWithSuccess() {
+		List<ProdutoDTO> listaDTO = new ArrayList<>();
+		when(service.findByNomeContaining(NOME)).thenReturn(listaDTO);
+		ResponseEntity<List<ProdutoDTO>> response = controller.findByNomeContaining(NOME);
+		assertNotNull(response);
+		assertEquals(ResponseEntity.class, response.getClass());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+	}
 }
