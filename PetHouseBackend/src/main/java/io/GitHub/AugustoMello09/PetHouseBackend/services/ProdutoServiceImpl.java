@@ -98,4 +98,11 @@ public class ProdutoServiceImpl implements ProdutoService{
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public List<ProdutoDTO> findByNomeContaining(String nome) {
+		return repository.findByNomeContainingIgnoreCase(nome)
+				.stream().map(x -> mapper.map(x, ProdutoDTO.class))
+				.collect(Collectors.toList());
+	}
+
 }

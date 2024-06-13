@@ -11,5 +11,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.entities.Produto;
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	
 	List<Produto> findByCategoriaIdOrderByNome(Long idCategoria);
+	
+	List<Produto> findByNomeContainingIgnoreCase(String nome);
 
 }

@@ -22,4 +22,6 @@ public interface ProdutoService {
 	void atribuirCategoria(Long idProduto, Long idCategoria);
 	
 	List<ProdutoDTO> findByCategoriaIdOrderByNome(Long idCategoria);
+	
+	List<ProdutoDTO> findByNomeContaining(String nome);
 }

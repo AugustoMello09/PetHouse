@@ -73,5 +73,11 @@ public class ProdutoController {
 		List<ProdutoDTO> lista = service.findByCategoriaIdOrderByNome(idCategoria);
 		return ResponseEntity.ok().body(lista);
 	}
+	
+	@GetMapping(value = "/buscaPorNome/nomeProduto/{nome}")
+	public ResponseEntity<List<ProdutoDTO>> findByNomeContaining(@PathVariable String nome) {
+		List<ProdutoDTO> lista = service.findByNomeContaining(nome);
+		return ResponseEntity.ok().body(lista);
+	}
 
 }
