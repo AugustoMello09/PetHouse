@@ -7,7 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -118,6 +120,18 @@ public class ProdutoControllerTeste {
 		assertEquals(ResponseEntity.class, response.getClass());
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		verify(service, times(1)).atribuirCategoria(ID, ID);
+	}
+	
+	@DisplayName("Deve buscar uma lista de produtos por categoria. ")
+	@Test
+	public void shouldFindByCategoriaProdutoWithSuccess() {
+		List<ProdutoDTO> listaDTO = new ArrayList<>();
+		when(service.findByCategoriaIdOrderByNome(ID)).thenReturn(listaDTO);
+		ResponseEntity<List<ProdutoDTO>> response = controller.findByCategoriaIdOrderByNome(ID);
+		assertNotNull(response);
+		assertEquals(ResponseEntity.class, response.getClass());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		verify(service, times(1)).findByCategoriaIdOrderByNome(ID);
 	}
 
 }

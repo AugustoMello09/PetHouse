@@ -188,4 +188,30 @@ public class ProdutoServiceTeste {
 		
 	}
 	
+	@DisplayName("Deve não encontrar uma categoria ao buscar a lista de produtos.")
+	@Test
+	public void shouldReturnCategoriaNotFoundWhenFindByProduto() {
+		Produto produto = produtoProvider.criar();
+		when(repository.findById(ID)).thenReturn(Optional.of(produto));
+		when(categoriaRepository.findById(ID)).thenReturn(Optional.empty());
+		ObjectNotFoundException exception = assertThrows(ObjectNotFoundException.class, () -> {
+			service.findByCategoriaIdOrderByNome(ID);
+		});
+		assertEquals("Categoria não encontrada", exception.getMessage());
+	}
+	
+	@DisplayName("Deve buscar a lista de produtos por categorias.")
+	@Test
+	public void shoulFindByCategoryListWithSuccess() {
+		Categoria categoria = categoriaProvider.criar();
+		ProdutoDTO produtoDTO = produtoDTOProvider.criar();
+		when(categoriaRepository.findById(ID)).thenReturn(Optional.of(categoria));
+		Produto produto = produtoProvider.criar();
+		produto.setCategoria(categoria);
+		when(modelMapper.map(produto, ProdutoDTO.class)).thenReturn(produtoDTO);
+		List<ProdutoDTO> response = service.findByCategoriaIdOrderByNome(ID);
+		assertNotNull(response);
+		verify(categoriaRepository, times(1)).findById(ID);		
+	}
+	
 }
