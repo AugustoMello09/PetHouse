@@ -1,5 +1,7 @@
 package io.GitHub.AugustoMello09.PetHouseBackend.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +20,6 @@ public interface ProdutoService {
 	void deleteProduto(Long id);
 	
 	void atribuirCategoria(Long idProduto, Long idCategoria);
+	
+	List<ProdutoDTO> findByCategoriaIdOrderByNome(Long idCategoria);
 }

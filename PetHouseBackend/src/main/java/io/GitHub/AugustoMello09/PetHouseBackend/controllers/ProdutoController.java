@@ -1,6 +1,7 @@
 package io.GitHub.AugustoMello09.PetHouseBackend.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,6 +66,12 @@ public class ProdutoController {
 	public ResponseEntity<Void> atribuirCategoria(@PathVariable Long idProduto, @PathVariable Long idCategoria) {
 		service.atribuirCategoria(idProduto, idCategoria);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(value = "/listaDeProtudosPorCategoria/idCategoria/{idCategoria}")
+	public ResponseEntity<List<ProdutoDTO>> findByCategoriaIdOrderByNome(@PathVariable Long idCategoria) {
+		List<ProdutoDTO> lista = service.findByCategoriaIdOrderByNome(idCategoria);
+		return ResponseEntity.ok().body(lista);
 	}
 
 }

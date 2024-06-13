@@ -1,6 +1,8 @@
 package io.GitHub.AugustoMello09.PetHouseBackend.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -83,6 +85,17 @@ public class ProdutoServiceImpl implements ProdutoService{
 				.orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrado"));
 		produto.setCategoria(categoria);
 		repository.save(produto);
+	}
+
+	@Override
+	public List<ProdutoDTO> findByCategoriaIdOrderByNome(Long idCategoria) {
+		Optional<Categoria> categoria = categoriaRepository.findById(idCategoria);
+		if (categoria.isEmpty()) {
+			throw new ObjectNotFoundException("Categoria não encontrada");
+		} 
+		return repository.findByCategoriaIdOrderByNome(idCategoria)
+				.stream().map(x -> mapper.map(x, ProdutoDTO.class))
+				.collect(Collectors.toList());
 	}
 
 }
