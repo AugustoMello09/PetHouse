@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Cargo;
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,12 @@ public class UsuarioDTO implements Serializable {
 	private String nome;
 	private String email;
 	private List<Cargo> cargos = new ArrayList<>();
+	
+	public UsuarioDTO(Usuario entity) {
+		id = entity.getId();
+		nome = entity.getNome();
+		email = entity.getEmail();
+		entity.getCargos().forEach(x -> this.cargos.add(x));
+	}
 
 }

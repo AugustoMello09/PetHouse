@@ -1,7 +1,9 @@
 package io.GitHub.AugustoMello09.PetHouseBackend.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -51,6 +54,9 @@ public class Usuario implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plano_id", referencedColumnName = "id")
 	private PlanoVeterinario plano;
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Pedido> pedido = new ArrayList<>();
 
 	public Usuario(String nome, String email, String senha, PlanoVeterinario plano, UUID id) {
 		super();
