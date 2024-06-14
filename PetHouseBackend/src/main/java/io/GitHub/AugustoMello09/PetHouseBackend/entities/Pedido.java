@@ -1,6 +1,7 @@
 package io.GitHub.AugustoMello09.PetHouseBackend.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,5 +54,10 @@ public class Pedido implements Serializable {
 		this.data = data;
 		this.usuario = usuario;
 	}
-
+	
+	public BigDecimal getValorTotalPedido() {
+		return produtos.stream()
+				.map(Produto::getPreco)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
 }
