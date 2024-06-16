@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Pedido;
-import io.GitHub.AugustoMello09.PetHouseBackend.entities.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,15 +22,17 @@ public class PedidoDTO implements Serializable {
 	
 	private UUID id;
 	private LocalDate data;
-	private List<Produto> produtos = new ArrayList<>();
+	private List<ProdutoDTO> produtos = new ArrayList<>();
 	private UUID idUsuario;
 	private BigDecimal valorTotalPedido;
+	private UUID idCarrinho;
 	
 	public PedidoDTO(Pedido entity) {
 		id = entity.getId();
 		data = entity.getData();
-		entity.getProdutos().forEach(x -> this.produtos.add(x));
 		idUsuario = entity.getUsuario().getId();
+		idCarrinho = entity.getCarrinho().getId();
+		entity.getProdutos().forEach(x -> this.produtos.add(new ProdutoDTO(x)));
 		valorTotalPedido = entity.getValorTotalPedido();
 	}
 

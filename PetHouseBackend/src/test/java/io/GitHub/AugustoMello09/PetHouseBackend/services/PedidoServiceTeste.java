@@ -28,6 +28,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.provider.PedidoDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.PedidoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.ProdutoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.UsuarioProvider;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CarrinhoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.PedidoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.ProdutoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
@@ -56,6 +57,9 @@ public class PedidoServiceTeste {
 	@Mock
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	@Mock
+	private CarrinhoRepository carrinhoRepository;
+	
 	private PedidoProvider pedidoProvider;
 	private PedidoDTOProvider pedidoDTOProvider;
 	private UsuarioProvider usuarioProvider;
@@ -64,7 +68,7 @@ public class PedidoServiceTeste {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		service = new PedidoServiceImpl(repository, mapper, usuarioRepository, produtoRepository);
+		service = new PedidoServiceImpl(repository, mapper, usuarioRepository, produtoRepository, carrinhoRepository);
 		pedidoProvider = new PedidoProvider();
 		pedidoDTOProvider = new PedidoDTOProvider();
 		produtoProvider = new ProdutoProvider();

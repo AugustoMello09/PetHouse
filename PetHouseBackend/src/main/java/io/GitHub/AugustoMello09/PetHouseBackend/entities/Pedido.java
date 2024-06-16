@@ -47,6 +47,10 @@ public class Pedido implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
+	
+	@ManyToOne
+	@JoinColumn(name = "carrinho_id", referencedColumnName = "id")
+	private Carrinho carrinho;
 
 	public Pedido(UUID id, LocalDate data, Usuario usuario) {
 		super();

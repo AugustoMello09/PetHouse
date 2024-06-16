@@ -10,11 +10,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.GitHub.AugustoMello09.PetHouseBackend.dtos.CarrinhoDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.UsuarioDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.UsuarioDTOInsert;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Cargo;
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Carrinho;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Usuario;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CargoRepository;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CarrinhoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.DataIntegratyViolationException;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
@@ -26,14 +29,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private final BCryptPasswordEncoder passwordEncoder;
 	private final ModelMapper mapper;
 	private final CargoRepository cargoRepository;
+	private final CarrinhoRepository carrinhoRepository;
 
 	public UsuarioServiceImpl(UsuarioRepository repository, BCryptPasswordEncoder passwordEncoder, ModelMapper mapper,
-			CargoRepository cargoRepository) {
+			CargoRepository cargoRepository, CarrinhoRepository carrinhoRepository) {
 		super();
 		this.repository = repository;
 		this.passwordEncoder = passwordEncoder;
 		this.mapper = mapper;
 		this.cargoRepository = cargoRepository;
+		this.carrinhoRepository = carrinhoRepository;
 	}
 
 	@Override
@@ -59,6 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		entity.setEmail(usuarioDTO.getEmail());
 		entity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		atribuirCargo(entity, usuarioDTO);
+		criarCarrinho(entity);
 		repository.save(entity);
 		return mapper.map(entity, UsuarioDTO.class);
 	}
@@ -103,6 +109,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 				.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
 		atribuirCargo(usuario, usuarioDTO);
 		repository.save(usuario);
+	}
+	
+	protected void criarCarrinho(Usuario usuario) {
+		Carrinho carrinho = new Carrinho();
+		usuario.setCarrinho(carrinho);
+		carrinho.setUsuario(usuario);
+		carrinhoRepository.save(carrinho);
+		mapper.map(carrinho, CarrinhoDTO.class);
 	}
 
 }

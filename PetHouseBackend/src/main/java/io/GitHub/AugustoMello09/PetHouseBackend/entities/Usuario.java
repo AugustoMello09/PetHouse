@@ -57,14 +57,19 @@ public class Usuario implements Serializable {
 	
 	@OneToMany(mappedBy = "usuario")
 	private List<Pedido> pedido = new ArrayList<>();
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "carrinho_id", referencedColumnName = "id")
+	private Carrinho carrinho;
 
-	public Usuario(String nome, String email, String senha, PlanoVeterinario plano, UUID id) {
+	public Usuario(String nome, String email, String senha, PlanoVeterinario plano, UUID id, Carrinho carrinho) {
 		super();
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.plano = plano;
 		this.id = id;
+		this.carrinho = carrinho;
 	}
 	
 }

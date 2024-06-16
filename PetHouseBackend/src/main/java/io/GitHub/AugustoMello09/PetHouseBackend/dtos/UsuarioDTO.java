@@ -23,12 +23,14 @@ public class UsuarioDTO implements Serializable {
 	private String nome;
 	private String email;
 	private List<Cargo> cargos = new ArrayList<>();
+	private UUID idCarrinho;
 	
 	public UsuarioDTO(Usuario entity) {
 		id = entity.getId();
 		nome = entity.getNome();
 		email = entity.getEmail();
 		entity.getCargos().forEach(x -> this.cargos.add(x));
+		idCarrinho = entity.getCarrinho().getId();
 	}
 
 }

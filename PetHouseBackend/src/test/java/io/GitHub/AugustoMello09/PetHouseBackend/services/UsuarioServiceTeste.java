@@ -35,6 +35,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.provider.UsuarioDTOInsertProvide
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.UsuarioDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.UsuarioProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CargoRepository;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CarrinhoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.DataIntegratyViolationException;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
@@ -56,6 +57,9 @@ public class UsuarioServiceTeste {
 	
 	@Mock
 	private CargoRepository cargoRepository;
+	
+	@Mock
+	private CarrinhoRepository carrinhoRepository;
 
 	private UsuarioProvider usuarioProvider;
 	private UsuarioDTOProvider usuarioDTOProvider;
@@ -70,7 +74,7 @@ public class UsuarioServiceTeste {
 		usuarioProvider = new UsuarioProvider(passwordEncoder);
 		usuarioDTOProvider = new UsuarioDTOProvider();
 		usuarioDTOInsertProvider = new UsuarioDTOInsertProvider();
-		service = new UsuarioServiceImpl(repository, passwordEncoder, modelMapper, cargoRepository);
+		service = new UsuarioServiceImpl(repository, passwordEncoder, modelMapper, cargoRepository, carrinhoRepository);
 	}
 
 	@DisplayName("Deve retornar um Usuario com sucesso.")
@@ -98,7 +102,7 @@ public class UsuarioServiceTeste {
 	@DisplayName("Deve retornar paginação de usuários.")
 	@Test
 	public void whenFindAllPagedThenReturnPageOfUsuarioDTO() {
-		List<Usuario> usu = Arrays.asList(new Usuario("TEste", "Email@email.com", "senha", null, ID));
+		List<Usuario> usu = Arrays.asList(new Usuario("TEste", "Email@email.com", "senha", null, ID, null));
 		Page<Usuario> fillPage = new PageImpl<>(usu);
 		when(repository.findAll(any(Pageable.class))).thenReturn(fillPage);
 		Page<UsuarioDTO> result = service.findAllPaged(PageRequest.of(0, 5));
@@ -126,7 +130,7 @@ public class UsuarioServiceTeste {
 	public void shouldReturnDataIntegratyViolationExceptionWhenEmailExist() {
 		UsuarioDTO usuarioDTOExpected = usuarioDTOProvider.criar();
 	    UUID differentUserId = UUID.fromString("248cf4fc-b379-4e25-8bf4-f73feb06befa"); 
-	    Usuario usuarioEntity = new Usuario("Carlos", "meuEmail@gmail.com", "123", null, differentUserId);
+	    Usuario usuarioEntity = new Usuario("Carlos", "meuEmail@gmail.com", "123", null, differentUserId, null);
 
 	    when(repository.findByEmail(usuarioDTOExpected.getEmail()))
 	      .thenReturn(Optional.of(usuarioEntity));

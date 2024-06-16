@@ -9,8 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.PedidoDTO;
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Carrinho;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Pedido;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Usuario;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CarrinhoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.PedidoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.ProdutoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
@@ -23,14 +25,16 @@ public class PedidoServiceImpl implements PedidoService {
 	private final ModelMapper mapper;
 	private final UsuarioRepository usuarioRepository;
 	private final ProdutoRepository produtoRepository;
+	private final CarrinhoRepository carrinhoRepository;
 
 	public PedidoServiceImpl(PedidoRepository repository, ModelMapper mapper, UsuarioRepository usuarioRepository,
-			ProdutoRepository produtoRepository) {
+			ProdutoRepository produtoRepository, CarrinhoRepository carrinhoRepository) {
 		super();
 		this.repository = repository;
 		this.mapper = mapper;
 		this.usuarioRepository = usuarioRepository;
 		this.produtoRepository = produtoRepository;
+		this.carrinhoRepository = carrinhoRepository;
 	}
 
 	@Override
@@ -46,6 +50,7 @@ public class PedidoServiceImpl implements PedidoService {
 		entity.setData(LocalDate.now());
 		atribuirProdutos(entity, pedidoDTO);
 		atribuirUsuario(entity, pedidoDTO);
+		atribuirCarrinho(entity, pedidoDTO);
 		repository.save(entity);
 		return mapper.map(entity, PedidoDTO.class);
 	}
@@ -63,6 +68,13 @@ public class PedidoServiceImpl implements PedidoService {
 				.map(x -> produtoRepository.findById(x.getId())
 						.orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado")))
 				.collect(Collectors.toList()));
+	}
+	
+	protected void atribuirCarrinho(Pedido pedido, PedidoDTO pedidoDTO) {
+		UUID idCarrinho = pedidoDTO.getIdCarrinho();
+		Carrinho carrinho = carrinhoRepository.findById(idCarrinho)
+				.orElseThrow(() -> new ObjectNotFoundException("Carrinho não encontrado"));
+		pedido.setCarrinho(carrinho);
 	}
 
 }

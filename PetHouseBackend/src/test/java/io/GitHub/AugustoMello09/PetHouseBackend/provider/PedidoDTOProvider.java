@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.UUID;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.PedidoDTO;
+import io.GitHub.AugustoMello09.PetHouseBackend.dtos.ProdutoDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.UsuarioDTO;
-import io.GitHub.AugustoMello09.PetHouseBackend.entities.Produto;
 
 public class PedidoDTOProvider {
 
@@ -16,9 +16,9 @@ public class PedidoDTOProvider {
 		PedidoDTO entity = new PedidoDTO();
 		entity.setId(ID);
 		entity.setData(LocalDate.now());
-		Produto produto1 = new Produto();
+		ProdutoDTO produto1 = new ProdutoDTO();
 		produto1.setId(1L); 
-		Produto produto2 = new Produto();
+		ProdutoDTO produto2 = new ProdutoDTO();
 		produto2.setId(2L); 
 		UsuarioDTO usuario = new UsuarioDTO();
 		usuario.setId(ID);
