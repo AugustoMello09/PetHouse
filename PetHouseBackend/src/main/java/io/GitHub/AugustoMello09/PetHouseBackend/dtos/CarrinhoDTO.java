@@ -20,15 +20,19 @@ public class CarrinhoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private UUID id;
-	private List<PedidoDTO> pedidos = new ArrayList<>();
 	private UUID idUsuario;
-	private BigDecimal valorCarrinho;
+	private List<PedidoDTO> pedidos = new ArrayList<>();
+	private BigDecimal valorTotalDosPedidos;
+	private List<ProdutoDTO> produtos = new ArrayList<>();
+	private BigDecimal valorTotalCarrinho;
 	
 	public CarrinhoDTO(Carrinho entity) {
 		id = entity.getId();
 		idUsuario = entity.getUsuario().getId();
 		entity.getPedidos().forEach(x -> this.pedidos.add(new PedidoDTO(x)));
-		valorCarrinho = entity.getValorTotalDoCarrinho();
+		valorTotalDosPedidos = entity.getValorTotalDosPedidosCarrinho();
+		entity.getProdutos().forEach(x -> this.produtos.add(new ProdutoDTO(x)));
+		valorTotalCarrinho = entity.getValorTotalProdutosCarrinho();
 	}
 
 }

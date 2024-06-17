@@ -24,6 +24,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.entities.Carrinho;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.CarrinhoDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.CarrinhoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CarrinhoRepository;
+import io.GitHub.AugustoMello09.PetHouseBackend.repotories.ProdutoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
 
 @SpringBootTest
@@ -39,6 +40,9 @@ public class CarrinhoServiceTeste {
 
 	@Mock
 	private ModelMapper mapper;
+	
+	@Mock
+	private ProdutoRepository produtoRepository;
 
 	private CarrinhoProvider carrinhoProvider;
 	private CarrinhoDTOProvider carrinhoDTOPrivider;
@@ -46,7 +50,7 @@ public class CarrinhoServiceTeste {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		service = new CarrinhoServiceImpl(repository, mapper);
+		service = new CarrinhoServiceImpl(repository, mapper, produtoRepository);
 		carrinhoDTOPrivider = new CarrinhoDTOProvider();
 		carrinhoProvider = new CarrinhoProvider();
 	}
