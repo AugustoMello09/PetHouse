@@ -21,9 +21,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.PedidoDTO;
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Carrinho;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Pedido;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Produto;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Usuario;
+import io.GitHub.AugustoMello09.PetHouseBackend.provider.CarrinhoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.PedidoDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.PedidoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.ProdutoProvider;
@@ -64,6 +66,7 @@ public class PedidoServiceTeste {
 	private PedidoDTOProvider pedidoDTOProvider;
 	private UsuarioProvider usuarioProvider;
 	private ProdutoProvider produtoProvider;
+	private CarrinhoProvider carrinhoProvider;
 	
 	@BeforeEach
 	public void setUp() {
@@ -73,6 +76,7 @@ public class PedidoServiceTeste {
 		pedidoDTOProvider = new PedidoDTOProvider();
 		produtoProvider = new ProdutoProvider();
 		usuarioProvider = new UsuarioProvider(passwordEncoder);
+		carrinhoProvider = new CarrinhoProvider();
 	}
 	
 	@DisplayName("Deve retornar um PedidoDTO")
@@ -122,9 +126,9 @@ public class PedidoServiceTeste {
 		assertEquals("Produto não encontrado", exception.getMessage());
 	}
 	
-	@DisplayName("Deve criar um pedido")
+	@DisplayName("Deve retornar carrinho não encontrado ao criar pedido")
 	@Test
-	public void shouldCreatePedidoWithSuccess() {
+	public void shouldReturnCarrinhoNotFoundWhenAssOnPedido() {
 		Pedido pedido = pedidoProvider.criar();
 		PedidoDTO pedidoDTO = pedidoDTOProvider.criar();
 		Produto produto = produtoProvider.criar();
@@ -133,6 +137,29 @@ public class PedidoServiceTeste {
 		pedidoDTO.getProdutos().forEach(produtoDTO -> {
             when(produtoRepository.findById(produtoDTO.getId())).thenReturn(Optional.of(produto));
 		});
+		when(usuarioRepository.findById(ID)).thenReturn(Optional.of(usuario));
+		
+		when(carrinhoRepository.findById(ID)).thenReturn(Optional.empty());
+		
+		ObjectNotFoundException exception = assertThrows(ObjectNotFoundException.class, () -> {
+			service.atribuirCarrinho(pedido, pedidoDTO);
+		});
+		assertEquals("Carrinho não encontrado", exception.getMessage());
+	}
+	
+	@DisplayName("Deve criar um pedido")
+	@Test
+	public void shouldCreatePedidoWithSuccess() {
+		Pedido pedido = pedidoProvider.criar();
+		PedidoDTO pedidoDTO = pedidoDTOProvider.criar();
+		Produto produto = produtoProvider.criar();
+		Usuario usuario = usuarioProvider.criar();
+		Carrinho carrinho = carrinhoProvider.criar();
+		
+		pedidoDTO.getProdutos().forEach(produtoDTO -> {
+            when(produtoRepository.findById(produtoDTO.getId())).thenReturn(Optional.of(produto));
+		});
+		when(carrinhoRepository.findById(ID)).thenReturn(Optional.of(carrinho));
 		when(usuarioRepository.findById(ID)).thenReturn(Optional.of(usuario));
 		when(repository.save(any(Pedido.class))).thenReturn(pedido);
 		when(mapper.map(pedido, PedidoDTO.class)).thenReturn(pedidoDTO);

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.UUID;
 
+import io.GitHub.AugustoMello09.PetHouseBackend.dtos.CarrinhoDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.PedidoDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.ProdutoDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.UsuarioDTO;
@@ -23,6 +24,9 @@ public class PedidoDTOProvider {
 		UsuarioDTO usuario = new UsuarioDTO();
 		usuario.setId(ID);
 		entity.setIdUsuario(usuario.getId());
+		CarrinhoDTO carrinho = new CarrinhoDTO();
+		carrinho.setId(ID);
+		entity.setIdCarrinho(carrinho.getId());
 		entity.setProdutos(Arrays.asList(produto1, produto2));
 		return entity;
 	}
