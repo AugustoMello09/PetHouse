@@ -232,4 +232,27 @@ public class UsuarioServiceTeste {
 
 		assertEquals(1, usuario.getCargos().size());
 	}
+	
+	@DisplayName("deve não encontrar um usuário ao atribuir um cargo")
+	@Test
+	public void shouldAtribuirCargoUserNotFound() {
+		UsuarioDTO usuarioDTO = usuarioDTOProvider.criar();
+		when(repository.findById(ID)).thenReturn(Optional.empty());
+		ObjectNotFoundException exception = assertThrows(ObjectNotFoundException.class, () -> {
+			service.atribuirCargo(usuarioDTO, ID);
+		});
+		assertEquals("Usuário não encontrado", exception.getMessage());
+	}
+	
+	@DisplayName("deve atribuir um cargo com sucesso")
+	@Test
+	public void shouldAtribuirCargo() {
+		Usuario usuario = usuarioProvider.criar();
+		UsuarioDTO usuarioDTO = usuarioDTOProvider.criar();
+		when(repository.findById(ID)).thenReturn(Optional.of(usuario));
+		when(repository.save(any(Usuario.class))).thenReturn(usuario);
+		service.atribuirCargo(usuarioDTO, ID);
+		verify(repository, times(1)).findById(ID);
+		verify(repository, times(1)).save(any(Usuario.class));
+	}
 }

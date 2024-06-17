@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Cargo;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Usuario;
 
 public class UsuarioProvider {
@@ -29,6 +30,9 @@ public class UsuarioProvider {
 		usuario.setEmail(EMAIL);
 		usuario.setSenha(passwordEncoder.encode(SENHA));
 		usuario.setPlano(null);
+		Cargo cargo = new Cargo();
+		cargo.setId(1L);
+		usuario.getCargos().add(cargo);
 		return usuario;
 	}
 

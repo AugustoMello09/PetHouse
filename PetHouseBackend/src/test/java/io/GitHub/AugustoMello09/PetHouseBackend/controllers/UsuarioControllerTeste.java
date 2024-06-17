@@ -114,5 +114,16 @@ public class UsuarioControllerTeste {
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 		verify(service, times(1)).deleteUser(ID);;
 	}
+	
+	@DisplayName("Deve atribuir um  cargo ao usuário. ")
+	@Test
+	public void shouldAtribuirCargo() {
+		UsuarioDTO usuarioDTO = usuarioDTOProvider.criar();
+		doNothing().when(service).atribuirCargo(usuarioDTO, ID);
+		ResponseEntity<Void> response = controller.atribuir(usuarioDTO, ID);
+		assertNotNull(response);
+		assertEquals(ResponseEntity.class, response.getClass());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+	}
 
 }

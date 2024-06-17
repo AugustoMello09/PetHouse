@@ -3,6 +3,7 @@ package io.GitHub.AugustoMello09.PetHouseBackend.provider;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import io.GitHub.AugustoMello09.PetHouseBackend.entities.Carrinho;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Pedido;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Usuario;
 
@@ -17,6 +18,8 @@ public class PedidoProvider {
 		Usuario usuario = new Usuario();
 		usuario.setId(ID);
 		entity.setUsuario(usuario);
+		Carrinho carrinho = new Carrinho();
+		entity.setCarrinho(carrinho);
 		return entity;
 	}
 }
