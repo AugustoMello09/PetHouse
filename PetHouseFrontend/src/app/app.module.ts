@@ -12,12 +12,14 @@ import { MaterialModule } from './material.model';
 import { FormsModule } from '@angular/forms';
 
 import { NavComponent } from './components/template/nav/nav.component';
+import { HelloComponent } from './components/template/hello/hello.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    HelloComponent
   ],
   imports: [
     BrowserModule,
