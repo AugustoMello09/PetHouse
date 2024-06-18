@@ -13,13 +13,15 @@ import { FormsModule } from '@angular/forms';
 
 import { NavComponent } from './components/template/nav/nav.component';
 import { HelloComponent } from './components/template/hello/hello.component';
+import { HomeComponent } from './components/template/home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    HelloComponent
+    HelloComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
