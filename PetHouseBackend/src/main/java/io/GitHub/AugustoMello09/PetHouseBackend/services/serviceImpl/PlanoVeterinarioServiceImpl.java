@@ -1,4 +1,4 @@
-package io.GitHub.AugustoMello09.PetHouseBackend.services;
+package io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.entities.PlanoVeterinario;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Usuario;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.PlanoVeterinarioRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.PlanoVeterinarioService;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.DataIntegratyViolationException;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
  
@@ -37,6 +39,7 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	@Transactional(readOnly = true)
 	public PlanoDTO findById(Long id) {
 		Optional<PlanoVeterinario> entity = repository.findById(id);
@@ -45,6 +48,7 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	@Transactional(readOnly = true)
 	public List<PlanoDTO> listAll() {
 		List<PlanoVeterinario> planos = repository.findAll();
@@ -52,6 +56,7 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	@Transactional
 	public PlanoDTO create(PlanoDTO planoDTO) {
 		PlanoVeterinario entity = new PlanoVeterinario();
@@ -64,6 +69,7 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	@Transactional
 	public void updatePlano(PlanoDTO planoDTO, Long id) {
 		PlanoVeterinario entity = repository.findById(id)
@@ -77,6 +83,7 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void deletePlano(Long id) {
 		findById(id);
 		try {
@@ -87,6 +94,7 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ADMIN','OPERATOR')")
 	@Transactional
 	public void getPlan(UUID IdUsuario, Long idPlano) {
 		PlanoVeterinario plano = repository.findById(idPlano)
@@ -98,7 +106,8 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 		usuarioRepository.save(usuario);
 		repository.save(plano);
 	}
-
+	
+	@PreAuthorize("hasAnyRole('ADMIN','OPERATOR')")
 	@Override
 	public void removePlan(UUID IdUsuario, Long idPlano) {
 		PlanoVeterinario plano = repository.findById(idPlano)

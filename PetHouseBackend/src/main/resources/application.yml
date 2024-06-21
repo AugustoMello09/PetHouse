@@ -9,3 +9,10 @@ spring:
     active:
     - test  
 
+auth:
+  jwt:
+    token:
+      secret: 455a0595071af6e2385c0ec556cb329c
+      expiration: 2
+    refresh-token:
+      expiration: 8

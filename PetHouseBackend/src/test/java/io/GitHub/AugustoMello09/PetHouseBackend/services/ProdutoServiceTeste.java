@@ -37,6 +37,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.provider.ProdutoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CategoriaRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.ProdutoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl.ProdutoServiceImpl;
 
 @SpringBootTest
 public class ProdutoServiceTeste {

@@ -2,10 +2,18 @@ package io.GitHub.AugustoMello09.PetHouseBackend.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -31,7 +39,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -71,5 +79,50 @@ public class Usuario implements Serializable {
 		this.id = id;
 		this.carrinho = carrinho;
 	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return cargos.stream().map(x -> new SimpleGrantedAuthority(x.getAuthority()))
+				.collect(Collectors.toList());
+	}
 	
+	@JsonIgnore
+	@Override
+	public String getPassword() {
+		return senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	public boolean hasCargo(String cargoNome) {
+		for (Cargo role : cargos) {
+			if (role.getAuthority().equals(cargoNome)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

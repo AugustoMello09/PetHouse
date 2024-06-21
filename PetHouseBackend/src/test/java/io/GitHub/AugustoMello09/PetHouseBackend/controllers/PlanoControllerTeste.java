@@ -23,7 +23,7 @@ import org.springframework.http.ResponseEntity;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.PlanoDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.PlanoDTOProvider;
-import io.GitHub.AugustoMello09.PetHouseBackend.services.PlanoVeterinarioServiceImpl;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl.PlanoVeterinarioServiceImpl;
 
 @SpringBootTest
 public class PlanoControllerTeste {

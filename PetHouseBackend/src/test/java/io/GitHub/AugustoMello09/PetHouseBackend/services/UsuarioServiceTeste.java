@@ -39,6 +39,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CarrinhoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.DataIntegratyViolationException;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl.UsuarioServiceImpl;
 
 @SpringBootTest
 public class UsuarioServiceTeste {
@@ -60,6 +61,9 @@ public class UsuarioServiceTeste {
 	
 	@Mock
 	private CarrinhoRepository carrinhoRepository;
+	
+	@Mock
+	private AuthService authService;
 
 	private UsuarioProvider usuarioProvider;
 	private UsuarioDTOProvider usuarioDTOProvider;
@@ -74,12 +78,13 @@ public class UsuarioServiceTeste {
 		usuarioProvider = new UsuarioProvider(passwordEncoder);
 		usuarioDTOProvider = new UsuarioDTOProvider();
 		usuarioDTOInsertProvider = new UsuarioDTOInsertProvider();
-		service = new UsuarioServiceImpl(repository, passwordEncoder, modelMapper, cargoRepository, carrinhoRepository);
+		service = new UsuarioServiceImpl(repository, passwordEncoder, modelMapper, cargoRepository, carrinhoRepository, authService);
 	}
 
 	@DisplayName("Deve retornar um Usuario com sucesso.")
 	@Test
 	public void shouldReturnAUserWithSuccess() {
+		authService.validateSelfOrAdmin(ID);
 		Usuario usuario = usuarioProvider.criar();
 		UsuarioDTO usuarioDTO = usuarioDTOProvider.criar();
 
@@ -163,6 +168,7 @@ public class UsuarioServiceTeste {
 	@DisplayName("Atualização Deve retornar sucesso.")
 	@Test
 	public void shouldUpdateReturnSuccess() {
+		authService.validateSelfOrAdmin(ID);
 		UsuarioDTO usuarioDTO = usuarioDTOProvider.criar();
 		Usuario usuario = usuarioProvider.criar();
 		when(repository.findById(ID)).thenReturn(Optional.of(usuario));
@@ -176,6 +182,7 @@ public class UsuarioServiceTeste {
 	@DisplayName("Deve deletar um usuário com sucesso.")
 	@Test
 	public void shouldDeleteWithSuccess() {
+		authService.validateSelfOrAdmin(ID);
 		Usuario usuario = usuarioProvider.criar();
 		when(repository.findById(ID)).thenReturn(Optional.of(usuario));
 		service.deleteUser(ID);

@@ -27,6 +27,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.provider.CategoriaDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.CategoriaProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CategoriaRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl.CategoriaServiceImpl;
 
 @SpringBootTest
 public class CategoriaServiceTeste {

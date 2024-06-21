@@ -27,6 +27,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.provider.CargoDTOProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.provider.CargoProvider;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CargoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl.CargoServiceImpl;
 
 @SpringBootTest
 public class CargoServiceTeste {

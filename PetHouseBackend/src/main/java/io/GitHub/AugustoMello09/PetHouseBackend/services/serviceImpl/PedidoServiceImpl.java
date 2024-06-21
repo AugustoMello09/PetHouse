@@ -1,4 +1,4 @@
-package io.GitHub.AugustoMello09.PetHouseBackend.services;
+package io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.PedidoDTO;
@@ -16,6 +17,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CarrinhoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.PedidoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.ProdutoRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.PedidoService;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -38,6 +40,7 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	public PedidoDTO findById(UUID id) {
 		Optional<Pedido> entity = repository.findById(id);
 		Pedido pedido = entity.orElseThrow(() -> new ObjectNotFoundException("Pedido não encontrado"));
@@ -45,6 +48,7 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	public PedidoDTO create(PedidoDTO pedidoDTO) {
 		Pedido entity = new Pedido();
 		entity.setData(LocalDate.now());
@@ -55,14 +59,14 @@ public class PedidoServiceImpl implements PedidoService {
 		return mapper.map(entity, PedidoDTO.class);
 	}
 
-	protected void atribuirUsuario(Pedido pedido, PedidoDTO pedidoDTO) {
+	public void atribuirUsuario(Pedido pedido, PedidoDTO pedidoDTO) {
 		UUID idUsuario = pedidoDTO.getIdUsuario();
 		Usuario usuario = usuarioRepository.findById(idUsuario)
 				.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
 		pedido.setUsuario(usuario);	
 	}
 
-	protected void atribuirProdutos(Pedido pedido, PedidoDTO pedidoDTO) {
+	public void atribuirProdutos(Pedido pedido, PedidoDTO pedidoDTO) {
 		pedido.getProdutos()
 		.addAll(pedidoDTO.getProdutos().stream()
 				.map(x -> produtoRepository.findById(x.getId())
@@ -70,7 +74,7 @@ public class PedidoServiceImpl implements PedidoService {
 				.collect(Collectors.toList()));
 	}
 	
-	protected void atribuirCarrinho(Pedido pedido, PedidoDTO pedidoDTO) {
+	public void atribuirCarrinho(Pedido pedido, PedidoDTO pedidoDTO) {
 		UUID idCarrinho = pedidoDTO.getIdCarrinho();
 		Carrinho carrinho = carrinhoRepository.findById(idCarrinho)
 				.orElseThrow(() -> new ObjectNotFoundException("Carrinho não encontrado"));

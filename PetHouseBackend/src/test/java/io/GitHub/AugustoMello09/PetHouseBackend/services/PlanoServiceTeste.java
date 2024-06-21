@@ -38,6 +38,7 @@ import io.GitHub.AugustoMello09.PetHouseBackend.repotories.PlanoVeterinarioRepos
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.UsuarioRepository;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.DataIntegratyViolationException;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl.PlanoVeterinarioServiceImpl;
 
 @SpringBootTest
 public class PlanoServiceTeste {

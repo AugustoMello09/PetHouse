@@ -1,16 +1,18 @@
-package io.GitHub.AugustoMello09.PetHouseBackend.services;
+package io.GitHub.AugustoMello09.PetHouseBackend.services.serviceImpl;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.GitHub.AugustoMello09.PetHouseBackend.dtos.CargoDTO;
 import io.GitHub.AugustoMello09.PetHouseBackend.entities.Cargo;
 import io.GitHub.AugustoMello09.PetHouseBackend.repotories.CargoRepository;
+import io.GitHub.AugustoMello09.PetHouseBackend.services.CargoService;
 import io.GitHub.AugustoMello09.PetHouseBackend.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -25,8 +27,9 @@ public class CargoServiceImpl implements CargoService{
 		this.repository = repository;
 		this.mapper = mapper;
 	}
-
+	
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	@Transactional(readOnly = true)
 	public CargoDTO findById(Long id) {
 		Optional<Cargo> entity = repository.findById(id);
@@ -35,6 +38,7 @@ public class CargoServiceImpl implements CargoService{
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	@Transactional(readOnly = true)
 	public List<CargoDTO> listAll() {
 		List<Cargo> cargos = repository.findAll();
@@ -42,6 +46,7 @@ public class CargoServiceImpl implements CargoService{
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	@Transactional
 	public CargoDTO create(CargoDTO cargoDTO) {
 		Cargo cargo = new Cargo();
@@ -50,7 +55,8 @@ public class CargoServiceImpl implements CargoService{
 		return mapper.map(cargo, CargoDTO.class);
 	}
 
-	@Override
+	@Override 
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	@Transactional
 	public void updateCargo(CargoDTO cargoDTO, Long id) {
 		Cargo cargo	= repository.findById(id)
@@ -61,6 +67,7 @@ public class CargoServiceImpl implements CargoService{
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	@Transactional
 	public void deleteCargo(Long id) {
 		findById(id);
