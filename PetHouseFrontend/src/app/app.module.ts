@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { NavComponent } from './components/template/nav/nav.component';
 import { HelloComponent } from './components/template/hello/hello.component';
 import { HomeComponent } from './components/template/home/home.component';
+import { LoginComponent } from './components/template/modal/login/login.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HomeComponent } from './components/template/home/home.component';
     AppComponent,
     NavComponent,
     HelloComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

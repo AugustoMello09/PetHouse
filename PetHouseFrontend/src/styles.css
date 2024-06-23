@@ -72,3 +72,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-body p, .mat-body-1 p, .mat-typography p {
 	 margin: 0 !important;
 }
+
+.mat-dialog-container {
+padding: 0 !important;
+}
+
+.mat-h3, .mat-subheading-2, .mat-typography .mat-h3, .mat-typography .mat-subheading-2, .mat-typography h3 {
+margin: 0 !important;
+}
+
+
+.md\:p-5 {
+	padding: 0 !important;
+}

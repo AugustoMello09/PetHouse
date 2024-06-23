@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { SearchProdutosService } from 'src/app/service/search-produtos.service';
+import { LoginComponent } from '../modal/login/login.component';
 
 @Component({
   selector: 'app-nav',
@@ -13,7 +15,7 @@ export class NavComponent implements OnInit {
   @ViewChild('resultList') resultList?: ElementRef;
   results: any[] = [];
   
-  constructor(private buscaService: SearchProdutosService) { }
+  constructor(private buscaService: SearchProdutosService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -38,4 +40,7 @@ export class NavComponent implements OnInit {
     this.results = [];
   }
 
+  open() {
+    this.dialog.open(LoginComponent);
+  }
 }
