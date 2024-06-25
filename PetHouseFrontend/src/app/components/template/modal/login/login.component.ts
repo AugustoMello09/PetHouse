@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Login } from 'src/app/model/login.model';
 import { AuthService } from 'src/app/service/auth.service';
+import { RegistroComponent } from '../registro/registro.component';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  close() {
+  public close() {
     this.dialog.closeAll();
   }
 
@@ -30,6 +31,11 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token_access', token_access);
       this.dialog.closeAll();
     })
+  }
+
+  public criarConta() {
+    this.dialog.closeAll();
+    this.dialog.open(RegistroComponent)
   }
 
 }

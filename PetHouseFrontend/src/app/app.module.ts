@@ -15,6 +15,8 @@ import { NavComponent } from './components/template/nav/nav.component';
 import { HelloComponent } from './components/template/hello/hello.component';
 import { HomeComponent } from './components/template/home/home.component';
 import { LoginComponent } from './components/template/modal/login/login.component';
+import { RegistroComponent } from './components/template/modal/registro/registro.component';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { LoginComponent } from './components/template/modal/login/login.componen
     NavComponent,
     HelloComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    RegistroComponent,
   ],
   imports: [
     BrowserModule,
