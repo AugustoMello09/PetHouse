@@ -24,7 +24,9 @@ public class SecurityConfig {
 	
 	private static final String[] PUBLIC_POST = { "/v1/auth/login", "/v1/usuario", "/v1/auth/refresh-token" };
 	
-	private static final String[] PUBLIC_GET = { "/h2-console/**" };
+	private static final String[] PUBLIC = { "/h2-console/**"};
+	
+	private static final String[] PUBLIC_GET = { "/v1/plano/**" };
 	
 	@Autowired
 	private Environment env;
@@ -40,7 +42,8 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, PUBLIC_POST).permitAll()
-						.requestMatchers(PUBLIC_GET).permitAll().anyRequest().authenticated())
+						.requestMatchers(HttpMethod.GET, PUBLIC_GET).permitAll()
+						.requestMatchers(PUBLIC).permitAll().anyRequest().authenticated())
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}

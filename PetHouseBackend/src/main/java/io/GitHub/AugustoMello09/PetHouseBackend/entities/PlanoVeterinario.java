@@ -37,7 +37,7 @@ public class PlanoVeterinario implements Serializable {
 	@Column(nullable = false)
 	private BigDecimal preco;
 	
-	@Column(nullable = false)
+	@Column(columnDefinition = "TEXT", nullable = false)
 	private String descricao;
 	
 	@Column(nullable = false)

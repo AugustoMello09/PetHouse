@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,12 @@ import { HelloComponent } from './components/template/hello/hello.component';
 import { HomeComponent } from './components/template/home/home.component';
 import { LoginComponent } from './components/template/modal/login/login.component';
 import { RegistroComponent } from './components/template/modal/registro/registro.component';
+import { PlanoComponent } from './components/template/plano/plano.component';
+import { PlanoModalComponent } from './components/template/modal/plano-modal/plano-modal.component';
+import { AuthService } from './service/auth.service';
+import { AuthInterceptor } from './auth.interceptor';
+import { AuthModalComponent } from './components/template/modal/auth-modal/auth-modal.component';
+
 
 
 
@@ -27,6 +33,9 @@ import { RegistroComponent } from './components/template/modal/registro/registro
     HomeComponent,
     LoginComponent,
     RegistroComponent,
+    PlanoComponent,
+    PlanoModalComponent,
+    AuthModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +45,13 @@ import { RegistroComponent } from './components/template/modal/registro/registro
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass:  AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

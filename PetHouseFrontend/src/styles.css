@@ -85,3 +85,10 @@ margin: 0 !important;
 .md\:p-5 {
 	padding: 0 !important;
 }
+
+.cdk-global-scrollblock {
+	position: static !important;
+	overflow: hidden !important;
+}
+
+

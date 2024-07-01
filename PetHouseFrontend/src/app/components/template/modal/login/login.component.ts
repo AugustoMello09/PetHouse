@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
       const token_access = JSON.stringify(res);
       localStorage.setItem('token_access', token_access);
       this.dialog.closeAll();
+      window.location.reload();
     })
   }
 

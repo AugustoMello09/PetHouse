@@ -39,7 +39,6 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
-	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	@Transactional(readOnly = true)
 	public PlanoDTO findById(Long id) {
 		Optional<PlanoVeterinario> entity = repository.findById(id);
@@ -48,7 +47,6 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
-	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	@Transactional(readOnly = true)
 	public List<PlanoDTO> listAll() {
 		List<PlanoVeterinario> planos = repository.findAll();
@@ -94,7 +92,7 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 	}
 
 	@Override
-	@PreAuthorize("hasAnyRole('ADMIN','OPERATOR')")
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	@Transactional
 	public void getPlan(UUID IdUsuario, Long idPlano) {
 		PlanoVeterinario plano = repository.findById(idPlano)
@@ -107,7 +105,7 @@ public class PlanoVeterinarioServiceImpl implements PlanoVeterinarioService {
 		repository.save(plano);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN','OPERATOR')")
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	@Override
 	public void removePlan(UUID IdUsuario, Long idPlano) {
 		PlanoVeterinario plano = repository.findById(idPlano)
