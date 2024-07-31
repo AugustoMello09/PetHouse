@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  jpa:
+    open-in-view: true
+  application:
+    name: PetHouse
+  profiles:
+    active:
+    - test 
