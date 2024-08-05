@@ -1,7 +1,5 @@
 package io.gitHub.AugustoMello09.PetHouse.domain.dtos;
 
-import java.io.Serializable;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CargoDTO implements Serializable {
+public class UsuarioDTOInsert extends UsuarioDTO {
 	private static final long serialVersionUID = 1L;
-
-	private Long id;
-
-	private String authority;
+	
+	private String senha;
 
 }

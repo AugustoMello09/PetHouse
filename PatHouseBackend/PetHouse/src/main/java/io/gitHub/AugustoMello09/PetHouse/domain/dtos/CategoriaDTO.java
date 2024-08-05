@@ -1,5 +1,7 @@
 package io.gitHub.AugustoMello09.PetHouse.domain.dtos;
 
+import java.io.Serializable;
+
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Categoria;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +12,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaDTO {
+public class CategoriaDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	
