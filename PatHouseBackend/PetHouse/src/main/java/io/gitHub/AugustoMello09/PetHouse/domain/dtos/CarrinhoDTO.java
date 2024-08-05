@@ -2,6 +2,8 @@ package io.gitHub.AugustoMello09.PetHouse.domain.dtos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
@@ -21,11 +23,13 @@ public class CarrinhoDTO implements Serializable{
     private UUID idUsuario;
     private BigDecimal valorTotalDosPedidos;
     private BigDecimal valorTotalCarrinho;
+    private List<ItemCarrinhoDTO> itemsCarrinho = new ArrayList<>();
     
     public CarrinhoDTO(Carrinho entity) {
         id = entity.getId();
         idUsuario = entity.getUsuario().getId();
         valorTotalDosPedidos = entity.getValorTotalDosPedidosCarrinho();
         valorTotalCarrinho = entity.getValorTotalCarrinho();
+        entity.getItemsCarrinho().forEach(item -> this.itemsCarrinho.add(new ItemCarrinhoDTO(item)));
     }
 }
