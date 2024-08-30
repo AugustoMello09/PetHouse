@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.cloud.gateway.discovery.locator.lower-case-service-id",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.gateway.discovery.locator.lower-case-service-id'"
+  },
+  {
+    "name": "spring.cloud.gateway.discovery.locator.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cloud.gateway.discovery.locator.enabled'"
+  }
+]}
