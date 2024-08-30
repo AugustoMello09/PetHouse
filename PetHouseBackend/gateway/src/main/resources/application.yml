@@ -7,6 +7,11 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      routes:
+        - id: pethouse-service  
+          uri: lb://pethouse   
+          predicates:
+            - Path=/pethouse/**    
 
 server:
   port: 8080
