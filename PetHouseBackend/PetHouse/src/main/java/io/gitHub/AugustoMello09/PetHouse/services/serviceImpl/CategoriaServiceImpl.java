@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CategoriaDTO;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoriaServiceImpl implements CategoriaService {
 	
 	private final CategoriaRepository repository;
+	private final ModelMapper mapper;
 	
 	@Override
 	public CategoriaDTO findById(Long id) {
@@ -37,7 +39,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 		Categoria entity = new Categoria();
 		entity.setNomeCategoria(categoriaDTO.getNomeCategoria());
 		repository.save(entity);
-		return new CategoriaDTO(entity);
+		return mapper.map(entity, CategoriaDTO.class);
 	}
 
 	@Override
