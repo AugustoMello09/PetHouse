@@ -3,17 +3,21 @@ package io.gitHub.AugustoMello09.PetHouse.services.serviceImpl;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CarrinhoDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
+import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CargoRepository;
+import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.UsuarioRepository;
 import io.gitHub.AugustoMello09.PetHouse.services.UsuarioService;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.DataIntegratyViolationException;
@@ -27,6 +31,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private final UsuarioRepository repository;
 	private final CargoRepository cargoRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
+	private final CarrinhoRepository carrinhoRepository;
+	private final ModelMapper mapper;
 	
 	@Transactional(readOnly = true)
 	@Override
@@ -52,6 +58,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		entity.setEmail(usuarioDTO.getEmail());
 		entity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		atribuirCargo(entity, usuarioDTO);
+		criarCarrinho(entity);
 		repository.save(entity);
 		return new UsuarioDTO(entity);
 	}
@@ -96,6 +103,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (entity.isPresent() && !entity.get().getId().equals(usuarioDTO.getId())) {
 			throw new DataIntegratyViolationException("Email já existe");
 		}
+	}
+	
+	public void criarCarrinho(Usuario usuario) {
+		Carrinho carrinho = new Carrinho();
+		usuario.setCarrinho(carrinho);
+		carrinho.setUsuario(usuario);
+		carrinhoRepository.save(carrinho);
+		mapper.map(carrinho, CarrinhoDTO.class);
 	}
 	
 

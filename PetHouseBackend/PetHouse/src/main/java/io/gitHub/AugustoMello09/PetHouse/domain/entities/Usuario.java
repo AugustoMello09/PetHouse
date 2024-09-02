@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -46,13 +47,18 @@ public class Usuario implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "tb_usuario_cargo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "cargo_id"))
 	private Set<Cargo> cargos = new HashSet<>();
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "carrinho_id", referencedColumnName = "id")
+	private Carrinho carrinho;
 
-	public Usuario(UUID id, String nome, String email, String senha) {
+	public Usuario(UUID id, String nome, String email, String senha, Carrinho carrinho) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
+		this.carrinho = carrinho;
 	}
 	
 

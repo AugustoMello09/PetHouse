@@ -22,6 +22,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -31,11 +32,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
+import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
 import io.gitHub.AugustoMello09.PetHouse.provider.UsuarioDTOInsertProvider;
 import io.gitHub.AugustoMello09.PetHouse.provider.UsuarioDTOProvider;
 import io.gitHub.AugustoMello09.PetHouse.provider.UsuarioProvider;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CargoRepository;
+import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.UsuarioRepository;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.DataIntegratyViolationException;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.ObjectNotFoundException;
@@ -59,9 +62,16 @@ public class UsuarioServiceTest {
 	@Mock
 	private CargoRepository cargoRepository;
 	
+	@Mock
+	private ModelMapper modelMapper;
+	
+	@Mock
+	private CarrinhoRepository carrinhoRepository;
+	
 	private UsuarioProvider usuarioProvider;
 	private UsuarioDTOProvider usuarioDTOProvider;
 	private UsuarioDTOInsertProvider usuarioDTOInsertProvider;
+
 	
 	@BeforeEach
 	public void setUp() {	
@@ -69,7 +79,7 @@ public class UsuarioServiceTest {
 		usuarioProvider = new UsuarioProvider(passwordEncoder);
 		usuarioDTOProvider = new UsuarioDTOProvider();
 		usuarioDTOInsertProvider = new UsuarioDTOInsertProvider();
-		service = new UsuarioServiceImpl(repository, cargoRepository, passwordEncoder);
+		service = new UsuarioServiceImpl(repository, cargoRepository, passwordEncoder, carrinhoRepository, modelMapper);
 	}
 	
 	@DisplayName("Deve retornar um Usuario com sucesso.")
@@ -95,7 +105,9 @@ public class UsuarioServiceTest {
 	@DisplayName("Deve retornar paginação de usuários.")
 	@Test
 	public void whenFindAllPagedThenReturnPageOfUsuarioDTO() {
-		List<Usuario> usu = Arrays.asList(new Usuario(ID, "TEste", "Email@email.com", "senha"));
+		Carrinho carrinho = new Carrinho();
+		carrinho.setId(UUID.randomUUID());
+		List<Usuario> usu = Arrays.asList(new Usuario(ID, "TEste", "Email@email.com", "senha", carrinho));
 		Page<Usuario> fillPage = new PageImpl<>(usu);
 		
 		when(repository.findAll(any(Pageable.class))).thenReturn(fillPage);
@@ -124,7 +136,7 @@ public class UsuarioServiceTest {
 	public void shouldReturnDataIntegratyViolationExceptionWhenEmailExist() {
 		UsuarioDTO usuarioDTOExpected = usuarioDTOProvider.criar();
 	    UUID differentUserId = UUID.fromString("248cf4fc-b379-4e25-8bf4-f73feb06befa"); 
-	    Usuario usuarioEntity = new Usuario(differentUserId, "Carlos", "meuEmail@gmail.com", "123");
+	    Usuario usuarioEntity = new Usuario(differentUserId, "Carlos", "meuEmail@gmail.com", "123", null);
 
 	    when(repository.findByEmail(usuarioDTOExpected.getEmail()))
 	      .thenReturn(Optional.of(usuarioEntity));
