@@ -39,16 +39,25 @@ public class Carrinho implements Serializable {
 	@OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ItemCarrinhoProduto> itemsCarrinho = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "carrinho")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Carrinho(UUID id, Usuario usuario) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 	}
 	
+	public BigDecimal getValorTotalDosPedidosCarrinho() {
+		return pedidos.stream()
+				.map(Pedido::getValorTotalPedido)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+	
 	public BigDecimal getValorTotalCarrinho() {
 	    return itemsCarrinho.stream()
-	    		.map(x -> x.getProduto().getPreco())
-	    		.reduce(BigDecimal.ZERO, BigDecimal::add);
+	        .map(item -> item.getProduto().getPreco().multiply(new BigDecimal(item.getQuantidade())))
+	        .reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 	
 

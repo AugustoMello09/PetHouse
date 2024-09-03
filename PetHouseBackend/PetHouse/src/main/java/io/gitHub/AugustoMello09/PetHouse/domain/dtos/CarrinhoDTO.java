@@ -24,11 +24,15 @@ public class CarrinhoDTO implements Serializable {
     private BigDecimal valorTotalDosPedidos;
     private BigDecimal valorTotalCarrinho;
     private List<ItemCarrinhoProdutoDTO> itemsCarrinho = new ArrayList<>();
+    private List<PedidoDTO> pedidos = new ArrayList<>();
+    
     
     public CarrinhoDTO(Carrinho entity) {
         id = entity.getId();
         idUsuario = entity.getUsuario().getId();
         valorTotalCarrinho = entity.getValorTotalCarrinho();
+        entity.getItemsCarrinho().forEach(itensCarrinho -> this.itemsCarrinho.add(new ItemCarrinhoProdutoDTO(itensCarrinho)));
+        entity.getPedidos().forEach(itensPedido -> this.pedidos.add(new PedidoDTO(itensPedido)));
     }
 
 }
