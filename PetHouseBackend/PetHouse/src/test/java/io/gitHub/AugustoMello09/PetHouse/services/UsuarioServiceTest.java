@@ -107,7 +107,7 @@ public class UsuarioServiceTest {
 	public void whenFindAllPagedThenReturnPageOfUsuarioDTO() {
 		Carrinho carrinho = new Carrinho();
 		carrinho.setId(UUID.randomUUID());
-		List<Usuario> usu = Arrays.asList(new Usuario(ID, "TEste", "Email@email.com", "senha", carrinho));
+		List<Usuario> usu = Arrays.asList(new Usuario(ID, "TEste", "Email@email.com", "senha", carrinho, null));
 		Page<Usuario> fillPage = new PageImpl<>(usu);
 		
 		when(repository.findAll(any(Pageable.class))).thenReturn(fillPage);
@@ -136,7 +136,7 @@ public class UsuarioServiceTest {
 	public void shouldReturnDataIntegratyViolationExceptionWhenEmailExist() {
 		UsuarioDTO usuarioDTOExpected = usuarioDTOProvider.criar();
 	    UUID differentUserId = UUID.fromString("248cf4fc-b379-4e25-8bf4-f73feb06befa"); 
-	    Usuario usuarioEntity = new Usuario(differentUserId, "Carlos", "meuEmail@gmail.com", "123", null);
+	    Usuario usuarioEntity = new Usuario(differentUserId, "Carlos", "meuEmail@gmail.com", "123", null, null);
 
 	    when(repository.findByEmail(usuarioDTOExpected.getEmail()))
 	      .thenReturn(Optional.of(usuarioEntity));
