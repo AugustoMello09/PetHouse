@@ -1,6 +1,7 @@
 package io.gitHub.AugustoMello09.PetHouse.services.serviceImpl;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -11,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.PlanoDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.PlanoVeterinario;
+import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
 import io.gitHub.AugustoMello09.PetHouse.repositories.PlanoRepository;
+import io.gitHub.AugustoMello09.PetHouse.repositories.UsuarioRepository;
 import io.gitHub.AugustoMello09.PetHouse.services.PlanoService;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.DataIntegratyViolationException;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.ObjectNotFoundException;
@@ -19,10 +22,12 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class PlanoServiceImpl implements PlanoService{
-	
+public class PlanoServiceImpl implements PlanoService {
+
 	private final PlanoRepository repository;
 	private final ModelMapper mapper;
+	private final UsuarioRepository usuarioRepository;
+	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -69,11 +74,47 @@ public class PlanoServiceImpl implements PlanoService{
 	public void deletePlano(Long id) {
 		findById(id);
 		try {
-		  repository.deleteById(id);
+			repository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegratyViolationException("Não pode deletar Plano que está relacionado com usuário");
 		}
-		
+
 	}
+
+	@Override
+	public void getPlan(UUID IdUsuario, Long idPlano) {
+		PlanoVeterinario plano = repository.findById(idPlano)
+				.orElseThrow(() -> new ObjectNotFoundException("Plano não encontrado"));
+		Usuario usuario = usuarioRepository.findById(IdUsuario)
+				.orElseThrow(() -> new ObjectNotFoundException("Usuario não encontrado"));
+		usuario.setPlano(plano);
+		plano.setUsuario(usuario);
+		usuarioRepository.save(usuario);
+		repository.save(plano);
+	}
+
+	@Override
+	public void removePlan(UUID IdUsuario, Long idPlano) {
+		PlanoVeterinario plano = repository.findById(idPlano)
+				.orElseThrow(() -> new ObjectNotFoundException("Plano não encontrado"));
+		Usuario usuario = usuarioRepository.findById(IdUsuario)
+				.orElseThrow(() -> new ObjectNotFoundException("Usuario não encontrado"));
+
+		var usuarioHavPlan = usuario.getPlano() != null && usuario.getPlano().getId().equals(idPlano);
+
+		if (usuarioHavPlan) {
+			usuario.setPlano(null);
+			usuarioRepository.save(usuario);
+		}
+
+		var planoHavUser = plano.getUsuario() != null && plano.getUsuario().getId().equals(IdUsuario);
+
+		if (planoHavUser) {
+			plano.setUsuario(null);
+			repository.save(plano);
+		}
+	}
+
+	
 
 }

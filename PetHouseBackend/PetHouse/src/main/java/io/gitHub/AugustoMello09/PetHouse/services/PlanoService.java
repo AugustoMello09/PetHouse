@@ -1,5 +1,7 @@
 package io.gitHub.AugustoMello09.PetHouse.services;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,6 +18,10 @@ public interface PlanoService {
 	void updatePlano(PlanoDTO planoDTO, Long id);
 
 	void deletePlano(Long id);
+	
+	void getPlan(UUID IdUsuario, Long idPlano);
+
+	void removePlan(UUID IdUsuario, Long idPlano);
 
 
 }
