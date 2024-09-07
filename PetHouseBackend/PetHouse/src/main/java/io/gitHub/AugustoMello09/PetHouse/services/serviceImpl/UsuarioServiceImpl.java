@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CarrinhoDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
+import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioOpen;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
@@ -111,6 +112,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 		carrinho.setUsuario(usuario);
 		carrinhoRepository.save(carrinho);
 		mapper.map(carrinho, CarrinhoDTO.class);
+	}
+
+	@Override
+	public UsuarioOpen findByEmail(String email) {
+		Optional<Usuario> usuario = repository.findByEmail(email);
+		if(usuario.isPresent()) {
+			return new UsuarioOpen(usuario.get());
+		}
+		throw new ObjectNotFoundException("Email Não encontrado");
 	}
 	
 

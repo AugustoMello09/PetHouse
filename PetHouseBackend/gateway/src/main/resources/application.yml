@@ -11,7 +11,11 @@ spring:
         - id: pethouse-service  
           uri: lb://pethouse   
           predicates:
-            - Path=/pethouse/**    
+            - Path=/pethouse/**
+        - id: auth-service  
+          uri: lb://auth   
+          predicates:
+            - Path=/auth/**         
 
 server:
   port: 8080

@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
+import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioOpen;
 import io.gitHub.AugustoMello09.PetHouse.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 
@@ -64,6 +66,12 @@ public class UsuarioController {
 	public ResponseEntity<Void> atribuir(@RequestBody UsuarioDTO usuarioDTO, @PathVariable UUID id) {
 		service.atribuirCargo(usuarioDTO, id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(value = "buscarEmail")
+	public ResponseEntity<UsuarioOpen> findByEmail(@RequestParam(value = "email") String email) {
+		var response = service.findByEmail(email);
+		return ResponseEntity.ok().body(response);
 	}
 
 }

@@ -1,0 +1,21 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: auth
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+auth:
+  jwt:
+    token:
+      secret: 455a0595071af6e2385c0ec556cb329c
+      expiration: 2
+    refresh-token:
+      expiration: 8     
