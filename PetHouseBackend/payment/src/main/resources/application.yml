@@ -1,0 +1,18 @@
+server:
+  port: 0
+
+spring:
+  jpa:
+    open-in-view: true
+  application:
+    name: payment
+  profiles:
+    active:
+    - test
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

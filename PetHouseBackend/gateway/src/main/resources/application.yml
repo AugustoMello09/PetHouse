@@ -15,7 +15,11 @@ spring:
         - id: auth-service  
           uri: lb://auth   
           predicates:
-            - Path=/auth/**         
+            - Path=/auth/**
+        - id: payment-service  
+          uri: lb://payment   
+          predicates:
+            - Path=/payment/**             
 
 server:
   port: 8080
