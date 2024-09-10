@@ -17,9 +17,11 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioOpen;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
+import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.BemVindoProducer;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CargoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.UsuarioRepository;
+import io.gitHub.AugustoMello09.PetHouse.services.AsaasService;
 import io.gitHub.AugustoMello09.PetHouse.services.UsuarioService;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.DataIntegratyViolationException;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.ObjectNotFoundException;
@@ -34,6 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private final BCryptPasswordEncoder passwordEncoder;
 	private final CarrinhoRepository carrinhoRepository;
 	private final ModelMapper mapper;
+	private final BemVindoProducer producer;
 	
 	@Transactional(readOnly = true)
 	@Override
@@ -56,11 +59,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 		emailAlreadyExists(usuarioDTO);
 		Usuario entity = new Usuario();
 		entity.setNome(usuarioDTO.getNome());
+		entity.setCpfCnpj(usuarioDTO.getCpfCnpj());
 		entity.setEmail(usuarioDTO.getEmail());
 		entity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		atribuirCargo(entity, usuarioDTO);
 		criarCarrinho(entity);
 		repository.save(entity);
+		producer.sendToTopic(usuarioDTO);
 		return new UsuarioDTO(entity);
 	}
 	

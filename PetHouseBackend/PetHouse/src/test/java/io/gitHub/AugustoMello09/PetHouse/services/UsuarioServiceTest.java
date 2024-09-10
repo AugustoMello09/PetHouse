@@ -34,6 +34,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
+import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.BemVindoProducer;
 import io.gitHub.AugustoMello09.PetHouse.provider.UsuarioDTOInsertProvider;
 import io.gitHub.AugustoMello09.PetHouse.provider.UsuarioDTOProvider;
 import io.gitHub.AugustoMello09.PetHouse.provider.UsuarioProvider;
@@ -68,6 +69,9 @@ public class UsuarioServiceTest {
 	@Mock
 	private CarrinhoRepository carrinhoRepository;
 	
+	@Mock
+	private BemVindoProducer producer;
+	
 	private UsuarioProvider usuarioProvider;
 	private UsuarioDTOProvider usuarioDTOProvider;
 	private UsuarioDTOInsertProvider usuarioDTOInsertProvider;
@@ -79,7 +83,7 @@ public class UsuarioServiceTest {
 		usuarioProvider = new UsuarioProvider(passwordEncoder);
 		usuarioDTOProvider = new UsuarioDTOProvider();
 		usuarioDTOInsertProvider = new UsuarioDTOInsertProvider();
-		service = new UsuarioServiceImpl(repository, cargoRepository, passwordEncoder, carrinhoRepository, modelMapper);
+		service = new UsuarioServiceImpl(repository, cargoRepository, passwordEncoder, carrinhoRepository, modelMapper, producer);
 	}
 	
 	@DisplayName("Deve retornar um Usuario com sucesso.")
@@ -107,7 +111,7 @@ public class UsuarioServiceTest {
 	public void whenFindAllPagedThenReturnPageOfUsuarioDTO() {
 		Carrinho carrinho = new Carrinho();
 		carrinho.setId(UUID.randomUUID());
-		List<Usuario> usu = Arrays.asList(new Usuario(ID, "TEste", "Email@email.com", "senha", carrinho, null));
+		List<Usuario> usu = Arrays.asList(new Usuario(ID, "TEste", "Email@email.com", "senha", carrinho, null, "63.985.026/0001-56"));
 		Page<Usuario> fillPage = new PageImpl<>(usu);
 		
 		when(repository.findAll(any(Pageable.class))).thenReturn(fillPage);
@@ -136,7 +140,7 @@ public class UsuarioServiceTest {
 	public void shouldReturnDataIntegratyViolationExceptionWhenEmailExist() {
 		UsuarioDTO usuarioDTOExpected = usuarioDTOProvider.criar();
 	    UUID differentUserId = UUID.fromString("248cf4fc-b379-4e25-8bf4-f73feb06befa"); 
-	    Usuario usuarioEntity = new Usuario(differentUserId, "Carlos", "meuEmail@gmail.com", "123", null, null);
+	    Usuario usuarioEntity = new Usuario(differentUserId, "Carlos", "meuEmail@gmail.com", "123", null, null, "63.985.026/0001-56");
 
 	    when(repository.findByEmail(usuarioDTOExpected.getEmail()))
 	      .thenReturn(Optional.of(usuarioEntity));
