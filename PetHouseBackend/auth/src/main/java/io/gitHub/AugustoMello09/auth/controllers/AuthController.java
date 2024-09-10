@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ import io.gitHub.AugustoMello09.auth.domain.dtos.MensagemDTO;
 import io.gitHub.AugustoMello09.auth.domain.dtos.RefreshTokenDTO;
 import io.gitHub.AugustoMello09.auth.domain.dtos.TokenResponseDTO;
 import io.gitHub.AugustoMello09.auth.domain.entities.Usuario;
-import io.gitHub.AugustoMello09.auth.infra.UsuarioOpenFeign;
 import io.gitHub.AugustoMello09.auth.services.TokenService;
 import jakarta.validation.Valid;
 

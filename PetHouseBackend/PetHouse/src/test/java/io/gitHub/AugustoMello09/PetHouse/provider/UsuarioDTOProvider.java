@@ -11,12 +11,15 @@ public class UsuarioDTOProvider {
 	private static final String NOME = "José";
 
 	private static final String EMAIL = "meuEmail@gmail.com";
+	
+	private static final String CPFCNPJ = "63.985.026/0001-56";
 
 	public UsuarioDTO criar() {
 		UsuarioDTO usuario = new UsuarioDTO();
 		usuario.setId(ID);
 		usuario.setNome(NOME);
 		usuario.setEmail(EMAIL);
+		usuario.setCpfCnpj(CPFCNPJ);
 		return usuario;
 	}
 }

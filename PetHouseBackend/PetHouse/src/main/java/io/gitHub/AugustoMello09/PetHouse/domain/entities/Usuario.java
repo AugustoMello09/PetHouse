@@ -43,6 +43,9 @@ public class Usuario implements Serializable {
 
 	@Column(nullable = false)
 	private String email;
+	
+	@Column(nullable = false)
+	private String cpfCnpj;
 
 	@Column(nullable = false)
 	private String senha;
@@ -62,7 +65,7 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "plano_id", referencedColumnName = "id")
 	private PlanoVeterinario plano;
 
-	public Usuario(UUID id, String nome, String email, String senha, Carrinho carrinho, PlanoVeterinario plano) {
+	public Usuario(UUID id, String nome, String email, String senha, Carrinho carrinho, PlanoVeterinario plano, String cpfCnpj) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -70,6 +73,7 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 		this.carrinho = carrinho;
 		this.plano = plano;
+		this.cpfCnpj = cpfCnpj;
 	}
 	
 

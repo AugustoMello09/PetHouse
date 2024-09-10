@@ -22,6 +22,8 @@ public class UsuarioDTO implements Serializable {
 	private UUID id;
 
 	private String nome;
+	
+	private String cpfCnpj;
 
 	private String email;
 
@@ -32,6 +34,7 @@ public class UsuarioDTO implements Serializable {
 	public UsuarioDTO(Usuario entity) {
 		id = entity.getId();
 		nome = entity.getNome();
+		cpfCnpj = entity.getCpfCnpj();
 		email = entity.getEmail();
 		entity.getCargos().forEach(x -> this.cargos.add(x));
 		idCarrinho = entity.getCarrinho().getId();

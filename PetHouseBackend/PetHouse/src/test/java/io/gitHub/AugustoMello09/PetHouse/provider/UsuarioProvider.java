@@ -18,6 +18,8 @@ public class UsuarioProvider {
 	private static final String EMAIL = "meuEmail@gmail.com";
 
 	private static final String SENHA = "123";
+	
+	private static final String CPFCNPJ = "63.985.026/0001-56";
 
 	private final BCryptPasswordEncoder passwordEncoder;
 
@@ -30,6 +32,7 @@ public class UsuarioProvider {
 		usuario.setId(ID);
 		usuario.setNome(NOME);
 		usuario.setEmail(EMAIL);
+		usuario.setCpfCnpj(CPFCNPJ);
 		usuario.setSenha(passwordEncoder.encode(SENHA));
 		Carrinho carrinho = new Carrinho();
 		carrinho.setId(IDCARRINHO);
