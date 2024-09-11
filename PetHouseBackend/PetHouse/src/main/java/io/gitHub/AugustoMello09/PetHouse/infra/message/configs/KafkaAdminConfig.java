@@ -11,8 +11,8 @@ import org.springframework.kafka.core.KafkaAdmin;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Configuration
+@RequiredArgsConstructor
 public class KafkaAdminConfig {
 	
 	public final KafkaProperties properties;
@@ -27,7 +27,7 @@ public class KafkaAdminConfig {
 	@Bean
 	KafkaAdmin.NewTopics topics(){
 		return new KafkaAdmin.NewTopics(
-				TopicBuilder.name("bem-Vindo").partitions(1).replicas(1).build()
+				TopicBuilder.name("bemVindo").partitions(1).replicas(1).build()
 				);
 	}
 	

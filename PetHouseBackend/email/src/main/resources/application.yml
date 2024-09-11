@@ -4,6 +4,21 @@ server:
 spring:
   application:
     name: email
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:29092
+  mail: 
+    host: smtp.gmail.com
+    port: 587
+    username: jinbrgame153@gmail.com
+    password: scae hcjb ivxd wklw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enabled: true
+            required: true      
     
 eureka:
   client:

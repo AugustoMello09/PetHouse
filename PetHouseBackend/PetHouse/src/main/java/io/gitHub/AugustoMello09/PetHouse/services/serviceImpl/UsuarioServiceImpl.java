@@ -21,7 +21,6 @@ import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.BemVindoProducer
 import io.gitHub.AugustoMello09.PetHouse.repositories.CargoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.UsuarioRepository;
-import io.gitHub.AugustoMello09.PetHouse.services.AsaasService;
 import io.gitHub.AugustoMello09.PetHouse.services.UsuarioService;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.DataIntegratyViolationException;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.ObjectNotFoundException;
