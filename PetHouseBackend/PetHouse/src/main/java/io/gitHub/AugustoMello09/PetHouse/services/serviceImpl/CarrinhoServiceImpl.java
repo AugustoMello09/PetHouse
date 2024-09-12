@@ -11,6 +11,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.ItemCarrinhoProdutoDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.ItemCarrinhoProduto;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Produto;
+import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.CarrinhoProducer;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.ProdutoRepository;
 import io.gitHub.AugustoMello09.PetHouse.services.CarrinhoService;
@@ -24,6 +25,7 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 	private final CarrinhoRepository repository;
 	private final ModelMapper mapper;
 	private final ProdutoRepository produtoRepository;
+	private final CarrinhoProducer producer;
 
 	@Override
 	public CarrinhoDTO findById(UUID id) {
@@ -61,8 +63,12 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 		            carrinho.getItemsCarrinho().add(carrinhoProduto);
 		        }
 		    }    
-		    repository.save(carrinho);    
-	        return mapper.map(carrinho, CarrinhoDTO.class);
+		    repository.save(carrinho);
+		    
+		    CarrinhoDTO carrinhoAtualizado = mapper.map(carrinho, CarrinhoDTO.class);
+		    producer.sendToTopicCarrinho(carrinhoAtualizado);
+		    
+		    return mapper.map(carrinho, CarrinhoDTO.class);
 	}
 
 	@Override

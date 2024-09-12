@@ -1,5 +1,6 @@
 package io.gitHub.AugustoMello09.email.infra.entities;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -11,10 +12,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
-	
-	private UUID id;
-	private String nome;
-	private String email;
+public class CarrinhoItem {
+
+	private UUID idCarrinho;
+	private UUID idUsuario;
+	private Long idProduto;
+	private String nomeProduto;
+	private int quantidade;
+	private BigDecimal preco;
+	private String imgProduto;
 
 }

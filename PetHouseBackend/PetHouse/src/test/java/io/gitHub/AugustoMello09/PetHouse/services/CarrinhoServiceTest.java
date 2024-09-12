@@ -27,6 +27,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CarrinhoDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.ItemCarrinhoProduto;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Produto;
+import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.CarrinhoProducer;
 import io.gitHub.AugustoMello09.PetHouse.provider.CarrinhoDTOProvider;
 import io.gitHub.AugustoMello09.PetHouse.provider.CarrinhoProvider;
 import io.gitHub.AugustoMello09.PetHouse.provider.ProdutoProvider;
@@ -53,6 +54,9 @@ public class CarrinhoServiceTest {
 
 	@Mock
 	private ProdutoRepository produtoRepository;
+	
+	@Mock
+	private CarrinhoProducer producer;
 
 	private CarrinhoProvider carrinhoProvider;
 	private CarrinhoDTOProvider carrinhoDTOPrivider;
@@ -61,7 +65,7 @@ public class CarrinhoServiceTest {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		service = new CarrinhoServiceImpl(repository, mapper, produtoRepository);
+		service = new CarrinhoServiceImpl(repository, mapper, produtoRepository, producer);
 		carrinhoDTOPrivider = new CarrinhoDTOProvider();
 		carrinhoProvider = new CarrinhoProvider();
 		produtoProvider = new ProdutoProvider();

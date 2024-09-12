@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto Adicionado ao Carrinho</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #7469B6;
+            padding: 20px;
+            text-align: center;
+        }
+        .header img {
+            width: 112px;
+            height: 112px;
+        }
+        .title {
+            font-family: 'Roboto Mono', monospace;
+            color: #7469B6;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .product {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .product img {
+            width: 40%;
+            height: auto;
+            margin-right: 20px;
+        }
+        .product-info {
+            text-align: left;
+            width: 60%;
+        }
+        .product-info h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #7469B6;
+        }
+        .product-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .footer {
+            background-color: #7469B6;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Produto Adicionado ao Carrinho!</h1>
+        </div>
+        <div class="content">
+            <p>Olá, #{nome}, você adicionou o seguinte produto ao seu carrinho:</p>
+            
+            <!-- Informações do Produto -->
+            <div class="product">
+                <div class="product-info">
+                    <h4>#{nomeProduto}</h4>
+                    <p>Quantidade: #{quantidade}</p>
+                    <p>Preço: R$ #{preco}</p>
+                </div>
+            </div>
+
+            <p>Continue suas compras ou finalize seu pedido agora mesmo!</p>
+        </div>
+        <div class="footer">
+            © 2024 PetHouse - Todos os direitos reservados.
+        </div>
+    </div>
+</body>
+</html>

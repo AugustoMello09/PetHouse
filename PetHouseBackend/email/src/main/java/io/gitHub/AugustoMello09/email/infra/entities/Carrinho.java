@@ -1,5 +1,8 @@
 package io.gitHub.AugustoMello09.email.infra.entities;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -11,10 +14,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
+public class Carrinho {
 	
 	private UUID id;
-	private String nome;
-	private String email;
+	private UUID idUsuario;
+	private BigDecimal valorTotalCarrinho;
+	private List<CarrinhoItem> carrinhoItens = new ArrayList<>();
 
 }

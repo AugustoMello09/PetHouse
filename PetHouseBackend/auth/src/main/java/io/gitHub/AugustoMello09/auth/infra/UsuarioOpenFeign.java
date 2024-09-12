@@ -15,8 +15,5 @@ public interface UsuarioOpenFeign {
 	@GetMapping(value = "buscarEmail")
 	public ResponseEntity<Usuario> findByEmail(@RequestParam(value = "email") String email);
 	
-	@GetMapping(value = "test")
-	public String teste();
-	
 
 }
