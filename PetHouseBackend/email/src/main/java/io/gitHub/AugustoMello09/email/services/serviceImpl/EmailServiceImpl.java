@@ -82,5 +82,34 @@ public class EmailServiceImpl implements EmailService {
 		ClassPathResource resource = new ClassPathResource("templates/adicionar.html");
 		return new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
 	}
+	
+
+	@Override
+	public void enviarEmailItensCarrinho(Usuario user) {
+		try {
+			  MimeMessage message = emailSender.createMimeMessage();
+			  MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			  
+			  helper.setFrom(emailFrom);
+			  helper.setSubject("PetHouse - PetShop");
+			  helper.setTo(user.getEmail());
+			  
+			  String template = carregarTemplateEmailItensCarrinho();
+			  
+			  template = template.replace("#{nome}", user.getNome());
+			  
+			  helper.setText(template, true); 
+			  
+			  emailSender.send(message);
+			   
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+	
+	public String carregarTemplateEmailItensCarrinho() throws IOException {
+		ClassPathResource resource = new ClassPathResource("templates/itensCarrinho.html");
+		return new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+	}
 
 }

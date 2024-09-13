@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produto Adicionado ao Carrinho</title>
+    <title>Itens no Carrinho</title>
     <style type="text/css">
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -45,31 +45,6 @@
             color: #333;
             text-align: center;
         }
-        .product {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        .product img {
-            width: 40%;
-            height: auto;
-            margin-right: 20px;
-        }
-        .product-info {
-            text-align: left;
-            width: 60%;
-        }
-        .product-info h4 {
-            margin: 0;
-            font-size: 16px;
-            color: #7469B6;
-        }
-        .product-info p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
         .footer {
             background-color: #7469B6;
             color: #ffffff;
@@ -82,21 +57,12 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Produto Adicionado ao Carrinho!</h1>
+            <h1>Atenção! Itens no seu carrinho</h1>
         </div>
         <div class="content">
-            <p>Olá, #{nome}, você adicionou o seguinte produto ao seu carrinho:</p>
-            
-            <!-- Informações do Produto -->
-            <div class="product">
-                <div class="product-info">
-                    <h4>#{nomeProduto}</h4>
-                    <p>Quantidade: #{quantidade}</p>
-                    <p>Preço do produto: R$ #{preco}</p>
-                </div>
-            </div>
-
-            <p>Continue suas compras ou finalize seu pedido agora mesmo!</p>
+            <p>Olá, #{nome}, você já possui 5 ou mais itens no seu carrinho.</p>
+            <p>Não perca a oportunidade de finalizar sua compra e garantir o melhor para seu pet!</p>
+            <p>Visite nosso site e finalize sua compra agora mesmo.</p>
         </div>
         <div class="footer">
             © 2024 PetHouse - Todos os direitos reservados.

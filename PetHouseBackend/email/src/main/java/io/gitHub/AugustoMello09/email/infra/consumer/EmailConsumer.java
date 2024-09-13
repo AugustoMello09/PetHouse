@@ -59,6 +59,13 @@ public class EmailConsumer {
 
 			carrinhoAnteriorMap.put(key, new ArrayList<>(itemsDto));
 		}
+
+		for (CarrinhoItem itens : itemsDto) {
+			if (itemsDto.size() == 5 || itens.getQuantidade() == 5) {
+				Usuario usuario = buscarUsuarioPorId(key);
+				service.enviarEmailItensCarrinho(usuario);
+			}
+		}
 	}
 
 	private Usuario buscarUsuarioPorId(UUID idUsuario) {
@@ -67,13 +74,11 @@ public class EmailConsumer {
 
 	private List<CarrinhoItem> identificarProdutosNovos(List<CarrinhoItem> itemsAtuais,
 			List<CarrinhoItem> itemsAnteriores) {
-		 return itemsAtuais.stream()
-		            .filter(itemAtual -> {
-		                return itemsAnteriores.stream()
-		                    .filter(itemAnterior -> itemAnterior.getIdProduto().equals(itemAtual.getIdProduto()))
-		                    .noneMatch(itemAnterior -> itemAnterior.getQuantidade() >= itemAtual.getQuantidade());
-		            })
-		            .collect(Collectors.toList());
+		return itemsAtuais.stream().filter(itemAtual -> {
+			return itemsAnteriores.stream()
+					.filter(itemAnterior -> itemAnterior.getIdProduto().equals(itemAtual.getIdProduto()))
+					.noneMatch(itemAnterior -> itemAnterior.getQuantidade() >= itemAtual.getQuantidade());
+		}).collect(Collectors.toList());
 	}
 
 }

@@ -8,5 +8,7 @@ public interface EmailService {
 	void enviarEmailBemVindo(Usuario user);
 	
 	void enviarEmailAdicionouProdutosCarrinho(CarrinhoItem carrinho, Usuario usuario);
+	
+	void enviarEmailItensCarrinho(Usuario user);
 
 }
