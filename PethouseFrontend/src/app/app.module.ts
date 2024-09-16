@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { FormBuscaProdutosComponent } from './features/busca-produtos/components/form-busca-produtos/form-busca-produtos.component';
 import { InformacoesComponent } from './features/perfil/components/informacoes/informacoes.component';
+import { AppMaterialModule } from './app-material.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { InformacoesComponent } from './features/perfil/components/informacoes/i
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
