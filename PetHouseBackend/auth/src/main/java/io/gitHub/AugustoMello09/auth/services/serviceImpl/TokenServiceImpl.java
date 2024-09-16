@@ -26,6 +26,7 @@ import io.gitHub.AugustoMello09.auth.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.auth.domain.entities.Usuario;
 import io.gitHub.AugustoMello09.auth.infra.UsuarioOpenFeign;
 import io.gitHub.AugustoMello09.auth.services.TokenService;
+import io.gitHub.AugustoMello09.auth.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TokenServiceImpl implements UserDetailsService, TokenService {
@@ -48,7 +49,7 @@ public class TokenServiceImpl implements UserDetailsService, TokenService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Usuario user = repository.findByEmail(email).getBody();
 		if (user == null) {
-			throw new UsernameNotFoundException("Email não encontrado");
+			throw new ObjectNotFoundException("Email não encontrado");
 		}
 		return user;
 	}
@@ -112,7 +113,7 @@ public class TokenServiceImpl implements UserDetailsService, TokenService {
 
 			Usuario usuario = repository.findByEmail(email).getBody();
 			if (usuario == null) {
-				throw new UsernameNotFoundException("Email não encontrado");
+				throw new ObjectNotFoundException("Email não encontrado");
 			}
 
 			return generateTokens(usuario);
@@ -124,7 +125,7 @@ public class TokenServiceImpl implements UserDetailsService, TokenService {
 
 				Usuario usuario = repository.findByEmail(email).getBody();
 				if (usuario == null) {
-					throw new UsernameNotFoundException("Email não encontrado");
+					throw new ObjectNotFoundException("Email não encontrado");
 				}
 
 				return generateTokens(usuario);

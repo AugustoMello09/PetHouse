@@ -11,9 +11,13 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { FormBuscaProdutosComponent } from './features/busca-produtos/components/form-busca-produtos/form-busca-produtos.component';
 import { InformacoesComponent } from './features/perfil/components/informacoes/informacoes.component';
-import { AppMaterialModule } from './app-material.module';
+
 import { AuthService } from './service/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
+import { MaterialModule } from './app-material.model';
+import { LoginComponent } from './modals/login/login.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +25,8 @@ import { AuthInterceptor } from './auth.interceptor';
     HomeComponent,
     NavbarComponent,
     FormBuscaProdutosComponent,
-    InformacoesComponent
+    InformacoesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,8 @@ import { AuthInterceptor } from './auth.interceptor';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    AppMaterialModule
+    MaterialModule,
+    NgxSpinnerModule
   ],
   providers: [
     AuthService,

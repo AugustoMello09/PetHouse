@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { LoginComponent } from 'src/app/modals/login/login.component';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
@@ -42,8 +43,8 @@ export class InformacoesComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-   public open(): void {
-    
+  public open(): void {
+    this.dialog.open(LoginComponent);
   }
 
 }

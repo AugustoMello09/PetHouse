@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,9 +37,11 @@ public class AuthController {
 			var authentication = authenticationManager.authenticate(usernamePassword);
 			var tokens = tokenService.generateTokens((Usuario) authentication.getPrincipal());
 			return ResponseEntity.ok().body(new TokenResponseDTO(tokens.accessToken(), tokens.refreshToken()));
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MensagemDTO("Senha inválida"));
-		}
+		} catch (InternalAuthenticationServiceException e) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemDTO("Email não encontrado"));
+	    } catch (BadCredentialsException e) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MensagemDTO("Senha inválida"));
+	    }
 	}
 
 	@PostMapping(value = "/refresh-token")
