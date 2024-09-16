@@ -13,6 +13,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.ItemCarrinhoProduto;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.ItemPedido;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Pedido;
+import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.PagamentoProducer;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.PedidoRepository;
 import io.gitHub.AugustoMello09.PetHouse.services.PedidoService;
@@ -26,6 +27,7 @@ public class PedidoServiceImpl implements PedidoService {
 	private final PedidoRepository repository;
 	private final ModelMapper mapper;
 	private final CarrinhoRepository carrinhoRepository;
+	private final PagamentoProducer producer;
 
 	@Override
 	public PedidoDTO findById(UUID id) {
@@ -60,6 +62,7 @@ public class PedidoServiceImpl implements PedidoService {
 	    }
 	    carrinho.getItemsCarrinho().clear();
 	    repository.save(pedido);
+	    producer.sendToTopicCarrinho(pedido);
 	    carrinhoRepository.save(carrinho); 
 
 	    return mapper.map(pedido, PedidoDTO.class);
