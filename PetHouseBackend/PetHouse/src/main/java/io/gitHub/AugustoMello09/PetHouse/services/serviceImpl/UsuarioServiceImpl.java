@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.BemVindoProducer
 import io.gitHub.AugustoMello09.PetHouse.repositories.CargoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.UsuarioRepository;
+import io.gitHub.AugustoMello09.PetHouse.services.AuthService;
 import io.gitHub.AugustoMello09.PetHouse.services.UsuarioService;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.DataIntegratyViolationException;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.ObjectNotFoundException;
@@ -36,10 +38,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private final CarrinhoRepository carrinhoRepository;
 	private final ModelMapper mapper;
 	private final BemVindoProducer producer;
+	private final AuthService authService;
 	
 	@Transactional(readOnly = true)
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	public UsuarioDTO findById(UUID id) {
+		authService.validateSelfOrAdmin(id);
 		Optional<Usuario> usuario = repository.findById(id);
 		Usuario entity = usuario.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
 		return new UsuarioDTO(entity);
@@ -56,6 +61,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public UsuarioDTO createUser(UsuarioDTOInsert usuarioDTO) {
 		emailAlreadyExists(usuarioDTO);
+		if (authService.isAuthenticated()) {
+			authService.validateSelfOrAdmin(null);
+		}
 		Usuario entity = new Usuario();
 		entity.setNome(usuarioDTO.getNome());
 		entity.setCpfCnpj(usuarioDTO.getCpfCnpj());
@@ -70,7 +78,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Transactional
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	public void updateUser(UsuarioDTO usuarioDTO, UUID id) {
+		authService.validateSelfOrAdmin(id);
 		Usuario entity = repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
 		entity.setNome(usuarioDTO.getNome());
@@ -81,12 +91,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Transactional
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void deleteUser(UUID id) {
+		authService.validateSelfOrAdmin(id);
 		findById(id);
 		repository.deleteById(id);	
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void atribuirCargo(UsuarioDTO usuarioDTO, UUID id) {
 		Usuario usuario = repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));

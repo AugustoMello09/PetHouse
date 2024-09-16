@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CarrinhoDTO;
@@ -28,6 +29,7 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 	private final CarrinhoProducer producer;
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM', 'ROLE_OPERATOR')")
 	public CarrinhoDTO findById(UUID id) {
 		Optional<Carrinho> entity = repository.findById(id);
 		Carrinho carrinho = entity.orElseThrow(() -> new ObjectNotFoundException("Carrinho não encontrado"));
@@ -35,6 +37,7 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM', 'ROLE_OPERATOR')")
 	public CarrinhoDTO adicionarAoCarrinho(CarrinhoDTO carrinhoDTO) {
 		 Carrinho carrinho = repository.findById(carrinhoDTO.getId())
 				 .orElseThrow(()-> new ObjectNotFoundException("Carrinho não encontrado"));
@@ -72,6 +75,7 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM', 'ROLE_OPERATOR')")
 	public void removerProdutoDoCarrinho(UUID idCarrinho, Long idProduto) {
 	    Carrinho carrinho = repository.findById(idCarrinho)
 	            .orElseThrow(() -> new ObjectNotFoundException("Carrinho não encontrado"));

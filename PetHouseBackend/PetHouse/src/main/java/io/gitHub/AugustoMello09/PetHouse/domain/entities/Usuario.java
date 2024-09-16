@@ -76,5 +76,14 @@ public class Usuario implements Serializable {
 		this.cpfCnpj = cpfCnpj;
 	}
 	
+	public boolean hasCargo(String cargoNome) {
+		for (Cargo role : cargos) {
+			if (role.getAuthority().equals(cargoNome)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 
 }

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	@Override
 	@Transactional
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public ProdutoDTO create(ProdutoDTO produtoDTO) {
 		Produto entity = new Produto();
 		entity.setNome(produtoDTO.getNome());
@@ -56,6 +58,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	@Override
 	@Transactional
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void updateProduto(ProdutoDTO produtoDTO, Long id) {
 		Produto entity = repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado"));
@@ -69,6 +72,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void deleteProduto(Long id) {
 		findById(id);
 		repository.deleteById(id);
@@ -76,6 +80,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void atribuirCategoria(Long idProduto, Long idCategoria) {
 		Produto produto = repository.findById(idProduto)
 				.orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado"));

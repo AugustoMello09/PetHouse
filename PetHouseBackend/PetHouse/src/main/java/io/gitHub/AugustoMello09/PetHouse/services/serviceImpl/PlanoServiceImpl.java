@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +47,7 @@ public class PlanoServiceImpl implements PlanoService {
 
 	@Override
 	@Transactional
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public PlanoDTO create(PlanoDTO planoDTO) {
 		PlanoVeterinario entity = new PlanoVeterinario();
 		entity.setNome(planoDTO.getNome());
@@ -58,6 +60,7 @@ public class PlanoServiceImpl implements PlanoService {
 
 	@Override
 	@Transactional
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void updatePlano(PlanoDTO planoDTO, Long id) {
 		PlanoVeterinario entity = repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Plano não encontrado"));
@@ -71,6 +74,7 @@ public class PlanoServiceImpl implements PlanoService {
 
 	@Override
 	@Transactional
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void deletePlano(Long id) {
 		findById(id);
 		try {

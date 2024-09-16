@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.PedidoDTO;
@@ -30,6 +31,7 @@ public class PedidoServiceImpl implements PedidoService {
 	private final PagamentoProducer producer;
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM', 'ROLE_OPERATOR')")
 	public PedidoDTO findById(UUID id) {
 		Optional<Pedido> entity = repository.findById(id);
 		Pedido pedido = entity.orElseThrow(() -> new ObjectNotFoundException("Pedido não encontrado"));
@@ -37,6 +39,7 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 	
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_OPERATOR')")
 	public PedidoDTO create(UUID idCarrinho) {
 	    Carrinho carrinho = carrinhoRepository.findById(idCarrinho)
 	            .orElseThrow(() -> new ObjectNotFoundException("Carrinho não encontrado"));

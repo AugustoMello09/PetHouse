@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import io.gitHub.AugustoMello09.PetHouse.services.exceptions.AuthorizationException;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.DataIntegratyViolationException;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,13 @@ public class ResourceExceptionHandler {
 		StandardError error = new StandardError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), e.getMessage(),
 				request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+		StandardError err = new StandardError(LocalDateTime.now(), HttpStatus.FORBIDDEN.value(), e.getMessage(),
+				request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 	}
 
 }

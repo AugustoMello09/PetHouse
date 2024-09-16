@@ -72,6 +72,9 @@ public class UsuarioServiceTest {
 	@Mock
 	private BemVindoProducer producer;
 	
+	@Mock
+	private AuthService authService;
+	
 	private UsuarioProvider usuarioProvider;
 	private UsuarioDTOProvider usuarioDTOProvider;
 	private UsuarioDTOInsertProvider usuarioDTOInsertProvider;
@@ -83,12 +86,13 @@ public class UsuarioServiceTest {
 		usuarioProvider = new UsuarioProvider(passwordEncoder);
 		usuarioDTOProvider = new UsuarioDTOProvider();
 		usuarioDTOInsertProvider = new UsuarioDTOInsertProvider();
-		service = new UsuarioServiceImpl(repository, cargoRepository, passwordEncoder, carrinhoRepository, modelMapper, producer);
+		service = new UsuarioServiceImpl(repository, cargoRepository, passwordEncoder, carrinhoRepository, modelMapper, producer, authService);
 	}
 	
 	@DisplayName("Deve retornar um Usuario com sucesso.")
 	@Test
 	public void shouldReturnAUserWithSuccess() {
+		authService.validateSelfOrAdmin(ID);
 		Usuario usuario = usuarioProvider.criar();
 
 		when(repository.findById(ID)).thenReturn(Optional.of(usuario));
@@ -176,6 +180,8 @@ public class UsuarioServiceTest {
 	@DisplayName("Atualização Deve retornar sucesso.")
 	@Test
 	public void shouldUpdateReturnSuccess() {
+		authService.validateSelfOrAdmin(ID);
+		
 		UsuarioDTO usuarioDTO = usuarioDTOProvider.criar();
 		Usuario usuario = usuarioProvider.criar();
 		
@@ -191,6 +197,8 @@ public class UsuarioServiceTest {
 	@DisplayName("Deve deletar um usuário com sucesso.")
 	@Test
 	public void shouldDeleteWithSuccess() {
+		authService.validateSelfOrAdmin(ID);
+		
 		Usuario usuario = usuarioProvider.criar();
 		
 		when(repository.findById(ID)).thenReturn(Optional.of(usuario));

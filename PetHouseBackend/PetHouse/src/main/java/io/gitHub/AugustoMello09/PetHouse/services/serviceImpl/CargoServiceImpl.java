@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CargoDTO;
@@ -22,6 +23,7 @@ public class CargoServiceImpl implements CargoService {
 	private final ModelMapper mapper;
 	
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public CargoDTO findById(Long id) {
 		Optional<Cargo> cargo = repository.findById(id);
 		Cargo entity = cargo.orElseThrow(() -> new ObjectNotFoundException("Cargo não encontrado"));
@@ -29,12 +31,14 @@ public class CargoServiceImpl implements CargoService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public List<CargoDTO> listAll() {
 		List<Cargo> cargo = repository.findAll();
 		return cargo.stream().map(x -> mapper.map(x, CargoDTO.class)).collect(Collectors.toList());
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public CargoDTO create(CargoDTO cargoDTO) {
 		Cargo cargo = new Cargo();
 		cargo.setAuthority(cargoDTO.getAuthority());
@@ -43,6 +47,7 @@ public class CargoServiceImpl implements CargoService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void updateCargo(CargoDTO cargoDTO, Long id) {
 		Cargo cargo	= repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Cargo não encontrado"));
@@ -52,6 +57,7 @@ public class CargoServiceImpl implements CargoService {
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADM')")
 	public void deleteCargo(Long id) {
 		findById(id);
 		repository.deleteById(id);
