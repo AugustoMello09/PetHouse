@@ -9,6 +9,9 @@ spring:
   profiles:
     active:
     - test
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:29092  
 
 eureka:
   client:
