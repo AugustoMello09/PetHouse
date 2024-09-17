@@ -5,8 +5,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/service/auth.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { usuarioRegistro } from './usuarioRegistro.model';
-import { CarrinhoInfo } from 'src/app/model/CarrinhoInfo.model';
+
 import { HttpErrorResponse } from '@angular/common/http';
+import { CarrinhoInfo } from 'src/app/model/carrinhoInfo.model';
 
 @Component({
   selector: 'app-registro',

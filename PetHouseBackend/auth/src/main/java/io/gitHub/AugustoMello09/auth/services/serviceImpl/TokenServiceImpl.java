@@ -72,6 +72,7 @@ public class TokenServiceImpl implements UserDetailsService, TokenService {
 			String accessToken = JWT.create().withIssuer(ISSUER).withSubject(usuario.getEmail())
 					.withClaim("id", usuario.getId().toString()).withClaim("nome", usuario.getNome())
 					.withClaim("email", usuario.getEmail()).withClaim("roles", rolesAsString)
+					.withClaim("carrinhoId", usuario.getIdCarrinho().toString())
 					.withExpiresAt(genExpiInstance()).sign(algorithm);
 
 			String refreshToken = JWT.create().withIssuer(ISSUER).withSubject(usuario.getEmail())

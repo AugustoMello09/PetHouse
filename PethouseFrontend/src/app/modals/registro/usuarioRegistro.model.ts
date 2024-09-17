@@ -1,4 +1,5 @@
-import { CargoId } from "src/app/model/CargoId.model";
+import { CargoId } from "src/app/model/cargoId.model";
+
 
 
 export interface usuarioRegistro {

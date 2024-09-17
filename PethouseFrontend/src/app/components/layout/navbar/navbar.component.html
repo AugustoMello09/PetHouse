@@ -9,7 +9,7 @@
       </svg>
     </div>
 
-    <div class="max-w-md w-full">
+    <div class="max-w-md w-full desktop:hidden">
       <app-form-busca-produtos></app-form-busca-produtos>
     </div>
 
@@ -21,6 +21,10 @@
         <li class="font-font-secundaria font-medium text-lg text-textDestaque hover:text-subTextCard hover:scale-110 cursor-pointer transition-all"><a href="#pets">Pets</a></li>
         <li class="font-font-secundaria font-medium text-lg text-textDestaque hover:text-subTextCard hover:scale-110 cursor-pointer transition-all"><a href="#contato">Contado</a></li>
       </ul>
+    </div>
+
+    <div class="tabletMin:hidden">     
+      <app-sacola [quantidade]="quantidadeItensSacola"></app-sacola>
     </div>
 
     <div class="tabletMin:hidden">                                           

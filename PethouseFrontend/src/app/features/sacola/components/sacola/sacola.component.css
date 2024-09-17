@@ -1,0 +1,14 @@
+.sacola-desativada {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.sacola-desativada span {
+ display: none !important;
+}
+
+.dropdown-carrinho {
+  position: relative;
+  z-index: 1000; 
+}
+

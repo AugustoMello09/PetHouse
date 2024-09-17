@@ -6,6 +6,8 @@ module.exports = {
         'textDestaque' : '#7469B6',
         'textSecunda': '#AD88C6',
         'subTextCard': '#a8b2d1',
+        'bgColor': '#FFE6E6',
+        'bgCard': '#AD88C6',
         'shadow': 'rgba(2,12,27,0.7)',
       },
       fontFamily: {

@@ -18,6 +18,7 @@ import { MaterialModule } from './app-material.model';
 import { LoginComponent } from './modals/login/login.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RegistroComponent } from './modals/registro/registro.component';
+import { SacolaComponent } from './features/sacola/components/sacola/sacola.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { RegistroComponent } from './modals/registro/registro.component';
     FormBuscaProdutosComponent,
     InformacoesComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    SacolaComponent
   ],
   imports: [
     BrowserModule,

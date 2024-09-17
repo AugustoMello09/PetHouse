@@ -35,6 +35,8 @@ public class Usuario implements UserDetails{
 	private String senha;
 
 	private Set<Cargo> cargos = new HashSet<>();
+	
+	private UUID idCarrinho;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
