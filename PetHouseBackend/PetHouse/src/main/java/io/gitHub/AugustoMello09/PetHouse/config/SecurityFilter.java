@@ -1,17 +1,22 @@
 package io.gitHub.AugustoMello09.PetHouse.config;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.AuthorizationException;
 import jakarta.servlet.FilterChain;
@@ -33,27 +38,34 @@ public class SecurityFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String token;
-        String authorizationHeader = request.getHeader("Authorization");
+		String authorizationHeader = request.getHeader("Authorization");
 
-        try {
-            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-                token = authorizationHeader.replace("Bearer ", "");
-                String email = validacaoToken(token); 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, null, List.of());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-            filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Token inválido ou expirado");
-        }
+		try {
+			if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+				token = authorizationHeader.replace("Bearer ", "");
+				UsernamePasswordAuthenticationToken authentication = validacaoToken(token);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+			filterChain.doFilter(request, response);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.getWriter().write("Token inválido ou expirado");
+		}
 	}
 
-	private String validacaoToken(String token) {
+	private UsernamePasswordAuthenticationToken validacaoToken(String token) {
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(secret);
-			return JWT.require(algorithm).withIssuer(ISSUER).build().verify(token).getSubject();
-		} catch (JWTCreationException e) {
+			DecodedJWT jwt = JWT.require(algorithm).withIssuer(ISSUER).build().verify(token);
+
+			String email = jwt.getSubject();
+			String roles = jwt.getClaim("roles").asString();
+
+			List<GrantedAuthority> authorities = Arrays.stream(roles.split(",")).map(SimpleGrantedAuthority::new)
+					.collect(Collectors.toList());
+
+			return new UsernamePasswordAuthenticationToken(email, null, authorities);
+		} catch (JWTVerificationException e) {
 			throw new AuthorizationException("Problema na hora de validar o token");
 		}
 	}
