@@ -31,7 +31,49 @@
       <app-informacoes></app-informacoes>
     </div>
 
+
+    <div class="tabletMin:flex tabletMin:items-center tabletMin:gap-5">
+      <button type="button" class="hidden tabletMin:block pr-5" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+        <span class="sr-only">Open user menu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 fill-current text-textDestaque hover:text-subTextCard"  viewBox="0 0 18 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 7h18M1 1h18M1 13h18"/>
+          </svg>
+      </button>
+      <div class="hidden p-5 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown" style="top: 100%; right: 0;"> 
+        <ul class="py-2 w-full text-left" aria-labelledby="user-menu-button">
+          <li class="font-font-secundaria font-medium text-lg text-textDestaque hover:text-subTextCard hover:scale-110 cursor-pointer transition-all p-2"><a href="#slider">Home</a></li>
+          <li class="font-font-secundaria font-medium text-lg text-textDestaque hover:text-subTextCard hover:scale-110 cursor-pointer transition-all p-2"><a href="#sobre">Sobre</a></li>
+          <li class="font-font-secundaria font-medium text-lg text-textDestaque hover:text-subTextCard hover:scale-110 cursor-pointer transition-all p-2"><a href="#produto">Produtos</a></li>
+          <li class="font-font-secundaria font-medium text-lg text-textDestaque hover:text-subTextCard hover:scale-110 cursor-pointer transition-all p-2"><a href="#pets">Pets</a></li>
+          <li class="font-font-secundaria font-medium text-lg text-textDestaque hover:text-subTextCard hover:scale-110 cursor-pointer transition-all p-2"><a href="#contato">Contado</a></li>
+          <mat-divider></mat-divider>
+          <li>
+            <div class="p-2">
+              <app-informacoes></app-informacoes>
+            </div>
+          </li>
+          <mat-divider></mat-divider>
+          <li>
+            <div class="w-full text-center py-2">
+              <app-sacola [quantidade]="quantidadeItensSacola"></app-sacola>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
   </div>
 
+  <mat-divider></mat-divider>
+  
+  <div class="w-full">
+      
+    <ul class="flex items-center justify-center h-8">
+      <li class="font-font-secundaria font-medium text-lg text-textDestaque hover:text-subTextCard hover:scale-110 cursor-pointer transition-all"><a href="#plano">Planos de saúde</a></li>
+    </ul>
+    
+  </div>
 
 </nav>
+

@@ -14,6 +14,8 @@ export class NavbarComponent implements OnInit {
 
   @Input() quantidadeItensSacola = 0;
 
+  isDropdownVisible = false;
+
   constructor(private router: Router, private carrinhoService: CarrinhoService,
     private auth: AuthService
   ) { }
@@ -36,4 +38,7 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  public toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
 }
