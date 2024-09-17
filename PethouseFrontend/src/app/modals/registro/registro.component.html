@@ -1,0 +1,59 @@
+<div class="p-8 w-96 h-auto sm5:w-auto sm1:w-full">
+  <!-- Modal content -->
+  <div class="bg-white rounded-lg">
+      <!-- Modal header -->
+      <div class="flex items-center justify-center h-1/5">
+          <h3 class="text-xl font-semibold text-gray-900">
+              Criar conta
+          </h3>
+          <button type="button" (click)="close()"  class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+              <span class="sr-only">Close modal</span>
+          </button>
+      </div>
+      <!-- Modal body -->
+      <div class="w-full">
+          <form class="space-y-4" #f="ngForm">
+
+              <div>
+                  <label for="nome" class="block py-2 mb-2 text-sm text-left font-medium text-gray-900 dark:text-white">Seu nome</label>
+                  <input type="text" id="nome" name="nome" class="bg-gray-50 border border-gray-300  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required [(ngModel)]="usuario.nome" required maxlength="10"/>
+                  <div *ngIf="(f.controls['nome']?.invalid && f.controls['nome']?.touched) || f.controls['nome']?.dirty">
+                    <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['nome']?.errors?.['required']">O campo Nome deve ser preenchido.</span>
+                  </div>
+               </div>
+              
+              <div>
+                  <label for="email" class="block mb-2 text-sm text-left font-medium text-gray-900 dark:text-white">Seu email</label>
+                  <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required [(ngModel)]="usuario.email" required maxlength="60"/>
+                  <div *ngIf="(f.controls['email']?.invalid && f.controls['email']?.touched) || f.controls['email']?.dirty">
+                    <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['email']?.errors?.['required']">O campo Email deve ser preenchido.</span>
+                  </div>
+               </div>
+               
+               <div>
+                <label for="cpf" class="block mb-2 text-sm text-left font-medium text-gray-900 dark:text-white">Cpf ou Cnpj</label>
+                <input type="cpf" id="cpf" name="cpf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required [(ngModel)]="usuario.cpfCnpj" required maxlength="60"/>
+                <div *ngIf="(f.controls['cpf']?.invalid && f.controls['cpf']?.touched) || f.controls['cpf']?.dirty">
+                  <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['cpf']?.errors?.['required']">O campo Cpf ou Cnpj deve ser preenchido.</span>
+                </div>
+              </div>
+              
+              <div>
+                  <label for="senha" class="block mb-2 text-sm text-left font-medium text-gray-900 dark:text-white">Sua senha</label>
+                  <input type="password" id="senha" name="senha" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required [(ngModel)]="usuario.senha" required maxlength="25"/>
+                  <div *ngIf="(f.controls['senha']?.invalid && f.controls['senha']?.touched) || f.controls['senha']?.dirty">
+                    <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['senha']?.errors?.['required']">O campo Senha deve ser preenchido.</span>
+                  </div> 
+                </div>
+              
+              
+              <button [disabled]="f.invalid" type="submit" class="w-full disabled:bg-gray-400 disabled:cursor-not-allowed text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" (click)="criar()" >Criar conta</button>
+              
+          </form>
+      </div>
+  </div>
+</div>
+

@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
+import { RegistroComponent } from '../registro/registro.component';
 
 @Component({
   selector: 'app-login',
@@ -71,6 +72,11 @@ export class LoginComponent implements OnInit {
     if (err.status === 404) {
       this.message("Email não encontrado. ");
     }
+  }
+
+  public criarConta() {
+    this.dialog.closeAll();
+    this.dialog.open(RegistroComponent)
   }
 
 

@@ -17,6 +17,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { MaterialModule } from './app-material.model';
 import { LoginComponent } from './modals/login/login.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RegistroComponent } from './modals/registro/registro.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NavbarComponent,
     FormBuscaProdutosComponent,
     InformacoesComponent,
-    LoginComponent
+    LoginComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
