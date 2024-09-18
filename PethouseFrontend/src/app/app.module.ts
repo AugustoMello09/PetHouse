@@ -20,6 +20,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { RegistroComponent } from './modals/registro/registro.component';
 import { SacolaComponent } from './features/sacola/components/sacola/sacola.component';
 import { SlideComponent } from './components/slide/slide.component';
+import { HelloComponent } from './components/hello/hello.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { SlideComponent } from './components/slide/slide.component';
     LoginComponent,
     RegistroComponent,
     SacolaComponent,
-    SlideComponent
+    SlideComponent,
+    HelloComponent
   ],
   imports: [
     BrowserModule,
