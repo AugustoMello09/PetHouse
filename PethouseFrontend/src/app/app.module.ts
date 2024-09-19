@@ -24,6 +24,9 @@ import { HelloComponent } from './components/hello/hello.component';
 import { PlanosComponent } from './components/planos/planos.component';
 import { PlanoModalComponent } from './modals/plano-modal/plano-modal.component';
 import { AuthModalComponent } from './modals/auth-modal/auth-modal.component';
+import { LeaftModule } from './app-leaft.model';
+import { PetsComponent } from './components/pets/pets.component';
+import { MapaComponent } from './modals/mapa/mapa.component';
 
 
 @NgModule({
@@ -40,7 +43,9 @@ import { AuthModalComponent } from './modals/auth-modal/auth-modal.component';
     HelloComponent,
     PlanosComponent,
     PlanoModalComponent,
-    AuthModalComponent
+    AuthModalComponent,
+    PetsComponent,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,8 @@ import { AuthModalComponent } from './modals/auth-modal/auth-modal.component';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    LeaftModule
   ],
   providers: [
     AuthService,

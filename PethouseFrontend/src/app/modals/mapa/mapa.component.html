@@ -1,0 +1,51 @@
+<div class="p-8 w-full h-full sm5:w-auto sm1:w-full sm4:overflow-hidden">
+  <!-- Modal content -->
+  <div class="bg-white rounded-lg">
+      <!-- Modal header -->
+      <div class="flex items-center justify-center h-1/5">
+          <p class="text-textSecunda text-3xl sm3:text-base font-font-primaria font-bold py-4">
+              Adoção
+          </p>
+          <button type="button" (click)="close()"  class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+      </div>
+      <!-- Modal body -->
+      <h2>Encontre a casa de adoção mais próxima de você</h2>
+       <mat-dialog-content class="mat-typography">
+        <div class="py-3">
+          <label for="estado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione o Estado</label>
+          <select id="estado" name="estado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
+            (change)="getBuscaCidade($event)">
+            <option value="" disabled selected>Escolha um estado</option>
+            <option *ngFor="let estado of estadoLista" [value]="estado.id">{{ estado.nome }}</option>
+          </select>
+        </div>
+      
+        <div class="">
+          <label for="cidade" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione a Cidade</label>
+          <select id="cidade" name="cidade" (change)="onCidadeSelecionada($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
+            [disabled]="!estadoSelecionado || cidadeLista.length === 0">
+            <option value="" disabled selected>Escolha uma cidade</option>
+            <option *ngFor="let cidade of cidadeLista" [value]="cidade.nome">{{ cidade.nome }}</option>
+          </select>
+        </div>
+
+        <div class="py-3">
+          <button (click)="atualizarMapa()" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            Buscar
+          </button>
+        </div>
+
+          <div class="map-container">
+            <div class="map-frame">
+              <div id="map"></div>
+            </div>
+          </div>
+        </mat-dialog-content>
+  </div>
+</div>
+
