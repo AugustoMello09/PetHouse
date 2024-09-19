@@ -31,6 +31,7 @@ import { AboutComponent } from './components/about/about.component';
 import { ProductComponent } from './components/product/product.component';
 import { CardComponent } from './features/produtos/components/card/card.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 
 
@@ -54,7 +55,8 @@ import { ContactComponent } from './components/contact/contact.component';
     AboutComponent,
     ProductComponent,
     CardComponent,
-    ContactComponent
+    ContactComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
