@@ -28,6 +28,8 @@ import { LeaftModule } from './app-leaft.model';
 import { PetsComponent } from './components/pets/pets.component';
 import { MapaComponent } from './modals/mapa/mapa.component';
 import { AboutComponent } from './components/about/about.component';
+import { ProductComponent } from './components/product/product.component';
+import { CardComponent } from './features/produtos/components/card/card.component';
 
 
 
@@ -48,7 +50,9 @@ import { AboutComponent } from './components/about/about.component';
     AuthModalComponent,
     PetsComponent,
     MapaComponent,
-    AboutComponent
+    AboutComponent,
+    ProductComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

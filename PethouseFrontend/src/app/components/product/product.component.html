@@ -1,0 +1,25 @@
+<section class="pb-10 w-full">
+
+  <div class="text-center h-1/5">
+    <p class="text-textDestaque text-3xl font-font-primaria font-bold py-10 bbd2:text-xl">Nossos produtos</p>
+  </div>
+
+  <div class="flex items-center justify-evenly w-full transition-transform duration-700 ease-in-out">
+
+    <button (click)="previousPage()" class="text-textDestaque text-3xl bbd2:text-base p-2">&lt;</button>
+
+    <div *ngIf="isLoading" class="flex justify-center items-center w-full h-full">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <ng-container *ngIf="!isLoading">
+      <div *ngFor="let produto of produtos">
+        <app-card [produto]="produto"></app-card>
+      </div>
+    </ng-container>  
+
+    <button (click)="nextPage()" class="text-textDestaque bbd2:text-base text-3xl p-2">&gt;</button>
+
+  </div>
+
+</section>

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -12,12 +13,14 @@ import { MatDividerModule } from '@angular/material/divider';
     CommonModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatDialogModule,
     MatSnackBarModule,
     MatDividerModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }
