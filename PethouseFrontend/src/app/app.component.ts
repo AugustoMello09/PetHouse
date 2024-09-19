@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
+import * as EmailJS from '@emailjs/browser';
 
 @Component({
   selector: 'app-root',
@@ -18,5 +19,6 @@ export class AppComponent {
        setTimeout(() => {  initFlowbite();})
       }
     });
+    EmailJS.init('VTT9bcqQ7mURlEBVe');
   }
 }

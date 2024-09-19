@@ -30,6 +30,7 @@ import { MapaComponent } from './modals/mapa/mapa.component';
 import { AboutComponent } from './components/about/about.component';
 import { ProductComponent } from './components/product/product.component';
 import { CardComponent } from './features/produtos/components/card/card.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 
@@ -52,7 +53,8 @@ import { CardComponent } from './features/produtos/components/card/card.componen
     MapaComponent,
     AboutComponent,
     ProductComponent,
-    CardComponent
+    CardComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
