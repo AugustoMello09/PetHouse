@@ -27,6 +27,8 @@ import { AuthModalComponent } from './modals/auth-modal/auth-modal.component';
 import { LeaftModule } from './app-leaft.model';
 import { PetsComponent } from './components/pets/pets.component';
 import { MapaComponent } from './modals/mapa/mapa.component';
+import { AboutComponent } from './components/about/about.component';
+
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { MapaComponent } from './modals/mapa/mapa.component';
     PlanoModalComponent,
     AuthModalComponent,
     PetsComponent,
-    MapaComponent
+    MapaComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
