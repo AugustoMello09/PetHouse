@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import io.gitHub.AugustoMello09.PetHouse.domain.enums.Plano;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,6 +42,7 @@ public class PlanoVeterinario implements Serializable {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String descricao;
 	
+	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
 	private Plano plano;
 	

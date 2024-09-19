@@ -21,6 +21,9 @@ import { RegistroComponent } from './modals/registro/registro.component';
 import { SacolaComponent } from './features/sacola/components/sacola/sacola.component';
 import { SlideComponent } from './components/slide/slide.component';
 import { HelloComponent } from './components/hello/hello.component';
+import { PlanosComponent } from './components/planos/planos.component';
+import { PlanoModalComponent } from './modals/plano-modal/plano-modal.component';
+import { AuthModalComponent } from './modals/auth-modal/auth-modal.component';
 
 
 @NgModule({
@@ -34,7 +37,10 @@ import { HelloComponent } from './components/hello/hello.component';
     RegistroComponent,
     SacolaComponent,
     SlideComponent,
-    HelloComponent
+    HelloComponent,
+    PlanosComponent,
+    PlanoModalComponent,
+    AuthModalComponent
   ],
   imports: [
     BrowserModule,
