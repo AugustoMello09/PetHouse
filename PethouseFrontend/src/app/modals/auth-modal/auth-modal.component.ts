@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-auth-modal',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthModalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  public loginOuRegistro() {
+    this.dialog.open(LoginComponent);
+  }
+
+  public close() {
+    this.dialog.closeAll();
   }
 
 }
