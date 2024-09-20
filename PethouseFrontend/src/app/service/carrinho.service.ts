@@ -44,13 +44,4 @@ export class CarrinhoService {
       tap(carrinho => this.carrinhoSubject.next(carrinho)) 
     );
   }
-
-  finalizar(carrinhoId: string): Observable<CarrinhoInfo> {
-    const url = `${this.baseUrl}/pethouse/v1/carrinho/finalizarCarrinho/${carrinhoId}`;
-    return this.http.patch<void>(url, {}).pipe(
-      switchMap(() => this.findById(carrinhoId)), 
-      tap(carrinho => this.carrinhoSubject.next(carrinho)) 
-    );
-    
-  }
 }

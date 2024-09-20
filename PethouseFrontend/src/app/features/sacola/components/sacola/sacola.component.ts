@@ -73,7 +73,7 @@ export class SacolaComponent implements OnInit {
     }
   
   public irCarrinho(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['/meuCarrinho']);
   }
 
 }

@@ -32,6 +32,7 @@ import { ProductComponent } from './components/product/product.component';
 import { CardComponent } from './features/produtos/components/card/card.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { MeuCarrinhoComponent } from './features/carrinho/components/meu-carrinho/meu-carrinho.component';
 
 
 
@@ -56,7 +57,8 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     ProductComponent,
     CardComponent,
     ContactComponent,
-    FooterComponent
+    FooterComponent,
+    MeuCarrinhoComponent
   ],
   imports: [
     BrowserModule,

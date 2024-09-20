@@ -15,6 +15,7 @@ spring:
               - POST
               - PUT
               - DELETE
+              - PATCH
             allowedHeaders:
               - "*"
             allowCredentials: true
