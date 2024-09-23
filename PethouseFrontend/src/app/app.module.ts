@@ -13,7 +13,7 @@ import { FormBuscaProdutosComponent } from './features/busca-produtos/components
 import { InformacoesComponent } from './features/perfil/components/informacoes/informacoes.component';
 
 import { AuthService } from './service/auth.service';
-import { AuthInterceptor } from './auth.interceptor';
+
 import { MaterialModule } from './app-material.model';
 import { LoginComponent } from './modals/login/login.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -33,6 +33,13 @@ import { CardComponent } from './features/produtos/components/card/card.componen
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { MeuCarrinhoComponent } from './features/carrinho/components/meu-carrinho/meu-carrinho.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RefreshTokenInterceptor } from './interceptors/refresh-token.interceptor';
+import { CheckoutComponent } from './features/pagamento/components/checkout/checkout.component';
+import { EmailValidatorDirective } from './directives/email-validator.directive';
+import { MaskDirective } from './directives/mask.directive';
+import { ValidandoCepDirective } from './directives/validando-cep.directive';
+import { NavbarcheckoutComponent } from './features/pagamento/components/layout/navbarcheckout/navbarcheckout.component';
 
 
 
@@ -58,7 +65,12 @@ import { MeuCarrinhoComponent } from './features/carrinho/components/meu-carrinh
     CardComponent,
     ContactComponent,
     FooterComponent,
-    MeuCarrinhoComponent
+    MeuCarrinhoComponent,
+    CheckoutComponent,
+    EmailValidatorDirective,
+    MaskDirective,
+    ValidandoCepDirective,
+    NavbarcheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +87,11 @@ import { MeuCarrinhoComponent } from './features/carrinho/components/meu-carrinh
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptor, 
       multi: true
     }
   ],
