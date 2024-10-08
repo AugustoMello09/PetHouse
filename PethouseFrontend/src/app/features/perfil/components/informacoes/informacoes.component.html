@@ -8,6 +8,7 @@
     <ng-container *ngIf="isLoggedIn; else notLoggedIn">
       <div class="p-4 text-center">
         <p class="font-font-secundaria py-1 font-medium text-lg text-textDestaque">{{ user.nome }}</p>
+        <button (click)="meuCarrinho()" class="font-font-secundaria py-1 font-medium text-sm text-textDestaque hover:bg-gray-100 w-full"> meu carrinho </button>
         <button (click)="logout()" class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Sair</button>
       </div>
     </ng-container>

@@ -28,9 +28,9 @@ public class PedidoController {
 		return ResponseEntity.ok().body(response);
 	}
 	
-	@PostMapping(value = "/fazerPedido/{idCarrinho}")
-	public ResponseEntity<PedidoDTO> create(@PathVariable UUID idCarrinho){
-		var newObj = service.create(idCarrinho);
+	@PostMapping(value = "/fazerPedido/{idCarrinho}/formaPagamento/{formaPagamento}")
+	public ResponseEntity<PedidoDTO> create(@PathVariable UUID idCarrinho,@PathVariable Integer formaPagamento){
+		var newObj = service.create(idCarrinho, formaPagamento);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 		return ResponseEntity.created(uri).body(newObj);
 	}

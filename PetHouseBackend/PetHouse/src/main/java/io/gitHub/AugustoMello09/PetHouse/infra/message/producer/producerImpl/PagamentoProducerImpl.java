@@ -23,6 +23,7 @@ public class PagamentoProducerImpl implements PagamentoProducer {
 		pagamento.setIdUsuario(pedido.getUsuario().getId());
 		pagamento.setPreco(pedido.getValorTotalPedido());
 		pagamento.setCpfOrCnpj(pedido.getUsuario().getCpfCnpj());
+		pagamento.setBillingType(pedido.getPagamento().toString().toUpperCase());
 		kafkaTemplate.send("Pagamento", pedido.getUsuario().getId().toString(), pagamento);
 	}
 

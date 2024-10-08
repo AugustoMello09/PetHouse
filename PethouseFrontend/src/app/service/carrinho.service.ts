@@ -44,4 +44,9 @@ export class CarrinhoService {
       tap(carrinho => this.carrinhoSubject.next(carrinho)) 
     );
   }
+
+  pedido(carrinhoId: string, formaPagamento: number): Observable<any> {
+    const url = `${this.baseUrl}/pethouse/v1/pedido/fazerPedido/${carrinhoId}/formaPagamento/${formaPagamento}`;
+    return this.http.post<any>(url, {});
+  }
 }

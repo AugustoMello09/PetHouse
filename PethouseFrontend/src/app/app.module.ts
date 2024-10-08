@@ -40,6 +40,9 @@ import { EmailValidatorDirective } from './directives/email-validator.directive'
 import { MaskDirective } from './directives/mask.directive';
 import { ValidandoCepDirective } from './directives/validando-cep.directive';
 import { NavbarcheckoutComponent } from './features/pagamento/components/layout/navbarcheckout/navbarcheckout.component';
+import { PixComponent } from './features/pagamento/components/pix/pix.component';
+import { BoletoComponent } from './features/pagamento/components/boleto/boleto.component';
+import { CartaoComponent } from './features/pagamento/components/cartao/cartao.component';
 
 
 
@@ -70,7 +73,10 @@ import { NavbarcheckoutComponent } from './features/pagamento/components/layout/
     EmailValidatorDirective,
     MaskDirective,
     ValidandoCepDirective,
-    NavbarcheckoutComponent
+    NavbarcheckoutComponent,
+    PixComponent,
+    BoletoComponent,
+    CartaoComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ package io.gitHub.AugustoMello09.PetHouse.domain.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -32,6 +33,9 @@ public class ItemPedido implements Serializable {
     private Produto produto;
 
     private int quantidade;
+    
+    @Column(columnDefinition = "TEXT")
+    private String img;
 
     private BigDecimal preco;
     

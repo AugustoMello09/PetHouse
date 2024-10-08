@@ -15,11 +15,13 @@ public class ItemPedidoDTO {
 	private Long produtoId;
 	private String nomeProduto;
 	private int quantidade;
+	private String img;
 
 	public ItemPedidoDTO(ItemPedido itemPedido) {
 		this.produtoId = itemPedido.getProduto().getId();
 		this.nomeProduto = itemPedido.getProduto().getNome();
 		this.quantidade = itemPedido.getQuantidade();
+		this.img = itemPedido.getImg();
 	}
 
 }

@@ -16,6 +16,8 @@ import { CarrinhoInfo } from 'src/app/model/carrinhoInfo.model';
 })
 export class RegistroComponent implements OnInit {
 
+  cpfMask: string = '999.999.999-99';
+
   public usuario: usuarioRegistro = {
     id: '',
     nome: '',
@@ -27,20 +29,6 @@ export class RegistroComponent implements OnInit {
     ]
   }
 
-  public carrinho: CarrinhoInfo = {
-    id: '',
-    itemsCarrinho: [
-      {
-        produtoId: 0,
-        quantidade: 0,
-        nome: '',
-        preco: 0,
-        imgProduto: ''
-      },
-    ],
-    valorTotalCarrinho: 0
-  };
-
   constructor(private dialog: MatDialog, private authService: AuthService, private service: UsuarioService,
     private snack: MatSnackBar, private spinner: NgxSpinnerService) { }
 
@@ -51,7 +39,6 @@ export class RegistroComponent implements OnInit {
     this.spinner.show();
     this.service.create(this.usuario).subscribe(() => {
       this.message("Conta criada com sucesso. ");
-      console.log(this.usuario);
       this.authService.tentarLogar(this.usuario.email, this.usuario.senha).subscribe(result => {
         const token_access = JSON.stringify(result);
         localStorage.setItem('token_access', token_access);

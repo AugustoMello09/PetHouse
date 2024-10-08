@@ -20,5 +20,6 @@ public class PagamentoDTO implements Serializable {
 	private UUID idUsuario;
 	private BigDecimal preco;
 	private String cpfOrCnpj;
+	private String billingType;
 
 }

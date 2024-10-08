@@ -47,4 +47,8 @@ export class InformacoesComponent implements OnInit {
     this.dialog.open(LoginComponent);
   }
 
+  public meuCarrinho(): void {
+    this.router.navigate(['/meuCarrinho']);
+  }
+
 }

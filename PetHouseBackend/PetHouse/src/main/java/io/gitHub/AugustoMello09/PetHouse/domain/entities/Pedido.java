@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import io.gitHub.AugustoMello09.PetHouse.domain.enums.Pagamento;
+import io.gitHub.AugustoMello09.PetHouse.domain.enums.Status;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,13 +50,19 @@ public class Pedido implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "carrinho_id", referencedColumnName = "id")
 	private Carrinho carrinho;
+	
+	private Pagamento pagamento;
+	
+	private Status status;
 
-	public Pedido(UUID id, LocalDate data, Usuario usuario, Carrinho carrinho) {
+	public Pedido(UUID id, LocalDate data, Usuario usuario, Carrinho carrinho, Pagamento pagamento, Status status) {
 		super();
 		this.id = id;
 		this.data = data;
 		this.usuario = usuario;
 		this.carrinho = carrinho;
+		this.pagamento = pagamento;
+		this.status = status;
 	}
 
 	public BigDecimal getValorTotalPedido() {

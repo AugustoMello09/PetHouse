@@ -35,7 +35,7 @@
                
                <div>
                 <label for="cpf" class="block mb-2 text-sm text-left font-medium text-gray-900 dark:text-white">Cpf ou Cnpj</label>
-                <input type="cpf" id="cpf" name="cpf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required [(ngModel)]="usuario.cpfCnpj" required maxlength="60"/>
+                <input type="cpf" id="cpf" name="cpf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="714.751.160-39" required [(ngModel)]="usuario.cpfCnpj" required [appMask]="cpfMask"/>
                 <div *ngIf="(f.controls['cpf']?.invalid && f.controls['cpf']?.touched) || f.controls['cpf']?.dirty">
                   <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['cpf']?.errors?.['required']">O campo Cpf ou Cnpj deve ser preenchido.</span>
                 </div>

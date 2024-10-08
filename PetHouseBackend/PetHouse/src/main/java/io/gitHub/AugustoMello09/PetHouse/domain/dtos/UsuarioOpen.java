@@ -30,12 +30,15 @@ public class UsuarioOpen implements Serializable {
 	
 	private UUID idCarrinho;
 	
+	private UUID idHistorico;
+	
 	public UsuarioOpen(Usuario entity) {
 		id = entity.getId();
 		nome = entity.getNome();
 		email = entity.getEmail();
 		senha = entity.getSenha();
 		idCarrinho = entity.getCarrinho().getId();
+		idHistorico = entity.getHistorico().getId();
 		entity.getCargos().forEach(carg -> this.cargos.add(carg));
 	}
 

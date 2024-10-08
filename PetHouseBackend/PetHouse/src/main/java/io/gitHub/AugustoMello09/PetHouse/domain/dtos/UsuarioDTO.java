@@ -31,6 +31,8 @@ public class UsuarioDTO implements Serializable {
 	
 	private UUID idCarrinho;
 	
+	private UUID idHistorico;
+	
 	public UsuarioDTO(Usuario entity) {
 		id = entity.getId();
 		nome = entity.getNome();
@@ -38,6 +40,7 @@ public class UsuarioDTO implements Serializable {
 		email = entity.getEmail();
 		entity.getCargos().forEach(x -> this.cargos.add(x));
 		idCarrinho = entity.getCarrinho().getId();
+		idHistorico = entity.getHistorico().getId();
 	}
 	
 

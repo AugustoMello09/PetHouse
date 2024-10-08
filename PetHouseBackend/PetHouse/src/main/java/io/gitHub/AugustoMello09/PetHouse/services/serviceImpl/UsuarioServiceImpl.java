@@ -17,11 +17,14 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioOpen;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
+import io.gitHub.AugustoMello09.PetHouse.domain.entities.Historico;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
 import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.BemVindoProducer;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CargoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
+import io.gitHub.AugustoMello09.PetHouse.repositories.HistoricoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.UsuarioRepository;
+import io.gitHub.AugustoMello09.PetHouse.services.AssasService;
 import io.gitHub.AugustoMello09.PetHouse.services.AuthService;
 import io.gitHub.AugustoMello09.PetHouse.services.UsuarioService;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.DataIntegratyViolationException;
@@ -39,6 +42,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private final ModelMapper mapper;
 	private final BemVindoProducer producer;
 	private final AuthService authService;
+	private final AssasService assasService;
+	private final HistoricoRepository historicoRepository;
 	
 	@Transactional(readOnly = true)
 	@Override
@@ -71,7 +76,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		entity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		atribuirCargo(entity, usuarioDTO);
 		criarCarrinho(entity);
+		criarHistorico(entity);
 		repository.save(entity);
+		assasService.criarClienteAsaas(usuarioDTO.getNome(), usuarioDTO.getCpfCnpj(), usuarioDTO.getEmail());
 		producer.sendToTopic(usuarioDTO);
 		return new UsuarioDTO(entity);
 	}
@@ -129,6 +136,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 		carrinho.setUsuario(usuario);
 		carrinhoRepository.save(carrinho);
 		mapper.map(carrinho, CarrinhoDTO.class);
+	}
+	
+	public void criarHistorico(Usuario usuario) {
+		Historico historico = new Historico();
+		usuario.setHistorico(historico);
+		historico.setUsuario(usuario);
+		historicoRepository.save(historico);
 	}
 
 	@Override

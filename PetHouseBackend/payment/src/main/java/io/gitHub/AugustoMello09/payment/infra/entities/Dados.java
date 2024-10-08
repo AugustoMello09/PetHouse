@@ -15,7 +15,8 @@ import lombok.Setter;
 public class Dados {
 	
 	private UUID idCarrinho;
-	private UUID idPessoa;
+	private UUID idUsuario;
 	private BigDecimal preco;
 	private String cpfOrCnpj;
+	private String billingType;
 }

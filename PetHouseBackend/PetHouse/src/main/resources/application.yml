@@ -23,4 +23,7 @@ eureka:
 auth:
   jwt:
     token:
-      secret: 455a0595071af6e2385c0ec556cb329c    
+      secret: 455a0595071af6e2385c0ec556cb329c
+      
+acess:
+  token: ${acess_token}          

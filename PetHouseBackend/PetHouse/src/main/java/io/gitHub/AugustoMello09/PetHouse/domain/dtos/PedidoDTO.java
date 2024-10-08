@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.UUID;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Pedido;
+import io.gitHub.AugustoMello09.PetHouse.domain.enums.Pagamento;
+import io.gitHub.AugustoMello09.PetHouse.domain.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,8 @@ public class PedidoDTO implements Serializable {
 	private List<ItemPedidoDTO> itemsPedido = new ArrayList<>();
 	private UUID idUsuario;
 	private BigDecimal valorTotalPedido;
+	private Pagamento pagamento;
+	private Status status;
 
 	
 	public PedidoDTO(Pedido entity) {
@@ -33,6 +37,8 @@ public class PedidoDTO implements Serializable {
 		idUsuario = entity.getUsuario().getId();
 		entity.getItemsPedido().forEach(itens -> this.itemsPedido.add(new ItemPedidoDTO(itens)));
 		valorTotalPedido = entity.getValorTotalPedido();
+		pagamento = entity.getPagamento();
+		status = entity.getStatus();
 	}
 
 

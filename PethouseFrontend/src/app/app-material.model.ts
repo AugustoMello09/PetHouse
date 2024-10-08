@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -18,7 +19,8 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
     MatDividerModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    MatIconModule
   ],
   exports: [
     MatDialogModule,
@@ -26,7 +28,8 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
     MatDividerModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    MatIconModule
   ]
 })
 export class MaterialModule { }

@@ -37,6 +37,8 @@ public class Usuario implements UserDetails{
 	private Set<Cargo> cargos = new HashSet<>();
 	
 	private UUID idCarrinho;
+	
+	private UUID idHistorico;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

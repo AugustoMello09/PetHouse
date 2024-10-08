@@ -14,7 +14,7 @@
     
     <ng-container *ngIf="!isLoading">
     
-    <div *ngFor="let plano of paged" class="w-96 laptop:w-auto tabletMi2:w-52 sm4:w-auto p-4 sm4:p-2 sm5:p-1 sm2:w-auto bg-white border border-gray-200 rounded-3xl shadow shadow-shadow hover:scale-110 transition-all hover:shadow-shadow">
+    <div *ngFor="let plano of paged" class="w-96 laptop:w-auto tabletMi2:w-52 sm4:w-auto p-4 sm4:p-2 sm5:p-1 sm2:w-auto bg-white border border-gray-200 rounded-3xl hover:scale-105 transition-all hover:shadow-shadow">
     
       <div class="flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-28 h-28 sm4:w-20 sm4:h-20 fill-current text-textDestaque" version="1.0" viewBox="0 0 512 512" aria-label="logo">
@@ -33,12 +33,12 @@
         </div>
      
       
-      <div class="p-2 block sm3:p-0">
-        <button type="button" (click)="selecionarPlano(plano.id)" class="inline text-white bg-textSecunda font-bold rounded-2xl text-lg sm3:text-sm font-font-primaria  px-5 py-2.5 sm3:px-3 sm3:py-1.5 justify-center w-full text-center hover:border-textDestaque hover:border hover:text-textDestaque hover:bg-white hover:scale-110 cursor-pointer">Conferir</button>
+      <div class="my-2">
+        <button type="button" (click)="selecionarPlano(plano.id)" class="text-white bg-textDestaque font-bold rounded-2xl text-lg font-font-primaria cursor-pointer w-full p-2 hover:bg-textSecunda">Conferir</button>
       </div>
       
       <div class="text-center pt-2 sm3:pt-0">
-        <button class="inline text-xl sm1:text-xs font-font-primaria font-bold text-textDestaque hover:scale-110 cursor-pointer transition-all" (click)="comprarPlano(plano.id)" >Contratar</button>
+        <button class="inline text-xl sm1:text-xs font-font-primaria font-bold text-textDestaque hover:scale-110 cursor-pointer transition-all hover:text-textSecunda" (click)="comprarPlano(plano.id)" >Contratar</button>
       </div>
     
     </div>

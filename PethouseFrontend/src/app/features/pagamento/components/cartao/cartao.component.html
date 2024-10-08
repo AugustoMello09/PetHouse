@@ -1,0 +1,36 @@
+<div class="w-full">
+
+    <div class="flex justify-center items-center h-screen">
+        
+        <div class="">
+
+          <p class="text-left text-3xl py-3">Pedido Confirmado</p>
+
+          <div class="max-w-3xl bg-green-100 border border-green-600 p-4 rounded-lg mb-5">
+            <p class="text-green-600 text-left p-1 font-semibold font-font-primaria text-xl">Seu pedido foi realizado com sucesso.</p>
+            <p class="text-green-600 text-left text-wrap p-1 pb-2">Em breve você receberá um email no endereço {{ email }} com todos os detalhes do pedido</p>
+            <div class="flex items-center w-full bg-green-500 p-4 rounded-lg">
+              <mat-icon class="text-white">check</mat-icon>
+              <p class="pl-2 text-white text-xl font-semibold">Pagamento Aprovado</p>
+            </div>
+          </div>
+          
+          <div class="max-w-3xl border border-black p-4 rounded-lg">
+              <p class="text-black font-font-secundaria text-left text-lg py-3">Informações Do Pedido</p>
+              
+              <div class="p-1">
+                <p  class="text-black font-font-secundaria text-left text-base">ID: {{ id }}</p>
+                <p  class="text-black font-font-secundaria text-left text-base">Total: R${{ preco }}</p>
+                <p  class="text-black font-font-secundaria text-left text-base">Forma Pagamento: {{ linkPagamento }}</p>
+                <p  class="text-black font-font-secundaria text-left text-base">CEP de entrega: {{ cep }}</p>
+              </div>
+
+              <p class="text-left py-6">*Os produtos serão enviados em até 3 dias úteis após a aprovação do pagamento.</p>
+          </div>
+
+
+        </div>
+
+    </div>
+
+</div>

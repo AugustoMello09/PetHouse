@@ -8,7 +8,7 @@ public interface PedidoService {
 
 	PedidoDTO findById(UUID id);
 	
-	 PedidoDTO create(UUID idCarrinho);
+	 PedidoDTO create(UUID idCarrinho, Integer pagamento);
 
 	
 

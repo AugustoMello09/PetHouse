@@ -36,6 +36,7 @@ import io.gitHub.AugustoMello09.PetHouse.provider.CarrinhoProvider;
 import io.gitHub.AugustoMello09.PetHouse.provider.PedidoDTOProvider;
 import io.gitHub.AugustoMello09.PetHouse.provider.PedidoProvider;
 import io.gitHub.AugustoMello09.PetHouse.repositories.CarrinhoRepository;
+import io.gitHub.AugustoMello09.PetHouse.repositories.HistoricoRepository;
 import io.gitHub.AugustoMello09.PetHouse.repositories.PedidoRepository;
 import io.gitHub.AugustoMello09.PetHouse.services.exceptions.ObjectNotFoundException;
 import io.gitHub.AugustoMello09.PetHouse.services.serviceImpl.PedidoServiceImpl;
@@ -45,7 +46,8 @@ public class PedidoServiceTest {
 
 	private static final UUID ID = UUID.fromString("148cf4fc-b379-4e25-8bf4-f73feb06befa");
 	private static final UUID CARRINHO_ID = UUID.fromString("148cf4fc-b379-4e25-8bf4-f73feb06befa");
-
+	private static final Integer COD = 0;
+	
 	@InjectMocks
 	private PedidoServiceImpl service;
 
@@ -60,7 +62,10 @@ public class PedidoServiceTest {
 	
 	@Mock
 	private PagamentoProducer producer;
-
+	
+	@Mock
+	private HistoricoRepository historico;
+	
 	private PedidoProvider pedidoProvider;
 	private PedidoDTOProvider pedidoDTOProvider;
 	private CarrinhoProvider carrinhoProvider;
@@ -68,7 +73,7 @@ public class PedidoServiceTest {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		service = new PedidoServiceImpl(repository, mapper, carrinhoRepository, producer);
+		service = new PedidoServiceImpl(repository, mapper, carrinhoRepository, producer, historico);
 		pedidoProvider = new PedidoProvider();
 		pedidoDTOProvider = new PedidoDTOProvider();
 		carrinhoProvider = new CarrinhoProvider();
@@ -124,7 +129,7 @@ public class PedidoServiceTest {
         when(repository.save(any(Pedido.class))).thenReturn(pedido);
         when(mapper.map(any(Pedido.class), eq(PedidoDTO.class))).thenReturn(pedidoDTO);
 
-        PedidoDTO result = service.create(CARRINHO_ID);
+        PedidoDTO result = service.create(CARRINHO_ID, COD);
 
         assertNotNull(result);
         assertEquals(pedidoDTO.getId(), result.getId());
@@ -147,7 +152,7 @@ public class PedidoServiceTest {
 
 
 		ObjectNotFoundException exception = assertThrows(ObjectNotFoundException.class, () -> {
-			service.create(CARRINHO_ID);
+			service.create(CARRINHO_ID, COD);
 		});
 
 		assertEquals("Carrinho não encontrado", exception.getMessage());

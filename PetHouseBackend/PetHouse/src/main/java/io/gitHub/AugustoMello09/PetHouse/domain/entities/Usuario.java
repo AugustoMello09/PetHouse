@@ -64,8 +64,12 @@ public class Usuario implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plano_id", referencedColumnName = "id")
 	private PlanoVeterinario plano;
+	
+	@OneToOne
+	@JoinColumn(name = "historico_id", referencedColumnName = "id")
+	private Historico historico;
 
-	public Usuario(UUID id, String nome, String email, String senha, Carrinho carrinho, PlanoVeterinario plano, String cpfCnpj) {
+	public Usuario(UUID id, String nome, String email, String senha, Carrinho carrinho, PlanoVeterinario plano, String cpfCnpj, Historico historico) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -74,6 +78,7 @@ public class Usuario implements Serializable {
 		this.carrinho = carrinho;
 		this.plano = plano;
 		this.cpfCnpj = cpfCnpj;
+		this.historico = historico;
 	}
 	
 	public boolean hasCargo(String cargoNome) {

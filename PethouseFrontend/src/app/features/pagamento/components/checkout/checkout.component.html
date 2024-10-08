@@ -1,2 +1,234 @@
 <app-navbarcheckout></app-navbarcheckout>
-<p>checkout works!</p>
+
+<div class="w-full">
+
+  <div class="h-4/5 flex items-center justify-center">
+
+    <div class="flex justify-around desktop2:flex-col">
+
+      <div class="flex-1 p-6 bg-white shadow-md rounded-md max-w-3xl">
+      
+        <h2 class="text-lg font-bold mb-4 sm3:text-base">Dados de Entrega</h2>
+        
+        <form #f="ngForm" class="space-y-4">
+          <div class="flex space-x-4 sm3:space-x-0 sm3:flex-col">
+            <div class="flex-1 sm3:py-5">
+              <label for="cep" class="block mb-1">CEP</label>
+              <input id="cep" name="cep" minlength="2" maxlength="9" validadorCep ngModel required #cep="ngModel" (blur)="buscaCep($event, f)" [(ngModel)]="endereco.cep" placeholder="Ex. 19789-074" type="text" class="w-full p-2 border rounded-md" />
+              <div class="py-1" *ngIf="(f.controls['cep']?.invalid && f.controls['cep']?.touched) || f.controls['cep']?.dirty">
+                <span class="text-red-500 sm3:text-xs" *ngIf="f.controls['cep']?.errors?.['required']">O campo Cep deve ser preenchido.</span>
+                <span class="text-red-500 sm3:text-xs" *ngIf="f.controls['cep']?.errors?.['minlength']">O campo Cep deve ter no mínimo 2 números.</span>
+                <span class="text-red-500 sm3:text-xs" *ngIf="f.controls['cep']?.errors?.['validadorCep']">O campo Cep inválido.</span>
+              </div>
+            </div>
+            <div class="flex-1">
+              <label for="localidade" class="block mb-1">Cidade</label>
+              <input id="localidade" name="localidade"  ngModel required [(ngModel)]="endereco.cidade" placeholder="Ex. Assis" type="text" class="w-full p-2 border rounded-md" />
+              <div class="py-1" *ngIf="(f.controls['localidade']?.invalid && f.controls['localidade']?.touched) || f.controls['localidade']?.dirty">
+                <span class="text-red-500 sm3:text-xs" *ngIf="f.controls['localidade']?.errors?.['required']">O campo Localidade deve ser preenchido.</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex space-x-4 sm3:space-x-0 sm3:flex-col">
+            <div class="flex-1  sm3:py-5">
+              <label for="uf" class="block mb-1">UF</label>
+              <input id="uf" name="uf" ngModel required [(ngModel)]="endereco.uf" placeholder="Ex. SP"  type="text" class="w-full p-2 border rounded-md" />
+              <div class="py-1" *ngIf="(f.controls['uf']?.invalid && f.controls['uf']?.touched) || f.controls['uf']?.dirty">
+                <span class="text-red-500 sm3:text-xs" *ngIf="f.controls['uf']?.errors?.['required']">O campo Estado deve ser preenchido.</span>
+              </div>
+            </div>
+            <div class="flex-1">
+              <label for="logradouro" class="block mb-1">Rua</label>
+              <input id="logradouro" name="logradouro" minlength="2" maxlength="45" ngModel required placeholder="Ex. Rua Davi" type="text" [(ngModel)]="endereco.logradouro"  class="w-full p-2 border rounded-md" />
+              <div class="py-1" *ngIf="(f.controls['logradouro']?.invalid && f.controls['logradouro']?.touched) || f.controls['logradouro']?.dirty">
+                <span class="text-red-500 sm3:text-xs" *ngIf="f.controls['logradouro']?.errors?.['required']">O campo Rua deve ser preenchido.</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex space-x-4 sm3:space-x-0 sm3:flex-col">
+            <div class="flex-1  sm3:py-5">
+              <label for="numero" class="block mb-1">Número</label>
+              <input id="numero" name="numero" minlength="2" maxlength="5" ngModel required placeholder="Ex. 164" type="text"  [(ngModel)]="endereco.numero" class="w-full p-2 border rounded-md" />
+              <div class="py-1" *ngIf="(f.controls['numero']?.invalid && f.controls['numero']?.touched) || f.controls['numero']?.dirty">
+                <span class="text-red-500 sm3:text-xs" *ngIf="f.controls['numero']?.errors?.['required']">O campo Número deve ser preenchido.</span>
+              </div>
+            </div>
+            <div class="flex-1">
+              <label for="bairro" class="block mb-1">Bairro</label>
+              <input id="bairro" name="bairro" minlength="2" maxlength="24" ngModel required placeholder="Ex. São Bento"  [(ngModel)]="endereco.bairro" type="text" class="w-full p-2 border rounded-md" />
+              <div class="py-1" *ngIf="(f.controls['bairro']?.invalid && f.controls['bairro']?.touched) || f.controls['bairro']?.dirty">
+                <span class="text-red-500 sm3:text-xs" *ngIf="f.controls['bairro']?.errors?.['required']">O campo Bairro deve ser preenchido.</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="complemento" class="block mb-1">Complemento</label>
+            <input  id="complemento" name="complemento" placeholder="Ex. casa"  [(ngModel)]="endereco.complemento" type="text"  class="w-full p-2 border rounded-md" />
+          </div>
+        </form>
+  
+        <h2 class="text-lg font-bold mt-6 mb-4 sm3:text-base">Formas de pagamento</h2>
+  
+        <mat-accordion>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>  <mat-icon class="mr-3 text-textSecunda">credit_card</mat-icon> <span class="text-textDestaque font-semibold text-xl">Cartão de crédito</span> </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form #d="ngForm" class="space-y-4">
+              <div class="flex space-x-4 sm3:space-x-0 sm3:flex-col">
+                <div class="flex-1  sm3:py-5">
+                  <label for="numerocartao" class="block mb-1">Número do cartão</label>
+                  <input id="numerocartao" name="numerocartao" type="text" ngModel required appMask="9999 9999 9999 9999" class="w-full p-2 border rounded-md" />
+                  <div class="py-1" *ngIf="(d.controls['numerocartao']?.invalid && d.controls['numerocartao']?.touched) || d.controls['numerocartao']?.dirty">
+                    <span class="text-red-500 sm3:text-xs" *ngIf="d.controls['numerocartao']?.errors?.['required']">O campo Número deve ser preenchido.</span>
+                  </div>
+                </div>
+                <div class="flex-1 ">
+                  <label  for="validade" class="block mb-1">Validade</label>
+                  <input id="validade" name="validade" type="text" ngModel required appMask="99/99" class="w-full p-2 border rounded-md" />
+                  <div class="py-1" *ngIf="(d.controls['validade']?.invalid && d.controls['validade']?.touched) || d.controls['validade']?.dirty">
+                    <span class="text-red-500 sm3:text-xs" *ngIf="d.controls['validade']?.errors?.['required']">O campo Validade deve ser preenchido.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex space-x-4 sm3:space-x-0 sm3:flex-col">
+                <div class="flex-1  sm3:py-5">
+                  <label for="cvv" class="block mb-1">CVV</label>
+                  <input id="cvv" name="cvv" type="text" ngModel required appMask="999" class="w-full p-2 border rounded-md" />
+                  <div class="py-1" *ngIf="(d.controls['cvv']?.invalid && d.controls['cvv']?.touched) || d.controls['cvv']?.dirty">
+                    <span class="text-red-500 sm3:text-xs" *ngIf="d.controls['cvv']?.errors?.['required']">O campo CVV deve ser preenchido.</span>
+                  </div>
+                </div>
+                <div class="flex-1  sm3:py-5">
+                  <label for="nome" class="block mb-1">Nome do titular</label>
+                  <input id="nome" name="nome" type="text" ngModel required class="w-full p-2 border rounded-md" />
+                  <div class="py-1" *ngIf="(d.controls['nome']?.invalid && d.controls['nome']?.touched) || d.controls['nome']?.dirty">
+                    <span class="text-red-500 sm3:text-xs" *ngIf="d.controls['nome']?.errors?.['required']">O campo Nome titular deve ser preenchido.</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label for="cpf" class="block mb-1">CPF / CNPJ do titular</label>
+                <input id="cpf" name="cpf" type="text" ngModel required [appMask]="cpfMask" class="w-full p-2 border rounded-md" />
+                <div class="py-1" *ngIf="(d.controls['cpf']?.invalid && d.controls['cpf']?.touched) || d.controls['cpf']?.dirty">
+                  <span class="text-red-500 sm3:text-xs" *ngIf="d.controls['cpf']?.errors?.['required']">O campo CPF/CNPJ deve ser preenchido.</span>
+                </div>
+              </div>
+            </form>
+          </mat-expansion-panel>
+        </mat-accordion>
+  
+        <mat-accordion> 
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 -13 65 65">
+                  <g fill="none" fill-rule="evenodd">
+                    <path fill="#F5F5F5" d="M60 35c0 2.75-2.25 5-5 5H5c-2.75 0-5-2.25-5-5V5c0-2.75 2.25-5 5-5h50c2.75 0 5 2.25 5 5v30Z"/>
+                    <path fill="#D0D0D0" fill-rule="nonzero" d="M55 0H5C2.25 0 0 2.25 0 5v30c0 2.75 2.25 5 5 5h50c2.75 0 5-2.25 5-5V5c0-2.75-2.25-5-5-5Zm0 1c2.206 0 4 1.794 4 4v30c0 2.206-1.794 4-4 4H5c-2.206 0-4-1.794-4-4V5c0-2.206 1.794-4 4-4h50Z"/>
+                    <path fill="#000" d="M13.835 9.945h1.976v20.109h-1.976V9.945Zm12.156 0h1.976v20.109h-1.976V9.945Zm10.109 0h1.976v20.109H36.1V9.945Zm4.021 0h1.976v20.109h-1.976V9.945Zm4.068 0h1.976v20.109h-1.976V9.945Zm-14.177 0h4.019v20.109h-4.019V9.945Zm-12.133 0h6.041v20.109h-6.041V9.945Z"/>
+                    <path fill="#773CBC" d="M8.499 21.051h43.002v3H8.499z"/>
+                  </g>
+                </svg>
+                <span class="text-textDestaque font-semibold text-xl">Boleto bancário</span> </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form #g="ngForm" class="space-y-4">
+        
+              <div>
+                <label for="cpf" class="block mb-1">CPF </label>
+                <input id="cpf" name="cpf" type="text" ngModel required [appMask]="cpfMask" class="w-full p-2 border rounded-md" />
+                <div class="py-1" *ngIf="(g.controls['cpf']?.invalid && g.controls['cpf']?.touched) || g.controls['cpf']?.dirty">
+                  <span class="text-red-500 sm3:text-xs" *ngIf="g.controls['cpf']?.errors?.['required']">O campo CPF/CNPJ deve ser preenchido.</span>
+                </div>
+              </div>
+            
+            </form>
+          
+          </mat-expansion-panel>
+        </mat-accordion>
+  
+        <mat-accordion> 
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>  
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 fill-current text-textDestaque" version="1.0" viewBox="0 0 55 55">
+                  <path d="M11.9 12h-.68l8.04-8.04a6.718 6.718 0 0 1 9.48 0L36.78 12h-.68c-1.6 0-3.11.62-4.24 1.76l-6.8 6.77c-.59.59-1.53.59-2.12 0l-6.8-6.77A5.928 5.928 0 0 0 11.9 12zM36.1 36h.68l-8.04 8.04a6.718 6.718 0 0 1-9.48 0L11.22 36h.68c1.6 0 3.11-.62 4.24-1.76l6.8-6.77a1.49 1.49 0 0 1 2.12 0l6.8 6.77A5.928 5.928 0 0 0 36.1 36z"/>
+                  <path d="M44.04 28.74 38.78 34H36.1c-1.07 0-2.07-.42-2.83-1.17l-6.8-6.78a3.5 3.5 0 0 0-4.94 0l-6.8 6.78c-.76.75-1.76 1.17-2.83 1.17H9.22l-5.26-5.26a6.718 6.718 0 0 1 0-9.48L9.22 14h2.68c1.07 0 2.07.42 2.83 1.17l6.8 6.78c.68.68 1.58 1.02 2.47 1.02s1.79-.34 2.47-1.02l6.8-6.78c.76-.75 1.76-1.17 2.83-1.17h2.68l5.26 5.26a6.718 6.718 0 0 1 0 9.48z"/>
+                </svg>
+                
+                <span class="text-textDestaque font-semibold text-xl">Pix</span> </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form #a="ngForm" class="space-y-4">
+        
+              <div>
+                <label for="cpf" class="block mb-1">CPF </label>
+                <input id="cpf" name="cpf" type="text" ngModel required [appMask]="cpfMask" class="w-full p-2 border rounded-md" />
+                <div class="py-1" *ngIf="(a.controls['cpf']?.invalid && a.controls['cpf']?.touched) || a.controls['cpf']?.dirty">
+                  <span class="text-red-500 sm3:text-xs" *ngIf="a.controls['cpf']?.errors?.['required']">O campo CPF/CNPJ deve ser preenchido.</span>
+                </div>
+              </div>
+            
+            </form>
+          
+          </mat-expansion-panel>
+        </mat-accordion>
+        
+      </div>
+
+
+        <!-- Sacola -->
+      <div class="p-6 sm3:p-0 bg-white shadow-md rounded-md desktop:rounded-none max-w-xl">
+        <ng-container *ngIf="carrinho.itemsCarrinho.length > 0, else vazio">
+          <h2 class="text-lg font-bold mb-4 sm3:text-base">Minha Sacola ({{ carrinho.itemsCarrinho.length }})</h2>
+          <div *ngFor="let item of carrinho.itemsCarrinho" class="flex items-center mb-4 sm3:hidden">
+              <img [src]="item.imgProduto ? 'data:image/jpeg;base64,' + item.imgProduto : ''" alt="Produto" class="w-16 h-16 object-cover rounded-md" />
+              <div class="ml-4 flex-1">
+                <h3 class="font-semibold tabletMi2:text-sm sm3:text-xs">{{ item.nome }}</h3>
+                <p class="text-gray-600">{{ item.quantidade }} x R$ {{ item.preco }}</p>
+              </div>
+          </div>
+        </ng-container>
+        <mat-accordion class="hidden sm3:inline"  *ngFor="let item of carrinho.itemsCarrinho ">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title> <span class="text-textDestaque font-semibold text-xl">Informações</span> </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="flex flex-col items-center gap-5 py-2 sm:gap-2">
+                <img [src]="item.imgProduto ? 'data:image/jpeg;base64,' + item.imgProduto : ''" alt="Produto" class="w-16 h-16 object-cover rounded-md" />
+                <div class="ml-4 flex-1">
+                  <h3 class="font-semibold tabletMi2:text-sm sm3:text-xs">{{ item.nome }}</h3>
+                  <p class="text-gray-600">{{ item.quantidade }} x R$ {{ item.preco }}</p>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion> 
+        
+        
+        <ng-template #vazio>
+          <div class="text-center">
+            <p class="mx-10 font-font-primaria font-bold text-textDestaque text-2xl sm1:text-base">Seu carrinho está vazio</p>
+            <div class="p-6 sm1:p-0">
+              <button (click)="voltar()" class="text-textDestaque p-5 rounded-md sm1:text-sm">Click aki para voltar a página principal</button>
+            </div>
+          </div>
+        </ng-template>
+
+        <mat-divider></mat-divider>
+
+        <h2 class="text-left text-3xl text-gray-600 font-font-primaria font-semibold pt-3">Resumo</h2>
+        <div class="flex items-center justify-between">
+          <p class="text-xl text-gray-400 font-font-secundaria font-normal">Preco: </p>
+          <p class="text-xl text-gray-400 font-font-secundaria font-normal">R$ {{ carrinho.valorTotalCarrinho }} </p> 
+        </div>
+        <div class="w-full p-6">
+          <button (click)="fazerPedido()" [disabled]="!isAnyFormValid()" class="disabled:bg-gray-400 disabled:cursor-not-allowed text-center bg-textDestaque text-white p-5 rounded-md">Prosseguir</button>
+        </div>
+
+      </div>
+
+    </div>
+  
+  </div>
+
+</div>
+

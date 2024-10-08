@@ -6,8 +6,12 @@
       </div>
   <div #resultList class="absolute left-0 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto" *ngIf="results && results.length">
       <ul>
-          <li *ngFor="let result of results" class="p-2 border-b last:border-0">
-              <p class="truncate">{{ result.nome }} <span>R$</span>{{ result.preco }}</p>
+          <li *ngFor="let result of results" class="p-2 border-b last:border-0 flex items-center">
+            <img [src]="result.img ? 'data:image/jpeg;base64,' + result.img : ''" class="w-9 h-9 mr-4">  
+            <div>
+                <p class="truncate">{{ result.nome }}</p>
+                <p class="text-left py-1"><span>R$</span>{{ result.preco }}</p>
+            </div>
           </li>
       </ul>
   </div>

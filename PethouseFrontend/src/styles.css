@@ -7,11 +7,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 
-body {
+html {
   scroll-behavior: smooth !important;
 	touch-action: manipulation !important;
   -ms-touch-action: manipulation !important;
-}
+}	
 
 
 input, select, textarea {
@@ -70,7 +70,7 @@ table {
 }
 
 body::-webkit-scrollbar {
-  width: 8px;               
+  width: 12px;               
 }
 
 body::-webkit-scrollbar-track {

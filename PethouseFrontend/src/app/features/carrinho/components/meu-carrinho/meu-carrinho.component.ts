@@ -1,3 +1,5 @@
+import { HistoricoService } from './../../../../service/historico.service';
+import { Historico } from './../../../../model/historico.model';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
@@ -28,8 +30,30 @@ export class MeuCarrinhoComponent implements OnInit {
     valorTotalCarrinho: 0
   };
 
+  historico: Historico = {
+    id: '',
+    pedidos: [
+      {
+        id: '',
+        data: '',
+        idUsuario: '',
+        valorTotalPedido: 0,
+        pagamento: '',
+        status: '',
+        itemsPedido: [
+          {
+            produtoId: 0,
+            nomeProduto: '',
+	          quantidade: 0,
+            img: ''
+          }
+        ]
+      }
+    ],
+  }
+
   constructor(private auth: AuthService, private carrinhoService: CarrinhoService, private router: Router,
-    private snack: MatSnackBar
+    private snack: MatSnackBar, private historicoService : HistoricoService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +63,12 @@ export class MeuCarrinhoComponent implements OnInit {
         this.carrinho = carrinho;
       }
     });
+    this.findByIdHistorico();
+    this.historicoService.historico$.subscribe(historico => {
+      if (historico) {
+        this.historico = historico;
+      }
+    })
   }
 
   ngAfterViewInit() {
@@ -55,6 +85,15 @@ export class MeuCarrinhoComponent implements OnInit {
       const decodedToken: any = jwtDecode(token);
       this.carrinho.id = decodedToken.carrinhoId;
       this.carrinhoService.findById(this.carrinho.id).subscribe();
+    }
+  }
+
+  public findByIdHistorico() {
+    const token = this.auth.obterToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      this.historico.id = decodedToken.historicoId;
+      this.historicoService.findById(this.historico.id).subscribe();
     }
   }
 
