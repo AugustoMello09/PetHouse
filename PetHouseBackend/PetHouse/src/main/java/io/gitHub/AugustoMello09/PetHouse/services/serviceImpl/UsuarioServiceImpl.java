@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CarrinhoDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
+import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioInfo;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioOpen;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
@@ -78,7 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		criarCarrinho(entity);
 		criarHistorico(entity);
 		repository.save(entity);
-		assasService.criarClienteAsaas(usuarioDTO.getNome(), usuarioDTO.getCpfCnpj(), usuarioDTO.getEmail());
+		assasService.criarClienteAsaas(usuarioDTO.getNome(), usuarioDTO.getCpfCnpj());
 		producer.sendToTopic(usuarioDTO);
 		return new UsuarioDTO(entity);
 	}
@@ -150,6 +151,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Optional<Usuario> usuario = repository.findByEmail(email);
 		if(usuario.isPresent()) {
 			return new UsuarioOpen(usuario.get());
+		}
+		throw new ObjectNotFoundException("Email Não encontrado");
+	}
+
+	@Override
+	public UsuarioInfo findInfoById(UUID id) {
+		Optional<Usuario> usuario = repository.findById(id);
+		if(usuario.isPresent()) {
+			return new UsuarioInfo(usuario.get());
 		}
 		throw new ObjectNotFoundException("Email Não encontrado");
 	}

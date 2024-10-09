@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import io.gitHub.AugustoMello09.email.infra.entities.CarrinhoItem;
+import io.gitHub.AugustoMello09.email.infra.entities.Dados;
 import io.gitHub.AugustoMello09.email.infra.entities.Usuario;
 import io.gitHub.AugustoMello09.email.services.EmailService;
 import jakarta.mail.internet.MimeMessage;
@@ -109,6 +110,67 @@ public class EmailServiceImpl implements EmailService {
 	
 	public String carregarTemplateEmailItensCarrinho() throws IOException {
 		ClassPathResource resource = new ClassPathResource("templates/itensCarrinho.html");
+		return new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+	}
+
+	@Override
+	public void enviarEmailVendasBoletoOrPix(Dados dados, Usuario usuario) {
+		try {
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            
+            helper.setFrom(emailFrom);
+            helper.setSubject("Cobrança Gerada - Não Esqueça de Pagar");
+            helper.setTo(usuario.getEmail());
+            
+            String template = carregarTemplateEmailVendasBoletoPix();
+            
+            template = template.replace("#{nome}", usuario.getNome());
+            template = template.replace("#{tipoPagamento}", dados.getBillingType());
+            template = template.replace("#{valor}", String.format("%.2f", dados.getValue()));
+            template = template.replace("#{dataVencimento}", dados.getDueDate());
+            
+            helper.setText(template, true); 
+            
+            emailSender.send(message);
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public String carregarTemplateEmailVendasBoletoPix() throws IOException {
+		ClassPathResource resource = new ClassPathResource("templates/vendasPixOrBoleto.html");
+		return new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+	}
+
+	@Override
+	public void enviarEmailVendasCartao(Dados dados, Usuario usuario) {
+		try {
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            
+            helper.setFrom(emailFrom);
+            helper.setSubject("Compra Aprovada - Cartão de Crédito");
+            helper.setTo(usuario.getEmail());
+            
+            String template = carregarTemplateEmailVendasCartao();
+            
+            template = template.replace("#{nome}", usuario.getNome());
+            template = template.replace("#{valor}", String.format("%.2f", dados.getValue()));
+            template = template.replace("#{dataTransacao}", dados.getDueDate());
+            
+            helper.setText(template, true); 
+            
+            emailSender.send(message);
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public String carregarTemplateEmailVendasCartao() throws IOException {
+		ClassPathResource resource = new ClassPathResource("templates/vendasCartao.html");
 		return new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
 	}
 

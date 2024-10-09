@@ -17,6 +17,7 @@ import io.gitHub.AugustoMello09.payment.infra.entities.AssasResponsePixQrCode;
 import io.gitHub.AugustoMello09.payment.infra.entities.Dados;
 import io.gitHub.AugustoMello09.payment.infra.entities.Usuario;
 import io.gitHub.AugustoMello09.payment.infra.entities.UsuarioResponse;
+import io.gitHub.AugustoMello09.payment.infra.producer.PaymentProducer;
 import io.gitHub.AugustoMello09.payment.repositories.PaymentRepository;
 import io.gitHub.AugustoMello09.payment.services.PaymentService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class PaymentConsumer {
 	private final AssasClient assasClient;
 	private final PaymentService service;
 	private final PaymentRepository repository;
+	private final PaymentProducer producer;
 
 	@SneakyThrows
 	@KafkaListener(topics = "Pagamento", groupId = "stage-three", containerFactory = "jsonContainerFactory")
@@ -82,7 +84,8 @@ public class PaymentConsumer {
 					pagamentoEntity.setLinkPagamento("Cartão");
 					pagamentoEntity.setStatusPagamento("APROVADO");
 				}
-
+				
+				producer.sentToTopicVendas(pagamento, usuarioResponse, novoLink);
 				repository.save(pagamentoEntity);
 
 			}

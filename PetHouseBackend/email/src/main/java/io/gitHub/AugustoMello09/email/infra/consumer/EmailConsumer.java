@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import io.gitHub.AugustoMello09.email.infra.clients.UsuarioClient;
 import io.gitHub.AugustoMello09.email.infra.entities.CarrinhoItem;
+import io.gitHub.AugustoMello09.email.infra.entities.Dados;
 import io.gitHub.AugustoMello09.email.infra.entities.Usuario;
 import io.gitHub.AugustoMello09.email.services.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -79,6 +80,19 @@ public class EmailConsumer {
 					.filter(itemAnterior -> itemAnterior.getIdProduto().equals(itemAtual.getIdProduto()))
 					.noneMatch(itemAnterior -> itemAnterior.getQuantidade() >= itemAtual.getQuantidade());
 		}).collect(Collectors.toList());
+	}
+	
+	@SneakyThrows
+	@KafkaListener(topics = "Vendas", groupId = "stage-four", containerFactory = "jsonContainerFactory")
+	public void bemVindo(@Payload Dados dados, @Header(KafkaHeaders.RECEIVED_KEY) UUID key) {
+		Usuario usuario = buscarUsuarioPorId(key);
+		if("PIX".equals(dados.getBillingType())) {
+			service.enviarEmailVendasBoletoOrPix(dados, usuario);
+		} else if ("BOLETO".equals(dados.getBillingType())) {
+			service.enviarEmailVendasBoletoOrPix(dados, usuario);
+		} else {
+			service.enviarEmailVendasCartao(dados, usuario);	
+		}
 	}
 
 }

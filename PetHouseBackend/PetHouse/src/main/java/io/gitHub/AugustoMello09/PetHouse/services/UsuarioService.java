@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
+import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioInfo;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioOpen;
 
 public interface UsuarioService {
@@ -24,5 +25,7 @@ public interface UsuarioService {
 	void atribuirCargo(UsuarioDTO usuarioDTO, UUID id);
 	
 	UsuarioOpen findByEmail(String email);
+	
+	UsuarioInfo findInfoById(UUID id);
 
 }

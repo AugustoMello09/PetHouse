@@ -29,7 +29,8 @@ public class KafkaAdminConfig {
 		return new KafkaAdmin.NewTopics(
 				TopicBuilder.name("bemVindo").partitions(1).replicas(1).build(),
 				TopicBuilder.name("Carrinho").partitions(1).replicas(1).build(),
-				TopicBuilder.name("Pagamento").partitions(1).replicas(1).build()
+				TopicBuilder.name("Pagamento").partitions(1).replicas(1).build(),
+				TopicBuilder.name("Vendas").partitions(1).replicas(1).build()
 				);
 	}
 	

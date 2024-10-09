@@ -12,7 +12,7 @@ import io.gitHub.AugustoMello09.email.infra.entities.Usuario;
 @FeignClient(value = "pethouse", path = "/v1/usuario")
 public interface UsuarioClient {
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/info/{id}")
 	public ResponseEntity<Usuario> findById(@PathVariable UUID id);
 
 }

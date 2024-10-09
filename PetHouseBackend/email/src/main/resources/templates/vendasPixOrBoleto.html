@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cobrança Gerada - Não Esqueça de Pagar</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #7469B6;
+            padding: 20px;
+            text-align: center;
+        }
+        .header img {
+            width: 112px;
+            height: 112px;
+        }
+        .title {
+            font-family: 'Roboto Mono', monospace;
+            color: #7469B6;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .payment-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .payment-info h4 {
+            margin: 0;
+            font-size: 18px;
+            color: #7469B6;
+        }
+        .payment-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .footer {
+            background-color: #7469B6;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Cobrança Gerada!</h1>
+        </div>
+        <div class="content">
+            <p>Olá, #{nome}, você gerou uma cobrança via #{tipoPagamento}.</p>
+            
+            <!-- Informações da Cobrança -->
+            <div class="payment-info">
+                <h4>Detalhes da Cobrança</h4>
+                <p>Tipo de Pagamento: #{tipoPagamento} <!-- Pix ou Boleto --></p>
+                <p>Valor: R$ #{valor}</p>
+                <p>Data de Vencimento: #{dataVencimento}</p>
+            </div>
+
+            <p>Não se esqueça de realizar o pagamento antes do vencimento para garantir seu pedido.</p>
+            <p>Se já realizou o pagamento, por favor desconsidere este e-mail.</p>
+        </div>
+        <div class="footer">
+            © 2024 PetHouse - Todos os direitos reservados.
+        </div>
+    </div>
+</body>
+</html>

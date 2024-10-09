@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
+import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioInfo;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioOpen;
 import io.gitHub.AugustoMello09.PetHouse.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +72,12 @@ public class UsuarioController {
 	@GetMapping(value = "buscarEmail")
 	public ResponseEntity<UsuarioOpen> findByEmail(@RequestParam(value = "email") String email) {
 		var response = service.findByEmail(email);
+		return ResponseEntity.ok().body(response);
+	}
+	
+	@GetMapping(value = "/info/{id}")
+	public ResponseEntity<UsuarioInfo> findInfoById(@PathVariable UUID id) {
+		var response = service.findInfoById(id);
 		return ResponseEntity.ok().body(response);
 	}
 

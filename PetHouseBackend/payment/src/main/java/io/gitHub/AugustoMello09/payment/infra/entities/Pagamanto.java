@@ -1,5 +1,7 @@
 package io.gitHub.AugustoMello09.payment.infra.entities;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pagamanto {
-
+public class Pagamanto implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String customer; 
 	private float value;
 	private String billingType; 

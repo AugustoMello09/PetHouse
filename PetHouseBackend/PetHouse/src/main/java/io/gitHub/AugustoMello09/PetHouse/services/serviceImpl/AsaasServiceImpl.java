@@ -16,8 +16,8 @@ public class AsaasServiceImpl implements AssasService {
 
 	@Override
 	@Async
-	public void criarClienteAsaas(String name, String cpfCnpj, String email) {
-		ClienteAsaasDTO clienteAsaasDTO = new ClienteAsaasDTO(cpfCnpj, name, email);
+	public void criarClienteAsaas(String name, String cpfCnpj) {
+		ClienteAsaasDTO clienteAsaasDTO = new ClienteAsaasDTO(cpfCnpj, name);
 		client.criarCliente(clienteAsaasDTO);
 	}
 

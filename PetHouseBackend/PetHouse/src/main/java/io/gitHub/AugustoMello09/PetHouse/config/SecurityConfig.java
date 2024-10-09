@@ -24,7 +24,7 @@ public class SecurityConfig {
 
 	private static final String[] PUBLIC = { "/h2-console/**" };
 
-	private static final String[] PUBLIC_GET = { "/v1/plano/**", "/v1/produto/**", "/v1/usuario/buscarEmail" };
+	private static final String[] PUBLIC_GET = { "/v1/plano/**", "/v1/produto/**", "/v1/usuario/buscarEmail", "/v1/usuario/info/{id}" };
 
 	@Autowired
 	private Environment env;
