@@ -1,5 +1,17 @@
-{"properties": [{
-  "name": "access.token",
-  "type": "java.lang.String",
-  "description": "A description for 'access.token'"
-}]}
+{"properties": [
+  {
+    "name": "access.token",
+    "type": "java.lang.String",
+    "description": "A description for 'access.token'"
+  },
+  {
+    "name": "auth.jwt.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'auth.jwt.token.secret'"
+  },
+  {
+    "name": "auth.jwt.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'auth.jwt.token.secret'"
+  }
+]}

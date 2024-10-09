@@ -21,4 +21,9 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     
 access:
-  token: ${access_token}    
+  token: ${access_token} 
+  
+auth:
+  jwt:
+    token:
+      secret: 455a0595071af6e2385c0ec556cb329c     
