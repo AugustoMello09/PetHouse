@@ -20,6 +20,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.ProdutoDTO;
 import io.gitHub.AugustoMello09.PetHouse.services.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "PetHouse Produto endpoint")
@@ -46,7 +47,7 @@ public class ProdutoController {
 	
 	@Operation(summary = "Cria um produto")
 	@PostMapping
-	public ResponseEntity<ProdutoDTO> create(@RequestBody ProdutoDTO produtoDTO){
+	public ResponseEntity<ProdutoDTO> create(@Valid @RequestBody ProdutoDTO produtoDTO){
 		var newObj = service.create(produtoDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 		return ResponseEntity.created(uri).body(newObj);
@@ -54,7 +55,7 @@ public class ProdutoController {
 	
 	@Operation(summary = "Atualiza um produto")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody ProdutoDTO produtoDTO, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody ProdutoDTO produtoDTO, @PathVariable Long id) {
 		service.updateProduto(produtoDTO, id);
 		return ResponseEntity.ok().build();
 	}

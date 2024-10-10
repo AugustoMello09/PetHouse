@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,11 +22,14 @@ public class UsuarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private UUID id;
-
+	
+	@NotBlank(message = "Campo obrigatório")
 	private String nome;
 	
 	private String cpfCnpj;
-
+	
+	@Email(message = "Entre com um email válido")
+	@NotBlank(message = "Campo obrigatório")
 	private String email;
 
 	private List<Cargo> cargos = new ArrayList<>();

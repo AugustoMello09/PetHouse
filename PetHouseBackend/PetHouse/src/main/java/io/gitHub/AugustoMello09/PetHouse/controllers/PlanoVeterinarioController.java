@@ -21,6 +21,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.PlanoDTO;
 import io.gitHub.AugustoMello09.PetHouse.services.PlanoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "PetHouse Plano endpoint")
@@ -47,7 +48,7 @@ public class PlanoVeterinarioController {
 	
 	@Operation(summary = "Cria um plano")
 	@PostMapping
-	public ResponseEntity<PlanoDTO> crate(@RequestBody PlanoDTO planoDTO){
+	public ResponseEntity<PlanoDTO> crate(@Valid @RequestBody PlanoDTO planoDTO){
 		var newObj = service.create(planoDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 		return ResponseEntity.created(uri).body(newObj);
@@ -55,7 +56,7 @@ public class PlanoVeterinarioController {
 	
 	@Operation(summary = "Atualiza um plano")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody PlanoDTO planoDTO,@PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody PlanoDTO planoDTO,@PathVariable Long id) {
 		service.updatePlano(planoDTO, id);
 		return ResponseEntity.ok().build();
 	}

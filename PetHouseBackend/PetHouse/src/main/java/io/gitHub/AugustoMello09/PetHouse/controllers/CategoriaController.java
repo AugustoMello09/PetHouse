@@ -18,6 +18,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CategoriaDTO;
 import io.gitHub.AugustoMello09.PetHouse.services.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "PetHouse Categoria endpoint")
@@ -44,7 +45,7 @@ public class CategoriaController {
 	
 	@Operation(summary = "Cria uma categoria")
 	@PostMapping
-	public ResponseEntity<CategoriaDTO> create(@RequestBody CategoriaDTO categoriaDTO) {
+	public ResponseEntity<CategoriaDTO> create(@Valid @RequestBody CategoriaDTO categoriaDTO) {
 		var newObj = service.create(categoriaDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 		return ResponseEntity.created(uri).body(newObj);
@@ -52,7 +53,7 @@ public class CategoriaController {
 	
 	@Operation(summary = "Atualiza uma categoria")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody CategoriaDTO categoriaDTO, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable Long id) {
 		service.updateCategoria(categoriaDTO, id);
 		return ResponseEntity.ok().build();
 	}

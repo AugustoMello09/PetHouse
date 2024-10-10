@@ -18,6 +18,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CargoDTO;
 import io.gitHub.AugustoMello09.PetHouse.services.CargoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "PetHouse Cargo endpoint")
@@ -44,7 +45,7 @@ public class CargoController {
 	
 	@Operation(summary = "Cria um cargo")
 	@PostMapping
-	public ResponseEntity<CargoDTO> create(@RequestBody CargoDTO cargoDTO) {
+	public ResponseEntity<CargoDTO> create(@Valid @RequestBody CargoDTO cargoDTO) {
 		var newObj = service.create(cargoDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
@@ -55,7 +56,7 @@ public class CargoController {
 	
 	@Operation(summary = "Atualiza um cargo")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody CargoDTO cargoDTO,@PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody CargoDTO cargoDTO,@PathVariable Long id) {
 	    service.updateCargo(cargoDTO, id);
 	    return ResponseEntity.ok().build();
 	}
