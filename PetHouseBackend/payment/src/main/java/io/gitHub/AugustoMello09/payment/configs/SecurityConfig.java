@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
-	private static final String[] PUBLIC = { "/h2-console/**" };
+	private static final String[] PUBLIC = {"/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/h2-console/**" };
 
 	@Autowired
 	private Environment env;

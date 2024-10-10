@@ -21,7 +21,7 @@ public class SecurityConfig {
 
 	private static final String[] PUBLIC_POST = { "/v1/auth/login", "/v1/auth/refresh-token" };
 	
-	private static final String[] PUBLIC_GET = { "/v1/auth/**"};
+	private static final String[] PUBLIC_GET = { "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/v1/auth/**"};
 	
 	@Autowired
 	private SecurityFilter securityFilter;

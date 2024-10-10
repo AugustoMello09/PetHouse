@@ -35,7 +35,13 @@ spring:
         - id: payment-service  
           uri: lb://payment   
           predicates:
-            - Path=/payment/**             
+            - Path=/payment/**
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs                 
 
 server:
   port: 8080
@@ -46,3 +52,13 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+      
+springdoc:
+  swagger-ui:
+    urls:
+      - name: pethouse
+        url: /v3/api-docs/pethouse
+      - name: auth
+        url: /v3/api-docs/auth
+      - name: payment
+        url: /v3/api-docs/payment      

@@ -22,7 +22,7 @@ public class SecurityConfig {
 	
 	private static final String[] PUBLIC_POST = { "/v1/usuario" };
 
-	private static final String[] PUBLIC = { "/h2-console/**" };
+	private static final String[] PUBLIC = { "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/h2-console/**" };
 
 	private static final String[] PUBLIC_GET = { "/v1/plano/**", "/v1/produto/**", "/v1/usuario/buscarEmail", "/v1/usuario/info/{id}" };
 

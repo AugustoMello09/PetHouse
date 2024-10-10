@@ -16,8 +16,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CargoDTO;
 import io.gitHub.AugustoMello09.PetHouse.services.CargoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "PetHouse Cargo endpoint")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1/cargo")
@@ -25,18 +28,21 @@ public class CargoController {
 
 	private final CargoService service;
 	
+	@Operation(summary = "Busca um cargo por ID")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> findById(@PathVariable Long id) {
 		var response = service.findById(id);
 		return ResponseEntity.ok().body(response);
 	}
 	
+	@Operation(summary = "Lista normal todos os cargos")
 	@GetMapping
 	public ResponseEntity<List<CargoDTO>> findAll(){
 		List<CargoDTO> response = service.listAll();
 		return ResponseEntity.ok().body(response);
 	}
 	
+	@Operation(summary = "Cria um cargo")
 	@PostMapping
 	public ResponseEntity<CargoDTO> create(@RequestBody CargoDTO cargoDTO) {
 		var newObj = service.create(cargoDTO);
@@ -47,12 +53,14 @@ public class CargoController {
 		return ResponseEntity.created(uri).body(newObj);
 	}
 	
+	@Operation(summary = "Atualiza um cargo")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@RequestBody CargoDTO cargoDTO,@PathVariable Long id) {
 	    service.updateCargo(cargoDTO, id);
 	    return ResponseEntity.ok().build();
 	}
 	
+	@Operation(summary = "Deleta um cargo")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.deleteCargo(id);

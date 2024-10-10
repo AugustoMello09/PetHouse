@@ -18,8 +18,11 @@ import io.gitHub.AugustoMello09.auth.domain.dtos.RefreshTokenDTO;
 import io.gitHub.AugustoMello09.auth.domain.dtos.TokenResponseDTO;
 import io.gitHub.AugustoMello09.auth.domain.entities.Usuario;
 import io.gitHub.AugustoMello09.auth.services.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Auth Auth endpoint")
 @RestController
 @RequestMapping(value = "/v1/auth")
 public class AuthController {
@@ -29,7 +32,8 @@ public class AuthController {
 
 	@Autowired
 	private TokenService tokenService;
-
+	
+	@Operation(summary = "consegue fazer o login")
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> login(@Valid @RequestBody AuthenticationDTO data) {
 		try {
@@ -43,7 +47,8 @@ public class AuthController {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MensagemDTO("Senha inválida"));
 	    }
 	}
-
+	
+	@Operation(summary = "consegue fazer o refresh-token")
 	@PostMapping(value = "/refresh-token")
 	public ResponseEntity<TokenResponseDTO> refreshToken(@RequestBody RefreshTokenDTO refreshTokenDto) {
 		TokenResponseDTO tokens = tokenService.refreshAccessToken(refreshTokenDto.token());

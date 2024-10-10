@@ -16,8 +16,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.CategoriaDTO;
 import io.gitHub.AugustoMello09.PetHouse.services.CategoriaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "PetHouse Categoria endpoint")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1/categoria")
@@ -25,18 +28,21 @@ public class CategoriaController {
 	
 	private final CategoriaService service;
 	
+	@Operation(summary = "Busca uma categoria por ID")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> findById(@PathVariable Long id){
 		var response = service.findById(id);
 		return ResponseEntity.ok().body(response);
-	}
+	}	
 	
+	@Operation(summary = "Busca todas as categorias")
 	@GetMapping
 	public ResponseEntity<List<CategoriaDTO>> listAll() {
 		List<CategoriaDTO> lista = service.listAll();
 		return ResponseEntity.ok().body(lista);
 	}
 	
+	@Operation(summary = "Cria uma categoria")
 	@PostMapping
 	public ResponseEntity<CategoriaDTO> create(@RequestBody CategoriaDTO categoriaDTO) {
 		var newObj = service.create(categoriaDTO);
@@ -44,12 +50,14 @@ public class CategoriaController {
 		return ResponseEntity.created(uri).body(newObj);
 	}
 	
+	@Operation(summary = "Atualiza uma categoria")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@RequestBody CategoriaDTO categoriaDTO, @PathVariable Long id) {
 		service.updateCategoria(categoriaDTO, id);
 		return ResponseEntity.ok().build();
 	}
 	
+	@Operation(summary = "Deleta uma categoria")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.deleteCategoria(id);
