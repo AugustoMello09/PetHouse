@@ -2,6 +2,8 @@ package io.gitHub.AugustoMello09.PetHouse.domain.dtos;
 
 import java.io.Serializable;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -61,6 +61,12 @@ public class ProdutoServiceTest {
 
 	@Mock
 	private CategoriaRepository categoriaRepository;
+	
+	@Mock
+	private S3Service s3Service;
+	
+	@Mock
+	private ImgService imgService;
 
 	private ProdutoProvider produtoProvider;
 	private ProdutoDTOProvider produtoDTOProvider;
@@ -69,7 +75,7 @@ public class ProdutoServiceTest {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		service = new ProdutoServiceImpl(repository, modelMapper, categoriaRepository);
+		service = new ProdutoServiceImpl(repository, modelMapper, categoriaRepository, s3Service, imgService);
 		produtoProvider = new ProdutoProvider();
 		produtoDTOProvider = new ProdutoDTOProvider();
 		categoriaProvider = new CategoriaProvider();

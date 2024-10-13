@@ -13,5 +13,25 @@
     "name": "acess.token",
     "type": "java.lang.String",
     "description": "A description for 'acess.token'"
+  },
+  {
+    "name": "aws.s3.access-key",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.s3.access-key'"
+  },
+  {
+    "name": "aws.s3.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.s3.secret-key'"
+  },
+  {
+    "name": "aws.s3.region",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.s3.region'"
+  },
+  {
+    "name": "aws.s3.bucket-name",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.s3.bucket-name'"
   }
 ]}

@@ -26,4 +26,11 @@ auth:
       secret: 455a0595071af6e2385c0ec556cb329c
       
 acess:
-  token: ${acess_token}          
+  token: ${acess_token}
+  
+aws:
+  s3:
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_ACCESS_KEY}
+    region: ${AWS_REGION}
+    bucket-name: ${AWS_BUCKET_NAME}            
