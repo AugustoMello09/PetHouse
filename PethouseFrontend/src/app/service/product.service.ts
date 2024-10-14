@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { Produto } from '../model/produto.modal';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { ProdutoInsert } from '../features/adm/components/produtos/produtoInsert.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,28 @@ export class ProductService {
   public findById(id: number): Observable<Produto> {
     const url = `${this.baseUrl}/pethouse/v1/produto/${id}`;
     return this.http.get<Produto>(url);
+  }
+
+  public create(produto: ProdutoInsert): Observable<ProdutoInsert> {
+    const url = this.baseUrl + '/pethouse/v1/produto';
+    return this.http.post<ProdutoInsert>(url, produto);
+  }
+
+  public associarProduto(idCategoria: number, idProduto: number): Observable<void> {
+    const url = `${this.baseUrl}/pethouse/v1/produto/atribuirCategoria/idCategoria/${idCategoria}/idProduto/${idProduto}`;
+    return this.http.post<void>(url, {});
+  }
+
+  public update(id: number, data: Produto): Observable<Produto> {
+    const url = `${this.baseUrl}/pethouse/v1/produto/${id}`;
+    return this.http.put<Produto>(url, data);
+  }
+
+  public uploadImage(produtoId: number, image: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('imagem', image);
+    return this.http.patch(`${this.baseUrl}/pethouse/v1/produto/${produtoId}/img`, formData, {
+      responseType: 'text'
+    });
   }
 }

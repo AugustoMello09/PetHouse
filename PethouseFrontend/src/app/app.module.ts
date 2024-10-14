@@ -43,6 +43,17 @@ import { NavbarcheckoutComponent } from './features/pagamento/components/layout/
 import { PixComponent } from './features/pagamento/components/pix/pix.component';
 import { BoletoComponent } from './features/pagamento/components/boleto/boleto.component';
 import { CartaoComponent } from './features/pagamento/components/cartao/cartao.component';
+import { AdmHomeComponent } from './features/adm/components/adm-home/adm-home.component';
+import { SidenavComponent } from './features/adm/components/layout/sidenav/sidenav.component';
+import { AtualizarCategoriaComponent } from './features/adm/components/categoria/atualizar-categoria/atualizar-categoria.component';
+import { CriarCategoriaComponent } from './features/adm/components/categoria/criar-categoria/criar-categoria.component';
+import { GerenciarCategoriasComponent } from './features/adm/components/categoria/gerenciar-categorias/gerenciar-categorias.component';
+import { AtribuirCargoComponent } from './features/adm/components/usuarios/atribuir-cargo/atribuir-cargo.component';
+import { AtualizarUsuarioComponent } from './features/adm/components/usuarios/atualizar-usuario/atualizar-usuario.component';
+import { GerenciarUsuariosComponent } from './features/adm/components/usuarios/gerenciar-usuarios/gerenciar-usuarios.component';
+import { AtualizarProdutoComponent } from './features/adm/components/produtos/atualizar-produto/atualizar-produto.component';
+import { CriarProdutoComponent } from './features/adm/components/produtos/criar-produto/criar-produto.component';
+import { GerenciarProdutosComponent } from './features/adm/components/produtos/gerenciar-produtos/gerenciar-produtos.component';
 
 
 
@@ -76,7 +87,18 @@ import { CartaoComponent } from './features/pagamento/components/cartao/cartao.c
     NavbarcheckoutComponent,
     PixComponent,
     BoletoComponent,
-    CartaoComponent
+    CartaoComponent,
+    AdmHomeComponent,
+    SidenavComponent,
+    AtualizarCategoriaComponent,
+    CriarCategoriaComponent,
+    GerenciarCategoriasComponent,
+    AtribuirCargoComponent,
+    AtualizarUsuarioComponent,
+    GerenciarUsuariosComponent,
+    AtualizarProdutoComponent,
+    CriarProdutoComponent,
+    GerenciarProdutosComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,75 @@
+<div class="p-8 w-96 h-auto sm5:w-auto sm1:w-full bbd1:px-2">
+  <!-- Modal content -->
+  <div class="bg-white rounded-lg bbd1:rounded-2xl">
+      <!-- Modal header -->
+      <div class="flex items-center justify-center h-1/5">
+          <h3 class="text-xl font-semibold text-gray-900">
+              Novo Produto
+          </h3>
+          <button type="button" (click)="close()"  class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+              <span class="sr-only">Close modal</span>
+          </button>
+      </div>
+      <!-- Modal body -->
+      <div class="w-full">
+          <form class="space-y-4" #f="ngForm">
+
+              <div>
+                  <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white bbd1:mb-0 bbd1:text-xs">Nome do produto: </label>
+                  <input type="text" required id="nome" name="nome" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bbd1:p-1.5" placeholder="Brinquedo de Cachorro corre y corre" [(ngModel)]="produto.nome"/>
+                  <div *ngIf="(f.controls['nome']?.invalid && f.controls['nome']?.touched) || f.controls['nome']?.dirty">
+                    <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['nome']?.errors?.['required']">O campo Nome deve ser preenchido.</span>
+                  </div>
+              </div>
+
+              <div>
+                <label for="preco" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor do produto: </label>
+                <input type="number" required id="preco" name="preco" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bbd1:p-1.5" placeholder="R$ 78,59" [(ngModel)]="produto.preco"  min="0" step="0.01"  />
+                <div *ngIf="(f.controls['preco']?.invalid && f.controls['preco']?.touched) || f.controls['preco']?.dirty">
+                  <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['preco']?.errors?.['required']">O campo valor deve ser preenchido.</span>
+                </div>
+              </div>
+
+              <div>
+                <label for="descricao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição do produto: </label>
+                <input type="text" required id="descricao" name="descricao" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bbd1:p-1.5" placeholder="Kit 3 Bolas Brinquedos Cachorro Interativa Pitbull Pet Som" [(ngModel)]="produto.descricao"/>
+                <div *ngIf="(f.controls['descricao']?.invalid && f.controls['descricao']?.touched) || f.controls['descricao']?.dirty">
+                  <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['descricao']?.errors?.['required']">O campo descrição deve ser preenchido.</span>
+                </div>
+              </div>
+
+              <div>
+                <label for="tipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo:</label>
+                <select id="tipo" required [(ngModel)]="produto.tipo" name="tipo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bbd1:p-1.5">
+                  <option *ngFor="let option of tipo" [value]="option.value">{{ option.label }}</option>
+                </select>
+                <div *ngIf="(f.controls['tipo']?.invalid && f.controls['tipo']?.touched) || f.controls['tipo']?.dirty">
+                  <span class="text-red-600 font-font-secundaria font-bold text-xs" *ngIf="f.controls['tipo']?.errors?.['required']">O campo tipo deve ser preenchido.</span>
+                </div>
+              </div>
+
+              <div>
+                <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Escolha a categoria</label>
+                <select id="categoia" [(ngModel)]="idCategoria" name="cateogira" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bbd1:p-1.5">
+                    <option  placeholder="Selecione a Categoria" *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nomeCategoria }} </option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Imagem do produto</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" (change)="onFileChange($event)">
+              </div>
+              
+              <button  (click)="create()" [disabled]="f.invalid" type="submit" class="w-full disabled:bg-gray-400 disabled:cursor-not-allowed text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Criar novo produto</button>
+              
+          </form>
+      </div>
+  
+    </div>
+</div>
+
+
+

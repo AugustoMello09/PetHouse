@@ -15,6 +15,7 @@ export class InformacoesComponent implements OnInit {
   public isLoggedIn = false;
   public user: any;
   public showDropdown = false;
+  public isAdm = false;
 
   constructor(private auth: AuthService, private dialog: MatDialog, private router: Router) { }
 
@@ -23,6 +24,7 @@ export class InformacoesComponent implements OnInit {
       this.isLoggedIn = !!token;
       this.user = token ? jwtDecode(token) : null;
     });
+    this.admRota();
   }
 
   @HostListener('document:click', ['$event'])
@@ -49,6 +51,19 @@ export class InformacoesComponent implements OnInit {
 
   public meuCarrinho(): void {
     this.router.navigate(['/meuCarrinho']);
+  }
+
+  public admRota(): void {
+    const token = this.auth.obterToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      const role = decodedToken.roles; 
+      this.isAdm = role === 'ROLE_ADM'; 
+    }
+  }
+
+  public irAdm(): void {
+    this.router.navigate(['/HomeAdm']);
   }
 
 }

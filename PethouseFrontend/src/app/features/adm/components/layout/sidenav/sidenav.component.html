@@ -1,0 +1,89 @@
+<div class="fixed bottom-0 p-4 z-50 hover:scale-110 transition-all">
+  <button class="bg-textDestaque border-[0.15rem] border-gray-400 border-opacity-10 py-4 px-4 rounded-full flex items-center hover:shadow-gray-400 hover:opacity-90 transition-all" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="apps" class="text-white"></mat-icon>
+  </button>
+</div>
+
+<div id="drawer-navigation" class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-slate-50 dark:bg-gray-800 sm2:w-auto" tabindex="-1" aria-labelledby="drawer-navigation-label">
+  <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Menu</h5>
+  <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" >
+      <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+      <span class="sr-only">Close menu</span>
+  </button>
+<div class="py-4 overflow-y-auto">
+    <ul class="space-y-2 font-medium">
+       <li>
+          <button (click)="inicio()" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+           <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+             <span class="ms-3">Página Inicial</span>
+          </button>
+       </li>
+       <li>
+          <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+           <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="tabs" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+             <span class="flex-1 ms-3 whitespace-nowrap">Categoria</span>
+          </button>
+          <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li> 
+                 <button (click)="criarCategoria()" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white sm2:px-0 sm2:gap-1">
+                 <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+                 <span class="flex-1 ms-3 whitespace-nowrap sm2:text-xs sm2:ms-0">Criar uma nova categoria</span>
+                 </button>
+              </li>
+              <li> 
+                 <button (click)="gerenciarCategorias()" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white sm2:px-0 sm2:gap-1">
+                 <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="settings" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+                 <span class="flex-1 ms-3 whitespace-nowrap sm2:text-xs sm2:ms-0">Gerenciar categorias</span>
+                 </button>
+              </li>
+              </ul>
+           </div>
+        </li>
+       <li>
+        <button id="dropdownDefaultButton2" data-dropdown-toggle="dropdown2" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+           <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+           <span class="flex-1 ms-3 whitespace-nowrap">Usuários</span>
+        </button>
+        <div id="dropdown2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700">
+           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+           <li> 
+              <button (click)="gerenciarUsuarios()" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white sm2:px-0 sm2:gap-1">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="settings" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+              <span class="flex-1 ms-3 whitespace-nowrap  sm2:text-xs sm2:ms-0">Gerenciar usuários</span>
+              </button>
+           </li>
+           </ul>
+        </div>
+       </li>
+       <li>
+        <button id="dropdownDefaultButton3" data-dropdown-toggle="dropdown3" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+           <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="shopping-bag" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+             <span class="flex-1 ms-3 whitespace-nowrap">Produtos</span>
+          </button>
+          <div id="dropdown3" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li> 
+                 <button (click)="criarProduto()" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white sm2:px-0 sm2:gap-1">
+                 <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+                 <span class="flex-1 ms-3 whitespace-nowrap  sm2:text-xs sm2:ms-0">Criar uma novo produto</span>
+                 </button>
+              </li>
+              <li> 
+                 <button (click)="gerenciarProduto()" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white sm2:px-0 sm2:gap-1">
+                 <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="settings" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+                 <span class="flex-1 ms-3 whitespace-nowrap  sm2:text-xs sm2:ms-0">Gerenciar produtos</span>
+                 </button>
+              </li>
+              </ul>
+           </div>
+       </li>
+       <li>
+          <button (click)="sair()" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout" class="text-textDestaque  hover:text-gray-700"></mat-icon>
+             <span class="flex-1 ms-3 whitespace-nowrap">Sair</span>
+          </button>
+       </li>
+    </ul>
+ </div>
+</div>

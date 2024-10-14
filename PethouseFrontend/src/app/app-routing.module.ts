@@ -7,6 +7,8 @@ import { CheckoutComponent } from './features/pagamento/components/checkout/chec
 import { PixComponent } from './features/pagamento/components/pix/pix.component';
 import { BoletoComponent } from './features/pagamento/components/boleto/boleto.component';
 import { CartaoComponent } from './features/pagamento/components/cartao/cartao.component';
+import { AdmHomeComponent } from './features/adm/components/adm-home/adm-home.component';
+import { AdmGuard } from './guards/adm.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +17,7 @@ const routes: Routes = [
   { path: 'pix', component: PixComponent, canActivate: [AuthGuard] },
   { path: 'boleto', component: BoletoComponent, canActivate: [AuthGuard] },
   { path: 'cartao', component: CartaoComponent, canActivate: [AuthGuard] },
+  { path: 'HomeAdm', component: AdmHomeComponent, canActivate: [AdmGuard] },
 ];
 
 @NgModule({
