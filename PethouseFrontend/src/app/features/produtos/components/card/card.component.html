@@ -1,6 +1,9 @@
 <div class="max-w-xs sm3:w-52 sm2:w-40 bbd2:w-32 bg-white border border-gray-200 rounded-b-3xl shadow shadow-shadow dark:bg-gray-800 dark:border-gray-700 hover:scale-110 transition-all">
 
-  <img *ngIf="produto?.img; else defaultImg"  class="p-8 rounded-t-lg" [src]="produto?.img ? 'data:image/jpeg;base64,' + produto?.img : ''" alt="Imagem do produto" />
+  <img *ngIf="produto.img; else defaultImg" 
+       class="p-8 rounded-t-lg" 
+       [src]="isImageUrl(produto.img) ? produto.img : 'data:image/jpeg;base64,' + produto.img" 
+       alt="Imagem do produto" />
   
   <ng-template #defaultImg>
     <div class="flex items-center justify-center">
@@ -9,14 +12,14 @@
   </ng-template>
   
   <div class="w-full">
-    <p class="text-xl text-left font-semibold tracking-tight text-gray-900 dark:text-white px-2 sm2:text-base bbd2:text-xs">{{ produto?.nome }}</p>
+    <p class="text-xl text-left font-semibold tracking-tight text-gray-900 dark:text-white px-2 sm2:text-base bbd2:text-xs">{{ produto.nome }}</p>
     <div class="text-center">
-      <p class="text-lg font-font-primaria font-bold text-textDestaque bbd2:text-sm">R$ {{ produto?.preco }}</p>
+      <p class="text-lg font-font-primaria font-bold text-textDestaque bbd2:text-sm">R$ {{ produto.preco }}</p>
     </div>
   </div>
 
   <div class="text-center py-5"> 
-    <button (click)="addCarrinho(produto?.id)" class="text-base sm2:text-sm bbd2:p-1 bbd2:text-xs font-font-primaria font-bold border-4 border-textDestaque rounded-3xl p-2 text-textDestaque hover:scale-110 cursor-pointer transition-all hover:border-textSecunda hover:text-subTextCard">Adicionar à sacola</button>
+    <button (click)="addCarrinho(produto.id)" class="text-base sm2:text-sm bbd2:p-1 bbd2:text-xs font-font-primaria font-bold border-4 border-textDestaque rounded-3xl p-2 text-textDestaque hover:scale-110 cursor-pointer transition-all hover:border-textSecunda hover:text-subTextCard">Adicionar à sacola</button>
   </div>
 
 </div>

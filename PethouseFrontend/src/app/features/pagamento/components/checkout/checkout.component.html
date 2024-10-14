@@ -181,7 +181,7 @@
         <ng-container *ngIf="carrinho.itemsCarrinho.length > 0, else vazio">
           <h2 class="text-lg font-bold mb-4 sm3:text-base">Minha Sacola ({{ carrinho.itemsCarrinho.length }})</h2>
           <div *ngFor="let item of carrinho.itemsCarrinho" class="flex items-center mb-4 sm3:hidden">
-              <img [src]="item.imgProduto ? 'data:image/jpeg;base64,' + item.imgProduto : ''" alt="Produto" class="w-16 h-16 object-cover rounded-md" />
+              <img [src]="isImageUrl(item.imgProduto) ? item.imgProduto : 'data:image/jpeg;base64,' + item.imgProduto" alt="Produto" class="w-16 h-16 object-cover rounded-md" />
               <div class="ml-4 flex-1">
                 <h3 class="font-semibold tabletMi2:text-sm sm3:text-xs">{{ item.nome }}</h3>
                 <p class="text-gray-600">{{ item.quantidade }} x R$ {{ item.preco }}</p>

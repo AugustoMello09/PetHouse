@@ -35,6 +35,10 @@ export class FormBuscaProdutosComponent implements OnInit {
     }
   }
 
+  isImageUrl(imagePath: string): boolean {
+    return imagePath.startsWith('http');
+  }
+
   @HostListener('document:click', ['$event'])
   public clickout(event: Event): void {
     const resultListContainsTarget = this.resultList?.nativeElement.contains(event.target);

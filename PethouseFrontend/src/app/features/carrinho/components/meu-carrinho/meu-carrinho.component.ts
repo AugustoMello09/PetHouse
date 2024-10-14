@@ -127,5 +127,7 @@ export class MeuCarrinhoComponent implements OnInit {
     this.router.navigate(['pagamento']);
    }
 
-
+  isImageUrl(imagePath: string): boolean {
+    return imagePath.startsWith('http');
+  }
 }

@@ -243,4 +243,8 @@ export class CheckoutComponent implements OnInit {
     this.router.navigate(['/cartao']);
   }
 
+  isImageUrl(imagePath: string): boolean {
+    return imagePath.startsWith('http');
+  }
+
 }

@@ -50,6 +50,10 @@ export class SacolaComponent implements OnInit {
     });
   }
 
+  isImageUrl(imagePath: string): boolean {
+    return imagePath.startsWith('http');
+  }
+  
   public findById() {
     const token = this.auth.obterToken();
     if (token) {

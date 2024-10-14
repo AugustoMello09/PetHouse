@@ -10,8 +10,9 @@
   <div *ngIf="showDropdown" class="absolute right-0 mt-2 w-80 bg-white border border-gray-300 rounded-lg shadow-lg p-2">
     <ng-container *ngIf="carrinho.itemsCarrinho.length > 0; else emptyCart">
       <div *ngFor="let item of carrinho.itemsCarrinho"  class="flex items-center mb-4">
-        <img [src]="item.imgProduto ? 'data:image/jpeg;base64,' + item.imgProduto : ''" alt="Produto" class="w-16 h-16 object-cover rounded-md" />
-            <div class="ml-4 flex-1">
+        <img [src]="isImageUrl(item.imgProduto) ? item.imgProduto : 'data:image/jpeg;base64,' + item.imgProduto" 
+        alt="Produto" class="w-16 h-16 object-cover rounded-md" />
+        <div class="ml-4 flex-1">
               <h3 class="font-semibold">{{ item.nome }}</h3>
              <p class="text-gray-600">{{ item.quantidade }} x R$ {{ item.preco }}</p>
             </div>

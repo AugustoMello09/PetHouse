@@ -16,7 +16,7 @@ import { CarrinhoService } from 'src/app/service/carrinho.service';
 })
 export class CardComponent implements OnInit {
 
-  @Input() produto?: Produto;
+  @Input() produto!: Produto;
 
   produtoSelecionadoId?: number;
   
@@ -70,6 +70,10 @@ export class CardComponent implements OnInit {
 
   public addMessageError(fieldName: string, errorMessage: string) {
     this.message(`${fieldName}: ${errorMessage}`);
+  }
+
+  isImageUrl(imagePath: string): boolean {
+    return imagePath.startsWith('http');
   }
 
 }

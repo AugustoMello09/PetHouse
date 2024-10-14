@@ -9,7 +9,7 @@
     <div class="border-b" *ngFor="let item of carrinho.itemsCarrinho">
       
       <div class="w-full flex items-center py-2">
-        <img *ngIf="item?.imgProduto; else defaultImg" [src]="item.imgProduto ? 'data:image/jpeg;base64,' + item.imgProduto : ''" class="w-16 h-16 mr-4">
+        <img *ngIf="item?.imgProduto; else defaultImg" [src]="isImageUrl(item.imgProduto) ? item.imgProduto : 'data:image/jpeg;base64,' + item.imgProduto" class="w-16 h-16 mr-4">
         <ng-template #defaultImg>
           <div class="flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-textDestaque hover:scale-110 transition-all" version="1.0" viewBox="0 0 512 512" aria-label="logo">
@@ -91,7 +91,7 @@
         <ul class="list-none">
           <li *ngFor="let item of pedido.itemsPedido" class="border-b">
             <div class="flex items-center py-2">
-              <img *ngIf="item?.img; else defaultImg" [src]="item.img ? 'data:image/jpeg;base64,' + item.img : ''" class="w-16 h-16 mr-4">
+              <img *ngIf="item?.img; else defaultImg" [src]="isImageUrl(item.img) ? item.img : 'data:image/jpeg;base64,' + item.img" class="w-16 h-16 mr-4">
               <ng-template #defaultImg>
                 <div class="flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-textDestaque hover:scale-110 transition-all" version="1.0" viewBox="0 0 512 512" aria-label="logo">
