@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build EurekaService') {
+            steps {
+                dir ('PatHouseBackend/eureka') {
+                   bat 'mvn clean package -DskipTests=true'
+                }
+            }
+        }
+    }
+}       
