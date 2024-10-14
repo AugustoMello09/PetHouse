@@ -1,12 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Build EurekaService') {
+        stage('Build Gateway') {
             steps {
-                dir ('PetHouseBackend/eureka') {
+                dir ('PetHouseBackend/gateway') {
                    bat 'mvn clean package -DskipTests=true'
                 }
             }
         }
     }
-}       
+} 
