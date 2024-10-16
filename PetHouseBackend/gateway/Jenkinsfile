@@ -2,6 +2,9 @@ pipeline {
     agent any
     stages {
         stage('Build Gateway') {
+			when {
+                changeset "PetHouseBackend/gateway/**"
+            }
             steps {
                 dir ('PetHouseBackend/gateway') {
                    bat 'mvn clean package -DskipTests=true'
@@ -13,6 +16,16 @@ pipeline {
                 script {
                     dir('PetHouseBackend/gateway') {
                         bat 'docker build -t augustomello09/pethouse-backend-gateway .'
+                    }
+                }        
+            }
+        }
+		stage('Docker Push To DockerHub') {
+            steps {
+                script {
+                    dir('PetHouseBackend/gateway') {
+                        bat 'docker login'
+                        bat 'docker push augustomello09/pethouse-backend-gateway:latest'
                     }
                 }        
             }
