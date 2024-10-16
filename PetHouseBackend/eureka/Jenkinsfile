@@ -17,5 +17,15 @@ pipeline {
                 }        
             }
         }
+        stage('Docker Push To DockerHub') {
+            steps {
+                script {
+                    dir('PetHouseBackend/eureka') {
+                        bat 'docker login'
+                        bat 'docker push augustomello09/pethouse-backend-eureka:latest'
+                    }
+                }        
+            }
+        }
     }
 }       
