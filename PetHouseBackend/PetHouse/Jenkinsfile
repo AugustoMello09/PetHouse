@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build Pethouse') {
+            steps {
+                dir('PetHouseBackend/PetHouse') {
+                    bat 'mvn clean package -DskipTests=true'
+                }
+            }
+        }
+    }
+}
