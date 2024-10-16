@@ -17,5 +17,15 @@ pipeline {
                 }        
             }
         }
+        stage('Docker Push To DockerHub') {
+            steps {
+                script {
+                    dir('PetHouseBackend/auth') {
+                        bat 'docker login'
+                        bat 'docker push augustomello09/pethouse-backend-auth:latest'
+                    }
+                }        
+            }
+        }
     }
 } 
