@@ -33,6 +33,7 @@ import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTO;
 import io.gitHub.AugustoMello09.PetHouse.domain.dtos.UsuarioDTOInsert;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
+import io.gitHub.AugustoMello09.PetHouse.domain.entities.Historico;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
 import io.gitHub.AugustoMello09.PetHouse.infra.message.producer.BemVindoProducer;
 import io.gitHub.AugustoMello09.PetHouse.provider.UsuarioDTOInsertProvider;
@@ -122,7 +123,9 @@ public class UsuarioServiceTest {
 	public void whenFindAllPagedThenReturnPageOfUsuarioDTO() {
 		Carrinho carrinho = new Carrinho();
 		carrinho.setId(UUID.randomUUID());
-		List<Usuario> usu = Arrays.asList(new Usuario(ID, "TEste", "Email@email.com", "senha", carrinho, null, "63.985.026/0001-56", null));
+		Historico historico = new Historico();
+		historico.setId(UUID.randomUUID());
+		List<Usuario> usu = Arrays.asList(new Usuario(ID, "TEste", "Email@email.com", "senha", carrinho, null, "63.985.026/0001-56", historico));
 		Page<Usuario> fillPage = new PageImpl<>(usu);
 		
 		when(repository.findAll(any(Pageable.class))).thenReturn(fillPage);

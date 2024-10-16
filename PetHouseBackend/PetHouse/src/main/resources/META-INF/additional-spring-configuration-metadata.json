@@ -33,5 +33,15 @@
     "name": "aws.s3.bucket-name",
     "type": "java.lang.String",
     "description": "A description for 'aws.s3.bucket-name'"
+  },
+  {
+    "name": "access.token",
+    "type": "java.lang.String",
+    "description": "A description for 'access.token'"
+  },
+  {
+    "name": "AWS_BUCKET_NAME",
+    "type": "java.lang.String",
+    "description": "A description for 'AWS_BUCKET_NAME'"
   }
 ]}

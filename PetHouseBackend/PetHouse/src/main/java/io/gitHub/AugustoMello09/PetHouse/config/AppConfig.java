@@ -10,7 +10,7 @@ import feign.RequestInterceptor;
 @Configuration
 public class AppConfig {
 
-	@Value("${acess.token}")
+	@Value("${access.token}")
 	private String token;
 
 	@Bean

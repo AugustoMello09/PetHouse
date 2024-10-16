@@ -6,12 +6,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Cargo;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Carrinho;
+import io.gitHub.AugustoMello09.PetHouse.domain.entities.Historico;
 import io.gitHub.AugustoMello09.PetHouse.domain.entities.Usuario;
 
 public class UsuarioProvider {
 	
 	private static final UUID ID = UUID.fromString("148cf4fc-b379-4e25-8bf4-f73feb06befa");
 	private static final UUID IDCARRINHO = UUID.fromString("148cf4fc-b379-4e25-8bf4-f73feb06befa");
+	private static final UUID IDHISTORICO = UUID.fromString("148cf4fc-b379-4e25-8bf4-f73feb06befa");
 
 	private static final String NOME = "José";
 
@@ -38,6 +40,10 @@ public class UsuarioProvider {
 		carrinho.setId(IDCARRINHO);
 		carrinho.setUsuario(usuario);
 		usuario.setCarrinho(carrinho);
+		Historico historico = new Historico();
+		historico.setId(IDHISTORICO);
+		historico.setUsuario(usuario);
+		usuario.setHistorico(historico);
 		Cargo cargo = new Cargo();
 		cargo.setId(1L);
 		usuario.getCargos().add(cargo);

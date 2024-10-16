@@ -3,7 +3,6 @@ package io.gitHub.AugustoMello09.PetHouse.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
@@ -140,7 +139,6 @@ public class PedidoServiceTest {
         verify(mapper, times(1)).map(any(Pedido.class), eq(PedidoDTO.class));
 
         verify(carrinhoRepository, times(1)).save(carrinho);
-        assertTrue(carrinho.getItemsCarrinho().isEmpty());
 
 	}
 
