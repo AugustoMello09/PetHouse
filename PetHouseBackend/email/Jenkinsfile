@@ -8,5 +8,14 @@ pipeline {
                 }
             }
         }
+        stage('Build Img Docker') {
+            steps {
+                script {
+                    dir('PetHouseBackend/email') {
+                        bat 'docker build -t augustomello09/pethouse-backend-email .'
+                    }
+                }        
+            }
+        }
     }
 } 
