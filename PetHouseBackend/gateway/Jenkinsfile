@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    when {
-        changeset "PetHouseBackend/gateway/**"
-    }
     stages {
         stage('Build Gateway') {
             steps {
