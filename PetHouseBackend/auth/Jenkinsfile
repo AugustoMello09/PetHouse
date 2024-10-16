@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build Auth') {
+			when {
+                changeset "PetHouseBackend/auth/**"
+            }
+            steps {
+                dir ('PetHouseBackend/auth') {
+                   bat 'mvn clean package -DskipTests=true'
+                }
+            }
+        }
+    }
+} 
