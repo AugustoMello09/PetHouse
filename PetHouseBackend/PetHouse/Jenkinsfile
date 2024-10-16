@@ -11,5 +11,12 @@ pipeline {
                 }
             }
         }
+        stage('JUnit Test') {
+            steps {
+                dir ('PetHouseBackend/PetHouse') {
+                   bat 'mvn test'
+                }
+            }
+        }
     }
 }
