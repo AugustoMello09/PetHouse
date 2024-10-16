@@ -1,17 +1,11 @@
 stage('Build GatewayService') {
-    steps {
-        dir('PetHouseBackend/gateway') {
-            bat 'mvn clean package -DskipTests=true'
-        }
+    dir('PetHouseBackend/gateway') {
+        bat 'mvn clean package -DskipTests=true'
     }
 }
 
 stage('Build Img Docker') {
-    steps {
-        script {
-            dir('PetHouseBackend/gateway') {
-                bat 'docker build -t augustomello09/pethouse-backend-gateway .'
-            }
-        }
+    dir('PetHouseBackend/gateway') {
+        bat 'docker build -t augustomello09/pethouse-backend-gateway .'
     }
-} 
+}
