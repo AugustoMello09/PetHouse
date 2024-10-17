@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     dir('PetHouseBackend/PetHouse') {
-                        bat 'docker build -t augustomello09/pethouse-backend-PetHouse .'
+                        bat 'docker build -t augustomello09/pethouse-backend-pethouse .'
                     }
                 }        
             }
