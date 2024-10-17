@@ -54,6 +54,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka
       
 springdoc:
+  show-actuator: true
   swagger-ui:
     urls:
       - name: pethouse
@@ -61,4 +62,12 @@ springdoc:
       - name: auth
         url: /v3/api-docs/auth
       - name: payment
-        url: /v3/api-docs/payment      
+        url: /v3/api-docs/payment 
+        
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans             

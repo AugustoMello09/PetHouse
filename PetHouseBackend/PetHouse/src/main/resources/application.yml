@@ -33,4 +33,15 @@ aws:
     access-key: ${AWS_ACCESS_KEY}
     secret-key: ${AWS_SECRET_ACCESS_KEY}
     region: ${AWS_REGION}
-    bucket-name: ${AWS_BUCKET_NAME}            
+    bucket-name: ${AWS_BUCKET_NAME} 
+ 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+      
+springdoc:
+  show-actuator: true               

@@ -1,5 +1,3 @@
-
-
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -24,17 +22,41 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
+      start_period: 20s  
 
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
     networks:
       - broker-kafka
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     ports:
       - "19000:9000"
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
+  
+  zipkin-service:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin-service
+    ports:
+      - 9411:9411 
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-S", "http://zipkin-service:9411/"]
+      interval: 5s
+      retries: 5
+      timeout: 10s
+      start_period: 0s
+    depends_on:
+      kafka:
+        condition: service_healthy       
+    networks:
+      - broker-kafka    
 
 networks:
   broker-kafka:
