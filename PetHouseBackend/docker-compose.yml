@@ -113,6 +113,10 @@ services:
       context: .
     image: augustomello09/pethouse-backend-pethouse:latest
     container_name: pethouse-service
+    env_file:
+      - .env
+    secrets:
+      - access_token   
     environment:
       - spring.kafka.bootstrap-servers=kafka:29092
       - eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka
@@ -125,7 +129,11 @@ services:
       eureka-service:
         condition: service_started
       zipkin-service:
-        condition: service_healthy      
+        condition: service_healthy 
+        
+secrets:
+  access_token:
+    external: true        
 
 networks:
   broker-kafka:
