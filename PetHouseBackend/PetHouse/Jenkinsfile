@@ -18,5 +18,14 @@ pipeline {
                 }
             }
         }
+        stage('Build Img Docker') {
+            steps {
+                script {
+                    dir('PetHouseBackend/PetHouse') {
+                        bat 'docker build -t augustomello09/pethouse-backend-PetHouse .'
+                    }
+                }        
+            }
+        }
     }
 }
