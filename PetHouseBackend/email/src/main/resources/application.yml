@@ -6,7 +6,7 @@ spring:
     name: email
   kafka:
     consumer:
-      bootstrap-servers: localhost:29092
+      bootstrap-servers: kafka:29092
   mail: 
     host: smtp.gmail.com
     port: 587
@@ -33,4 +33,4 @@ management:
       probability: 1.0
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans    
+      endpoint: http://zipkin-service:9411/api/v2/spans    
