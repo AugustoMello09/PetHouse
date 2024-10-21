@@ -112,11 +112,7 @@ services:
       dockerfile: ./PetHouse/Dockerfile
       context: .
     image: augustomello09/pethouse-backend-pethouse:latest
-    container_name: pethouse-service
-    env_file:
-      - .env
-    secrets:
-      - access_token   
+    container_name: pethouse-service  
     environment:
       - spring.kafka.bootstrap-servers=kafka:29092
       - eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka
@@ -129,11 +125,58 @@ services:
       eureka-service:
         condition: service_started
       zipkin-service:
-        condition: service_healthy 
+        condition: service_healthy
+      gateway-service:
+        condition: service_started
         
-secrets:
-  access_token:
-    external: true        
+  payment-service:
+    build:
+      dockerfile: ./payment/Dockerfile
+      context: .
+    image: augustomello09/pethouse-backend-payment:latest
+    container_name: payment-service  
+    environment:
+      - spring.kafka.bootstrap-servers=kafka:29092
+      - eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka
+      - spring.zipkin.base-url=http://zipkin-service:9411/api/v2/spans
+    networks:
+      - broker-kafka
+    depends_on:
+      eureka-service:
+        condition: service_started
+      zipkin-service:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      pethouse-service:
+        condition: service_started
+      gateway-service:
+        condition: service_started
+
+  email-service:
+    build:
+      dockerfile: ./email/Dockerfile
+      context: .
+    image: augustomello09/pethouse-backend-email:latest
+    container_name: email-service  
+    environment:
+      - spring.kafka.bootstrap-servers=kafka:29092
+      - eureka.client.service-url.defaultZone=http://eureka-service:8761/eureka
+      - spring.zipkin.base-url=http://zipkin-service:9411/api/v2/spans
+    networks:
+      - broker-kafka
+    depends_on:
+      eureka-service:
+        condition: service_started
+      zipkin-service:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      pethouse-service:
+        condition: service_started
+      payment-service:
+        condition: service_started      
+              
 
 networks:
   broker-kafka:
